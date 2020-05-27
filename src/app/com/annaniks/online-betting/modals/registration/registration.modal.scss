@@ -1,0 +1,46 @@
+.login-header{
+    height: 56px;
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2);
+    background-color: #FFFFFF;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    .close_btn{
+        margin-left: auto;
+        background: none;
+        // border-radius: 50%;
+        width: 30px;
+        height: 30px; 
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+form{
+    padding: 10px;
+    .form_group{
+        margin-top: 10px;
+        label{
+            font-size: 16px;
+        }
+        input{
+            margin-top: 10px;
+            width: 97%;
+            padding-left:5px;
+            height: 27px;
+        }
+    }
+}
+.save_btn{
+    margin: 10px;
+    button{
+        width: 100%;
+        background: grey;
+        text-transform: uppercase;
+        padding: 15px;
+        border: none;
+        color: white;
+    }
+}

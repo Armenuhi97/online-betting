@@ -1,0 +1,44 @@
+<div class="login-content">
+    <div class="login-header">
+        <div>Registration</div>
+        <button class="close_btn" (click)="close()">
+            <svg class="svg-icon" viewBox="0 0 20 20">
+                <path fill="none"
+                    d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z">
+                </path>
+            </svg>
+        </button>
+    </div>
+
+    <form action="" [formGroup]="registrationForm">
+        <div class="form_group">
+            <label for="">Name</label>
+            <input type="email" formControlName="name">
+        </div>
+        <div class="form_group">
+            <label for="">Surname</label>
+            <input type="email" formControlName="surname">
+        </div>
+        <div class="form_group">
+            <label for="">Email</label>
+            <input type="email" formControlName="email">
+            <span class="required-field"
+            *ngIf="registrationForm.get('email').hasError('pattern') && registrationForm.get('email').touched">Enter a valid emaill *</span>
+        </div>
+        <div class="form_group">
+            <label for="">Password</label>
+            <input type="password" formControlName="password">
+        </div>
+        <div class="form_group">
+            <label for="">Confirm password</label>
+            <input type="password" formControlName="confirmPassword">
+            <span  class="required-field"
+                *ngIf="registrationForm.get('confirmPassword').hasError('MatchPassword') && registrationForm.get('confirmPassword').touched">passwords
+                are not equal *</span>
+        </div>
+
+    </form>
+    <div class="save_btn">
+        <button [disabled]="registrationForm.invalid" (click)="registration()">Registration</button>
+    </div>
+</div>
