@@ -10,6 +10,12 @@ $bg: #000E1A;
 button{
   cursor: pointer;
 }
+.display-flex {
+  display: flex;
+}
+.align-items-center{
+  align-items: center;
+}
 button:disabled{
   opacity: 0.6;
 }

@@ -1,6 +1,6 @@
 <div class="login-content">
     <div class="login-header">
-        <div>Registration</div>
+        <div>Регистрация</div>
         <button class="close_btn" (click)="close()">
             <svg class="svg-icon" viewBox="0 0 20 20">
                 <path fill="none"
@@ -12,33 +12,48 @@
 
     <form action="" [formGroup]="registrationForm">
         <div class="form_group">
-            <label for="">Name</label>
-            <input type="email" formControlName="name">
+            <label for="">Имя</label>
+            <input type="text" formControlName="name">
+            <span class="required-field"
+                *ngIf="registrationForm.get('name').hasError('required') && registrationForm.get('name').touched">Это
+                обязательное поле *</span>
         </div>
-        <div class="form_group">
-            <label for="">Surname</label>
-            <input type="email" formControlName="surname">
-        </div>
+
         <div class="form_group">
             <label for="">Email</label>
             <input type="email" formControlName="email">
             <span class="required-field"
-            *ngIf="registrationForm.get('email').hasError('pattern') && registrationForm.get('email').touched">Enter a valid emaill *</span>
+                *ngIf="registrationForm.get('email').hasError('required') && registrationForm.get('email').touched">Это
+                обязательное поле *</span>
+            <span class="required-field"
+                *ngIf="registrationForm.get('email').hasError('pattern') && registrationForm.get('email').touched">Введите
+                правильный email *</span>
         </div>
         <div class="form_group">
-            <label for="">Password</label>
+            <label for="">Пароль</label>
             <input type="password" formControlName="password">
+            <span class="required-field"
+                *ngIf="registrationForm.get('password').hasError('required') && registrationForm.get('password').touched">Это
+                обязательное поле *</span>
         </div>
         <div class="form_group">
-            <label for="">Confirm password</label>
+            <label for="">Потвердите пароль</label>
             <input type="password" formControlName="confirmPassword">
-            <span  class="required-field"
-                *ngIf="registrationForm.get('confirmPassword').hasError('MatchPassword') && registrationForm.get('confirmPassword').touched">passwords
-                are not equal *</span>
+            <span class="required-field"
+                *ngIf="registrationForm.get('confirmPassword').hasError('MatchPassword') && registrationForm.get('confirmPassword').touched">Пароли не совпадают *</span>
+            <span class="required-field"
+                *ngIf="registrationForm.get('confirmPassword').hasError('required') && registrationForm.get('confirmPassword').touched">Это
+                обязательное поле *</span>
         </div>
-
+        <div class="agree_content">
+            <div class="display-flex align-items-center">
+                <input type="checkbox" formControlName="isAgree">
+                <span>Согласие на обработку персональных данных</span>
+            </div>
+        </div>
+        <!-- Согласие на обработку персональных данных -->
     </form>
     <div class="save_btn">
-        <button [disabled]="registrationForm.invalid" (click)="registration()">Registration</button>
+        <button [disabled]="registrationForm.invalid && !registrationForm.get('isAgree').value" (click)="registration()">Регистрация</button>
     </div>
 </div>

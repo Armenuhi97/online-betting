@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './com/annaniks/online-betting/interceptors/api.interceptor';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service'
+import { LoginService } from './com/annaniks/online-betting/services/login.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -25,6 +26,7 @@ import { CookieService } from 'ngx-cookie-service'
       useClass: ApiInterceptor,
       multi: true
     },
+    LoginService,
     CookieService,
     {
       provide: 'BASE_URL',

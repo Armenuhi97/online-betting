@@ -1,0 +1,46 @@
+.header{
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+   .header-content{
+       margin-left: 10px;
+   }
+
+}
+.description{
+    margin-top: 5px;
+    color: white;
+}
+form{
+    padding: 10px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    .form_group{
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        label{
+            color: white;
+            font-size: 16px;
+        }
+        input{
+            margin-top: 10px;
+            padding-left:5px;
+            height: 27px;
+        }
+    }
+}
+.save_btn{
+    margin-top: 20px;
+    button{
+        width: 100%;
+        background: grey;
+        text-transform: uppercase;
+        padding: 15px;
+        border: none;
+        color: white;
+    }
+}

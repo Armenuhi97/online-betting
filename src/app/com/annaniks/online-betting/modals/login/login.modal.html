@@ -16,11 +16,12 @@
             <input type="email" formControlName="email">
         </div>
         <div class="form_group">
-            <label for="">Password</label>
+            <label for="">Пароль</label>
             <input type="password" formControlName="password">
         </div>
+        <div class="save_btn">
+            <button [disabled]="loginForm.invalid" (click)="login()">Войти</button>
+        </div>
     </form>
-    <div class="save_btn">
-        <button [disabled]="loginForm.invalid" (click)="login()">Login</button>
-    </div>
+
 </div>

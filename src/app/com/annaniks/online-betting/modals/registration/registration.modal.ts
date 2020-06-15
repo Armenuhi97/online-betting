@@ -18,7 +18,7 @@ export class RegistrationModal implements OnInit, OnDestroy {
     constructor(private _fb: FormBuilder,
         private _loginService: LoginService,
         private _cookieService: CookieService,
-        private _dialogRef: MatDialogRef<RegistrationModal>, ) { }
+        private _dialogRef: MatDialogRef<RegistrationModal>,) { }
 
     ngOnInit() {
         this._validate()
@@ -29,7 +29,8 @@ export class RegistrationModal implements OnInit, OnDestroy {
             surname: [null, Validators.required],
             email: [null, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
             password: [null, Validators.required],
-            confirmPassword: [null, Validators.required]
+            confirmPassword: [null, Validators.required],
+            isAgree: [false]
         },
             {
                 validator: PasswordValidation.MatchPassword
