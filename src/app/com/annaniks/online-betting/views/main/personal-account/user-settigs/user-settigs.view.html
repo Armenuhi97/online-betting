@@ -1,0 +1,23 @@
+<form action="" [formGroup]="settingsGroup">
+    <div class="form_group">
+        <label for="">Имя</label>
+        <input type="text" formControlName="name">
+        <span class="required-field"
+            *ngIf="settingsGroup.get('name').hasError('required') && settingsGroup.get('name').touched">Это
+            обязательное поле *</span>
+    </div>
+
+    <div class="form_group">
+        <label for="">Email</label>
+        <input type="email" formControlName="email">
+        <span class="required-field"
+            *ngIf="settingsGroup.get('email').hasError('required') && settingsGroup.get('email').touched">Это
+            обязательное поле *</span>
+        <span class="required-field"
+            *ngIf="settingsGroup.get('email').hasError('pattern') && settingsGroup.get('email').touched">Введите
+            правильный email *</span>
+    </div>
+    <div class="save_btn">
+        <button (click)="save()">Сохранить</button>
+    </div>
+</form>

@@ -40,7 +40,8 @@
             <label for="">Потвердите пароль</label>
             <input type="password" formControlName="confirmPassword">
             <span class="required-field"
-                *ngIf="registrationForm.get('confirmPassword').hasError('MatchPassword') && registrationForm.get('confirmPassword').touched">Пароли не совпадают *</span>
+                *ngIf="registrationForm.get('confirmPassword').hasError('MatchPassword') && registrationForm.get('confirmPassword').touched">Пароли
+                не совпадают *</span>
             <span class="required-field"
                 *ngIf="registrationForm.get('confirmPassword').hasError('required') && registrationForm.get('confirmPassword').touched">Это
                 обязательное поле *</span>
@@ -51,9 +52,9 @@
                 <span>Согласие на обработку персональных данных</span>
             </div>
         </div>
-        <!-- Согласие на обработку персональных данных -->
+        <div class="save_btn">
+            <button [disabled]="registrationForm.invalid || !registrationForm.get('isAgree').value"
+                (click)="registration()">Регистрация</button>
+        </div>
     </form>
-    <div class="save_btn">
-        <button [disabled]="!isValid" (click)="registration()">Регистрация</button>
-    </div>
 </div>

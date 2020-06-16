@@ -1,19 +1,22 @@
 .header{
+    padding:  10px;
     background: black;
-    width: 100%;
     position: sticky;
     z-index: 10;
     height: 56px;
     display: flex;
     align-items: center;
+    color: white;
     .auth_buttons{
         margin-left: auto;
-        margin-right: 10px;        
+        margin-right: 10px; 
+        display: flex;       
+        align-items: center;
         button{
             border: none;
             padding: 15px;
             border-radius:3px;
-            font-size: 15px;
+            font-size: 14px;
 
         }      
         .login_btn{
@@ -26,4 +29,22 @@
             color: #979797;
         }
     }
+    .menu_items{
+        margin-left: 20px;      
+        display: flex;
+        align-items: center;
+    }
+    .item{
+        font-size: 15px;
+        margin-right: 10px;
+        color: white !important;
+        text-decoration: none;
+    }
+    .item:hover{
+        text-decoration: underline !important;
+ 
+    }
+}
+.active{
+    text-decoration: underline !important;
 }

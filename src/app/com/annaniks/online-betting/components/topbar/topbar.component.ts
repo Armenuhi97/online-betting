@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { LoginModal, RegistrationModal } from '../../modals';
 import { MatDialog } from '@angular/material/dialog';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
     selector: 'app-topbar',
@@ -8,7 +9,10 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['topbar.component.scss']
 })
 export class TopbarComponent implements OnInit, OnDestroy {
-    constructor(private _matDialog: MatDialog) { }
+    public isAuthorizated: boolean = false;
+    
+    constructor(private _matDialog: MatDialog, private _menuListService: MenuService) { }
+
     ngOnInit() { }
 
     public openLoginModal() {
@@ -32,4 +36,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
         })
     }
     ngOnDestroy() { }
+    get companyMenuList() {
+        return this._menuListService.getMainMenuItems()
+    }
 }
