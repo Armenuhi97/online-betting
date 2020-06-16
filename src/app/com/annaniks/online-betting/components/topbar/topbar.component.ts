@@ -18,7 +18,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     public openLoginModal() {
         let dialog = this._matDialog.open(LoginModal, {
             width: '371px',
-            minHeight: '433px',
+            // minHeight: '433px',
             maxHeight: '80vh',
         })
         dialog.afterClosed().subscribe((data) => { })
