@@ -54,6 +54,6 @@
         <!-- Согласие на обработку персональных данных -->
     </form>
     <div class="save_btn">
-        <button [disabled]="registrationForm.invalid && !registrationForm.get('isAgree').value" (click)="registration()">Регистрация</button>
+        <button [disabled]="!isValid" (click)="registration()">Регистрация</button>
     </div>
 </div>

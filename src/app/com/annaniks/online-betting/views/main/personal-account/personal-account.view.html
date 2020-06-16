@@ -1,0 +1,10 @@
+<div class="personal_area">
+    <div class="personal-menu">
+        <div *ngFor="let menu of personalAreaMenu">
+            <label [routerLink]="menu.path" for="">{{menu?.label}}</label>
+        </div>
+    </div>
+    <div class="personal-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

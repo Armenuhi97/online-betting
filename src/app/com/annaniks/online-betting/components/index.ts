@@ -1,2 +1,3 @@
 export * from './topbar/topbar.component';
-export * from './left-menu/left-menu.component'
+export * from './left-menu/left-menu.component';
+export * from './footer/footer.component'

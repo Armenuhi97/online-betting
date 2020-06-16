@@ -1,0 +1,15 @@
+.footer_content{
+    margin: 15px auto 0 auto;    
+    padding: 20px 15px;
+    width: 100%;
+    background: #1A1A1A;
+    color: white;
+    .categories_list{
+        display: flex;
+        flex-direction: column;
+        a{
+            color: white;
+            margin-bottom: 5px;
+        }
+    }
+}

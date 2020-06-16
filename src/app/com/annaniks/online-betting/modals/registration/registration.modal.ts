@@ -49,4 +49,9 @@ export class RegistrationModal implements OnInit, OnDestroy {
         this.unsubscribe$.next()
         this.unsubscribe$.complete()
     }
+    get isValid(): boolean {
+        console.log((this.registrationForm.valid && this.registrationForm.get('isAgree').value));
+        
+        return (this.registrationForm.valid && this.registrationForm.get('isAgree').value)
+    }
 }

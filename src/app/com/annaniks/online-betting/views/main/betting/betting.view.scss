@@ -31,24 +31,28 @@ $size: 12px;
 
 // Container
 .wrap {
-  // @include cubic;
-  // position: absolute;
-  // top: 50%; left: 50%;
-  // transform: translate(-50%, -50%);
-  // -webkit-transform:translate(-50%,-50%);
-  margin: $size;
+  margin: $size !important;
   width: 100%;
   min-width: 590px;
   max-width: 878px;
 }
-
+.card-content{
+  div, span, applet, object,p, iframe, h1, h2, h3, h4, h5, h6, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    // padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+}
 
 // Card
 .card {
   @include ease;
   position: relative;
   display: block;
-  margin: 2px 0;
+  margin: 2px 0 !important;
   
   width: 100%;
   height: 55px;
@@ -154,8 +158,8 @@ $size: 12px;
       overflow: auto;
       padding: 0 $size/2;
       
-      .odds-1 { margin-left: 11px; }
-      .odds-2 { margin-right: 11px; }
+      .odds-1 { margin-left: 11px !important; }
+      .odds-2 { margin-right: 11px !important; }
       
       
       button {
@@ -167,7 +171,7 @@ $size: 12px;
         top: 50%;
         -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
-        margin: 0 1px;
+        margin: 0 1px !important;
         padding: 0;
         width: 50px;
         height: 35px;
