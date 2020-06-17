@@ -1,36 +1,36 @@
 /* You can add global styles to this file, and also import other style files*/
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
 
-$font-main: 'Roboto', sans-serif;
+$font-main: "Roboto", sans-serif;
 
-$bg: #000E1A;
-button{
+$bg: #000e1a;
+button {
   cursor: pointer;
 }
 .display-flex {
   display: flex;
 }
-.align-items-center{
+.align-items-center {
   align-items: center;
 }
-button:disabled{
+button:disabled {
   opacity: 0.6;
 }
-.mat-dialog-container{
-  padding:  0 !important;
+.mat-dialog-container {
+  padding: 0 !important;
 }
 .svg-icon {
   width: 2em;
   height: 2em;
 }
-.required-field{
-  color:red;
+.required-field {
+  color: red;
   font-size: 12px;
 }
-*{
+* {
   outline: none;
 }
 .svg-icon path,
@@ -43,7 +43,8 @@ button:disabled{
   stroke: black;
   stroke-width: 1;
 }
-html, body{
+html,
+body {
   margin: 0;
   padding: 0;
   border: 0;
@@ -53,11 +54,10 @@ html, body{
 }
 // Colours
 
-
 // Basic
 body {
   background: $bg;
   font-family: $font-main;
   margin: 0;
+  overflow-x: hidden;
 }
-

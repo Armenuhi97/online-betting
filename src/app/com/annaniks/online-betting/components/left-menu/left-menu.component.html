@@ -1,10 +1,20 @@
-<mat-drawer-container class="example-container">
+<!-- <mat-drawer-container class="example-container">
     <mat-drawer #drawer class="example-sidenav" mode="side">
-        <ul class="left-navigation">
-            <li><a href="#news">Личный кабинет</a></li>
-            <li><a href="#contact">Турниры</a></li>
-            <li><a href="#about">Рейтинг</a></li>
-        </ul>
+        <div class="navigation-content">
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Страны
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-container *ngFor="let country of countries">
+                        <a class="country-ref" href="">{{country?.name}}</a>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
     </mat-drawer>
     <div class="example-sidenav-content">
         <button type="button" mat-button (click)="drawer.toggle()">
@@ -12,4 +22,27 @@
         </button>
         <ng-content select="router-outlet"></ng-content>
     </div>
-</mat-drawer-container>
+</mat-drawer-container> -->
+
+<ul class="countries-contaier">
+    Страны
+    <ng-container *ngFor="let country of countries">
+        <span class="country-ref" href="">
+            <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{country?.name}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <a class="country-ref" href="">{{'country?.name'}}</a>
+                    <a class="country-ref" href="">{{'country?.name'}}</a>
+                    <a class="country-ref" href="">{{'country?.name'}}</a>
+                    <a class="country-ref" href="">{{'country?.name'}}</a>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+        </span>
+    </ng-container>
+</ul>

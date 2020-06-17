@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule, } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [],
@@ -13,7 +14,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatExpansionModule
     ],
     entryComponents: [],
     exports: [
@@ -22,7 +24,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         RouterModule,
         ReactiveFormsModule,
         FormsModule,
-        MatSidenavModule
+        MatSidenavModule,
+        MatExpansionModule
     ]
 })
 export class SharedModule { }
