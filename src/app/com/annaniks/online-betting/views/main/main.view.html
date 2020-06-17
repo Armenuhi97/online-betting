@@ -1,12 +1,13 @@
 <div class="page_content">
     <div class="top_content">
         <app-topbar></app-topbar>
-        <app-left-menu></app-left-menu>
     </div>
     <div class="middle_content container">
-        <router-outlet></router-outlet>
+        <app-left-menu>
+            <router-outlet></router-outlet>
+        </app-left-menu>
     </div>
     <div class="bottom_content">
-        <!-- <app-footer></app-footer> -->
+        <app-footer></app-footer>
     </div>
 </div>
