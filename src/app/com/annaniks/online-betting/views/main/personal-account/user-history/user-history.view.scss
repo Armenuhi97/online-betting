@@ -1,0 +1,19 @@
+
+th{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // max-width: 110px;
+}
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 5px;
+    color: white;
+    font-size:12px;
+    text-align: center;
+}
+table{
+    width: 95%;
+    margin: 10px auto;
+}

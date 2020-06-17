@@ -27,7 +27,7 @@ ul.left-navigation {
     &-content {
         padding-left: 35px;
         position: relative;
-        height: 400px;
+        min-height: 400px;
         button {
             position: absolute;
             transform: translateY(-50%);
