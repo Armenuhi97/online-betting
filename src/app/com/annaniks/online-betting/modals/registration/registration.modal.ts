@@ -26,7 +26,6 @@ export class RegistrationModal implements OnInit, OnDestroy {
     private _validate(): void {
         this.registrationForm = this._fb.group({
             name: [null, Validators.required],
-            surname: [null, Validators.required],
             email: [null, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
             password: [null, Validators.required],
             confirmPassword: [null, Validators.required],
@@ -45,13 +44,10 @@ export class RegistrationModal implements OnInit, OnDestroy {
             this._dialogRef.close(true)
         })
     }
+
     ngOnDestroy() {
         this.unsubscribe$.next()
         this.unsubscribe$.complete()
     }
-    get isValid(): boolean {
-        console.log((this.registrationForm.valid && this.registrationForm.get('isAgree').value));
-        
-        return (this.registrationForm.valid && this.registrationForm.get('isAgree').value)
-    }
+
 }

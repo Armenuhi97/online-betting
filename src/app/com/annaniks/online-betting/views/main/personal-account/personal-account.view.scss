@@ -1,7 +1,24 @@
+
 .personal-menu{
-    color: white;
+    color: white;       
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     label{
-        padding: 10px;
-        
-    }
+        font-size: 15px;
+        cursor: pointer;
+        margin-right: 10px;
+    }   
+}
+.personal-content{
+    border: 1px solid white;
+    padding: 10px;
+    margin: 0 20px;
+}
+.active-path{
+    text-decoration: underline !important
+}
+label:hover{
+    text-decoration: underline !important;
 }

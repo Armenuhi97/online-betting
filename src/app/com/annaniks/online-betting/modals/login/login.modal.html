@@ -1,6 +1,6 @@
 <div class="login-content">
     <div class="login-header">
-        <div>Login</div>
+        <div>Войти</div>
         <button class="close_btn" (click)="close()">
             <svg class="svg-icon" viewBox="0 0 20 20">
                 <path fill="none"
@@ -14,10 +14,19 @@
         <div class="form_group">
             <label for="">Email</label>
             <input type="email" formControlName="email">
+            <p class="required-field"
+                *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">Это
+                обязательное поле *</p>
+            <p class="required-field"
+                *ngIf="loginForm.get('email').hasError('pattern') && loginForm.get('email').touched">Введите
+                правильный email *</p>
         </div>
         <div class="form_group">
             <label for="">Пароль</label>
             <input type="password" formControlName="password">
+            <p class="required-field"
+                *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">Это
+                обязательное поле *</p>
         </div>
         <div class="save_btn">
             <button [disabled]="loginForm.invalid" (click)="login()">Войти</button>

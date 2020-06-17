@@ -165,7 +165,9 @@ $size: 12px;
       button {
         @include ease;
         
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: relative;
         float: left;
         top: 50%;
@@ -203,30 +205,15 @@ $size: 12px;
           &:before { opacity: 1; }
         }
         
-        strong,
-        p {
-          display: block;
-          position: absolute;
-          z-index: 2;
-          left: 0; right: 0;
+        strong  {
+          display: block;          
+          z-index: 2;     
           text-align: center;
-        }
-        
-        strong {
-          top: 4px;
-          
           color: rgba($white, .4);
           font-size: $size - 2;
           line-height: 1;
-        }
+        }        
         
-        p {
-          bottom: 5px;
-          
-          color: rgba($white, 1);
-          font-size: $size + 1;
-          line-height: 1;
-        }
       }
     }
     

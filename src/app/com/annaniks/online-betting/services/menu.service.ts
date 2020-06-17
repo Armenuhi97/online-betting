@@ -5,7 +5,9 @@ export class MenuService {
     private mainMenuItems = [
         { label: 'О нас', path: '/about' },
         { label: 'Пользовательские соглашение', path: '/terms-of-use' },
-        { label: 'Контакты', path: '/contacts' }
+        { label: 'Контакты', path: '/contacts' },
+        { label: 'Турниры', path: '/tournament' },
+        { label: 'Рейтинг', path: '#' },
     ]
     public getMainMenuItems() {
         return this.mainMenuItems
