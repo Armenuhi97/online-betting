@@ -8,10 +8,12 @@
         <router-outlet></router-outlet>
     </div>
 </div> -->
-<div class="personal-menu">
-    <label routerLinkActive="active-path" [routerLink]="menu.path"
-        *ngFor="let menu of personalAreaMenu">{{menu?.label}}</label>
-</div>
-<div class="personal-content">
-    <router-outlet></router-outlet>
+<div class="personal">
+    <div class="personal-menu">
+        <label routerLinkActive="active-path" [routerLink]="menu.path"
+            *ngFor="let menu of personalAreaMenu">{{menu?.label}}</label>
+    </div>
+    <div class="personal-content">
+        <router-outlet></router-outlet>
+    </div>
 </div>

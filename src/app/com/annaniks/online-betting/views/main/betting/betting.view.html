@@ -1,55 +1,52 @@
-<!-- Shrink Interaction -->
-<!-- <div class="shrink">Tablet<br/>size</div> -->
+<div class="betting">
+  <div>
+    <div class="card-content">
+      <section *ngFor="let item of tourArray" class="wrap">
+        <div class="card">
+          <div class="card-left">
+            <div class="card-left__score">
+              <h5>{{item?.time}}</h5>
+            </div>
+            <div class="card-left__competitors">
+              <a>{{item?.team1}} <span>v</span> {{item?.team2}}</a>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="card-right__live">
+              <em>{{item?.duration}}’</em>
+            </div>
+            <div class="card-right__odds">
+              <button [class.active-stake]="item.stake == '1'" (click)="setStake(item,'1')" class="odds-1">
+                <strong>1</strong>
+              </button>
 
-<!-- Card -->
-<div class="card-content">
-    <section class="wrap">
-      <!-- Cards: Start -->
-      <div class="card">
-        <!-- Content: Left -->
-        <div class="card-left">
-          <!-- Score -->
-          <div class="card-left__score">
-            <h5>20 : 00</h5>
-          </div>
-  
-          <!-- Competitors -->
-          <div class="card-left__competitors">
-            <a>Chelsea FC <span>v</span> Huddersfield Town</a>
+              <button [class.active-stake]="item.stake == 'x'" (click)="setStake(item,'x')" class="odds-x">
+                <strong>X</strong>
+              </button>
+              <button [class.active-stake]="item.stake == '2'" (click)="setStake(item,'2')" class="odds-2">
+                <strong>2</strong>
+              </button>
+            </div>
           </div>
         </div>
-  
-        <!-- Content: Right -->
-        <div class="card-right">
-          <!-- Favourite -->
-  
-  
-          <!-- Live -->
-          <div class="card-right__live">
-            <em>84’</em>
-          </div>
-  
-          <!-- Odds -->
-          <div class="card-right__odds">
-            <button class="odds-1">
-              <strong>1</strong>
-            </button>
-  
-            <button class="odds-x">
-              <strong>X</strong>
-            </button>
-  
-            <button class="odds-2">
-              <strong>2</strong>
-            </button>
-          </div>
-  
-          <!-- Markets -->
-        
-        </div>
-      </div>
- 
-  
-      <!-- Cards: End -->
-    </section>
+      </section>
+    </div>
+    <div class="confirm">
+      <button>Потвердить</button>
+    </div>
   </div>
+  <div class="result-content">
+    <div class="result">
+      <p>Сумма очков за 20 тур</p>
+      <h1>7</h1>
+    </div>
+    <div class="result">
+      <p>Сумма очков за 20 тур чемпионат</p>
+      <h1>68</h1>
+    </div>
+    <div class="result">
+      <p>Место в турнире</p>
+      <h1>4</h1>
+    </div>
+  </div>
+</div>
