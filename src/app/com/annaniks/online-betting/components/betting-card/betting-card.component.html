@@ -1,0 +1,29 @@
+<section class="wrap">
+    <div class="card">
+        <div class="card-left">
+            <div class="card-left__score">
+                <h5>{{item?.time}}</h5>
+            </div>
+            <div class="card-left__competitors">
+                <a>{{item?.team1}} <span>v</span> {{item?.team2}}</a>
+            </div>
+        </div>
+        <div class="card-right">
+            <div class="card-right__live">
+                <em>{{item?.duration}}’</em>
+            </div>
+            <div class="card-right__odds">
+                <button [class.active-stake]="item.stake == '1'" (click)="setStake(item,'1')" class="odds-1">
+                    <strong>1</strong>
+                </button>
+
+                <button [class.active-stake]="item.stake == 'x'" (click)="setStake(item,'x')" class="odds-x">
+                    <strong>X</strong>
+                </button>
+                <button [class.active-stake]="item.stake == '2'" (click)="setStake(item,'2')" class="odds-2">
+                    <strong>2</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

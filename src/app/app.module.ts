@@ -18,7 +18,7 @@ import { LoginService } from './com/annaniks/online-betting/services/login.servi
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     {
