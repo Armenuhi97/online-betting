@@ -17,7 +17,7 @@ export class LoginModal implements OnInit, OnDestroy {
     constructor(private _fb: FormBuilder,
         private _loginService: LoginService,
         private _cookieService: CookieService,
-        private _dialogRef: MatDialogRef<LoginModal>, ) { }
+        private _dialogRef: MatDialogRef<LoginModal>,) { }
 
     ngOnInit() {
         this._validate()
@@ -32,11 +32,11 @@ export class LoginModal implements OnInit, OnDestroy {
         this._dialogRef.close(false)
     }
     public login(): void {
-        this._loginService.login(this.loginForm.get('email').value, this.loginForm.get('password').value).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
+        this._loginService.login(this.loginForm.get('email').value, this.loginForm.get('name').value, this.loginForm.get('password').value).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
             this._cookieService.set('accessToken', data.access);
             this._dialogRef.close(true)
         })
-       
+
     }
     ngOnDestroy() {
         this.unsubscribe$.next()

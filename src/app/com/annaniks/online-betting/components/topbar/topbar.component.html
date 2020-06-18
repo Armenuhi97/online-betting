@@ -1,13 +1,16 @@
-<div class="header">
-    <div class="menu_items">
-        <a *ngFor="let item of companyMenuList" class="item" routerLinkActive="active" [routerLink]="item.path">{{item.label}}</a>
+<div class="overflow-scroll">
+    <div class="header">
+        <div class="menu_items">
+            <a *ngFor="let item of companyMenuList" class="item" routerLinkActive="active"
+                [routerLink]="item.path">{{item.label}}</a>
 
-    </div>
-    <div class="auth_buttons">
-        <button (click)="openLoginModal()" class="registration_btn">Войти</button>
-        <button (click)="registrationModal()" class="login_btn">Регистрация</button>
-    </div>
-    <div>
-        <a class="item" routerLinkActive="active" routerLink="/user">Личный кабинет</a>
+        </div>
+        <div class="auth_buttons">
+            <div class="buttons">
+                <button (click)="openLoginModal()" class="registration_btn">Войти</button>
+                <button (click)="registrationModal()" class="login_btn">Регистрация</button>
+            </div>
+            <a class="item margin-left-10" routerLinkActive="active" routerLink="/user">Личный кабинет</a>
+        </div>
     </div>
 </div>

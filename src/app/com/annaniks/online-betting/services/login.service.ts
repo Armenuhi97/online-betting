@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 export class LoginService {
     constructor(private _httpClient: HttpClient) { }
 
-    public login(email: string, password: string) {
-        return this._httpClient.post('', { email: email, password: password })
+    public login(email: string, name: string, password: string) {
+        return this._httpClient.post('', { email: email, name: name, password: password })
     }
     public registration(body) {
         return this._httpClient.post('', body)

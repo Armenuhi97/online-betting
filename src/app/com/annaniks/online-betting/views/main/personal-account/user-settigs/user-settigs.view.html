@@ -1,4 +1,4 @@
-<form action="" [formGroup]="settingsGroup">
+<form class="form" action="" [formGroup]="settingsGroup">
     <div class="form_group">
         <label for="">Имя</label>
         <input type="text" formControlName="name">
@@ -17,7 +17,14 @@
             *ngIf="settingsGroup.get('email').hasError('pattern') && settingsGroup.get('email').touched">Введите
             правильный email *</p>
     </div>
+    <div class="form_group">
+        <label for="">Пароль</label>
+        <input type="text" formControlName="password">
+        <p class="required-field"
+            *ngIf="settingsGroup.get('password').hasError('required') && settingsGroup.get('password').touched">Это
+            обязательное поле *</p>
+    </div>
     <div class="save_btn">
-        <button (click)="save()">Сохранить</button>
+        <button [disabled]="settingsGroup.invalid" (click)="save()">Сохранить</button>
     </div>
 </form>

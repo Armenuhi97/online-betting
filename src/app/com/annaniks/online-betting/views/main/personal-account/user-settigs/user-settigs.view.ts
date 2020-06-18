@@ -16,6 +16,7 @@ export class UserSettingsView {
         this.settingsGroup = this._fb.group({
             name: [null, Validators.required],
             email: [null, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
+            password:[null]
         })
     }
     public save(){}

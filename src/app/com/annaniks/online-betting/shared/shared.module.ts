@@ -5,9 +5,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule, } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { BettingCardComponent } from '../components';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
-    declarations: [],
+    declarations: [BettingCardComponent],
     imports: [
         CommonModule,
         MatDialogModule,
@@ -15,7 +17,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         ReactiveFormsModule,
         FormsModule,
         MatSidenavModule,
-        MatExpansionModule
+        MatExpansionModule,
+        DropdownModule
     ],
     entryComponents: [],
     exports: [
@@ -25,7 +28,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
         ReactiveFormsModule,
         FormsModule,
         MatSidenavModule,
-        MatExpansionModule
+        MatExpansionModule,
+        BettingCardComponent,
+        DropdownModule
     ]
 })
 export class SharedModule { }

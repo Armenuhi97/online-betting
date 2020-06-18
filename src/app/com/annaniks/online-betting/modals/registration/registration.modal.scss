@@ -18,31 +18,17 @@
         justify-content: center;
     }
 }
-form{
-    padding: 10px;
-    .form_group{
-        margin-top: 10px;
-        display: flex;
-        flex-direction: column;
-        label{
-            font-size: 16px;
-        }
-        input{
-            margin-top: 10px;
-            padding-left:5px;
-            height: 27px;
-        }
-    }
-}
+
 .save_btn{
     margin: 10px 0;
     button{
         width: 100%;
-        background: grey;
+        background: #167E00;
         text-transform: uppercase;
         padding: 15px;
         border: none;
         color: white;
+        border-radius: 6px;
     }
 }
 .agree_content{

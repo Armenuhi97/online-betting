@@ -1,0 +1,12 @@
+.content{
+    width: calc(100% - 250px);
+}
+
+@media screen and (max-width:920px){
+    .content{
+        width: 100% !important;       
+    }
+    .menu{
+        display: none;
+    }
+}
