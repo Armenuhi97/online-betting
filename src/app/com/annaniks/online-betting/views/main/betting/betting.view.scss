@@ -33,6 +33,7 @@
 
 .form{
   width: 60%;
+  margin: 0 auto;
 }
 .form_group{
   label{
@@ -70,3 +71,8 @@
   }
 }
 
+@media screen and(max-width:920px){
+  .form{
+    width: 95% !important;
+  }
+}

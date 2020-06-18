@@ -7,7 +7,9 @@
 </div>
 
 <div>
-    <app-betting-card *ngFor="let item of tourArray" [item]="item"></app-betting-card>
+    <div style="overflow-x: auto;">
+        <app-betting-card *ngFor="let item of tourArray" [item]="item"></app-betting-card>
+    </div>
     <div class="confirm">
         <button>Потвердить</button>
     </div>
