@@ -6,11 +6,21 @@ import { TopbarComponent, LeftMenuComponent, FooterComponent } from '../../compo
 import { LoginModal, RegistrationModal } from '../../modals';
 import { MainService } from './main.service';
 import { MenuService } from '../../services/menu.service';
+import { LoadingService } from '../../services';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @NgModule({
-    declarations: [MainView, TopbarComponent, LoginModal, RegistrationModal, LeftMenuComponent,FooterComponent],
+    declarations: [
+        MainView,
+        TopbarComponent,
+        LoginModal,
+        RegistrationModal,
+        LeftMenuComponent,
+        FooterComponent,
+        LoadingComponent
+    ],
     entryComponents: [LoginModal, RegistrationModal],
     imports: [SharedModule, MainRoutingModule],
-    providers: [MainService,MenuService ]
+    providers: [MainService, MenuService, LoadingService]
 })
 export class MainModule { }

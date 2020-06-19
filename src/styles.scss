@@ -91,3 +91,6 @@ body {
 *{
   outline: none;
 }
+.mat-expansion-indicator::after{
+  color: white;
+}

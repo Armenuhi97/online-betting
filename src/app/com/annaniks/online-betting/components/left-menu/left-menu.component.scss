@@ -4,7 +4,7 @@
 .mat-expansion-panel {
     background: transparent;
     .mat-expansion-panel-header {
-        padding: 0;
+        padding: 0 10px 0 0;
     }
     .mat-expansion-panel-body {
         padding: 0;
@@ -14,17 +14,45 @@
         color: white;
     }
 }
+.item{
+    padding: 4px 24px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    a{
+        cursor: pointer;
+        font-size: 13px;
+    }
+}
 .countries-contaier {
     width: 250px;
     color: white;
     padding: 10px;
+    background: #2D2D2D;
+    margin: 0;
     .country-ref {
         display: block;
         color: white;
         // padding: 8px 16px;
         text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
+        padding-top: 15px ;
+        // &:hover {
+        //     text-decoration: underline;
+        // }
     }
+    .ref:hover{
+        text-decoration: underline;
+    }
+}
+.margin-top-25{
+    margin-top: 25px;
+}
+.active{
+    background: #414141;
+}
+a {
+    color: white;
+}
+a:hover{
+    color: white;
 }
