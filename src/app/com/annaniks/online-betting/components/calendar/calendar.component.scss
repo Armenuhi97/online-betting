@@ -1,0 +1,16 @@
+.tour-list{
+    color: white;
+    max-width:100%;
+    overflow-x: scroll;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-right: 20px;
+    .tour{
+      padding: 7px;
+      cursor: pointer;
+      white-space: nowrap;
+  
+    }
+   
+  }

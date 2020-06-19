@@ -8,19 +8,38 @@
     </div>
 </div>
 
-<div class="tour-list">
-    <div (click)="selectTour(tour,i)" class="tour" [class.active]="selectedTour == i"
-        *ngFor="let tour of [1,2,6,4,5,6,8,7,4,10,10,11,11,12,13,14,15,1,1,1,1,1,1,1,1,1,1,1,1,1,1];let i=index"
-        [class.margin-left-7]="i !== 0">
-        Тур 1
-    </div>
-</div>
+<div class="detail_container">
+    <div class="tab_bar">
+        <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem ==='table'}"
+            (click)="onClickTabItem('table')">
+            <span class="label">Таблица</span>
+        </div>
+        <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem==='calendar'}"
+            (click)="onClickTabItem('calendar')">
+            <span class="label">Календарь</span>
+        </div>
 
-<div>
-    <div style="overflow-x: auto;">
-        <app-betting-card *ngFor="let item of tourArray" [item]="item"></app-betting-card>
     </div>
-    <div class="confirm">
-        <button>Потвердить</button>
+    <div class="tabs_content" [ngSwitch]="activeTabItem">
+        <app-table [tables]="tables" *ngSwitchCase="'table'"></app-table>
+        <app-calendar [calendars]="calendares" *ngSwitchCase="'calendar'"></app-calendar>
     </div>
 </div>
+<!-- <div>
+    <div class="tour-list">
+        <div (click)="selectTour(tour,i)" class="tour" [class.active]="selectedTour == i"
+            *ngFor="let tour of [1,2,6,4,5,6,8,7,4,10,10,11,11,12,13,14,15,1,1,1,1,1,1,1,1,1,1,1,1,1,1];let i=index"
+            [class.margin-left-7]="i !== 0">
+            Тур 1
+        </div>
+    </div>
+
+    <div>
+        <div style="overflow-x: auto;">
+            <app-betting-card *ngFor="let item of tourArray" [item]="item"></app-betting-card>
+        </div>
+        <div class="confirm">
+            <button>Потвердить</button>
+        </div>
+    </div>
+</div> -->

@@ -1,9 +1,13 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject, forkJoin } from 'rxjs';
 import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
+import { LigaService } from './liga.service';
+import { takeUntil, map } from 'rxjs/operators';
+import { ServerResponse } from '../../../models/model';
+import { LoadingService } from '../../../services';
 
 @Component({
     selector: 'liga-view',
@@ -104,10 +108,16 @@ export class Ligaview {
             team2: 'Huddersfield Town'
         }
     ]
+    public calendares=[]
     public selectedTour = 0;
     private _paramsSubscription: Subscription;
     public liga: Liga;
-    constructor(private _activatedRoute: ActivatedRoute, private _mainService: MainService, private _appService: AppService) { }
+    public activeTabItem: string = 'table';
+    public tables = [];
+    private _subscription: Subscription;
+    constructor(private _activatedRoute: ActivatedRoute,
+        private _ligaService: LigaService, private _loadinService: LoadingService,
+        private _mainService: MainService, private _appService: AppService) { }
     ngOnInit() {
         this._checkProductId()
     }
@@ -119,15 +129,42 @@ export class Ligaview {
                 if (params.ligaName)
                     if (seletedCountry && seletedCountry[0] && seletedCountry[0].country_liga) {
                         this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportTipe}/${params.countryId}/${params.ligaName}/`), 0)
+                        if (this.liga)
+                            this._combineObservable()
                     }
             }
 
         })
     }
+    private _getTablesByLiga() {
+        return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<any>) => {
+            this.tables = data.results;
+            return data
+        }))
+    }
+    private _getCalendares() {
+        return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<any>) => {
+            this.calendares = data.results;
+            return data
+        }))
+    }
+    private _combineObservable() {
+        this._loadinService.showLoading()
+        const combine = forkJoin(
+            this._getTablesByLiga()
+        )
+        this._subscription = combine.subscribe(() => { this._loadinService.hideLoading() })
+    }
     public selectTour(tour, index: number) {
         this.selectedTour = index
     }
+    public onClickTabItem(itemName: string) {
+        this.activeTabItem = itemName
+    }
     ngOnDestroy() {
-        this._paramsSubscription.unsubscribe()
+        this._paramsSubscription.unsubscribe();
+        if (this._subscription) {
+            this._subscription.unsubscribe()
+        }
     }
 }

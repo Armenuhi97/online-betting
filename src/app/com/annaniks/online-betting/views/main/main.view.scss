@@ -1,8 +1,11 @@
 .content{
     width: calc(100% - 250px);
     margin-left: 10px; 
+    margin-right: 10px;
 }
-
+.middle_content{
+    margin-top: 15px;
+}
 @media screen and (max-width:920px){
     .content{
         width: 100% !important; 

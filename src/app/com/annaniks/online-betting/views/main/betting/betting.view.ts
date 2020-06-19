@@ -28,7 +28,6 @@ export class BettingView {
 
     ngOnInit() {
         this._validate()
-        // this.getAllCountries();
     }
 
     private _validate() {
@@ -38,9 +37,7 @@ export class BettingView {
             liga: [null]
         })
     }
-    // private getAllCountries(): void {
-    //     this.countries = this._mainService.getCountry()
-    // }
+
     public find() {
         if (!this.isNext) {
             this.isNext = !this.isNext;
@@ -63,7 +60,6 @@ export class BettingView {
         this._unsubscribe.complete();
     }
     get countries(): Country[] {
-        // this.countries = this._mainService.getCountry();
         return this._mainService.getCountry()
     }
 }
