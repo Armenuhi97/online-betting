@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { Match } from '../../models/model';
 
 @Component({
     selector: 'app-betting-card',
@@ -6,9 +7,9 @@ import { Component, Input } from "@angular/core";
     styleUrls: ['betting-card.component.scss']
 })
 export class BettingCardComponent {
-    public item
+    public item:Match
     @Input('item')
-    set setItme($event){
+    set setItme($event:Match){
         this.item=$event
     }
     public setStake(item, type) {

@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, Subject, forkJoin } from 'rxjs';
+import { Subscription, Subject, forkJoin, Observable } from 'rxjs';
 import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
 import { LigaService } from './liga.service';
 import { takeUntil, map } from 'rxjs/operators';
-import { ServerResponse } from '../../../models/model';
+import { ServerResponse, Team, Tour } from '../../../models/model';
 import { LoadingService } from '../../../services';
 
 @Component({
@@ -15,105 +15,13 @@ import { LoadingService } from '../../../services';
     styleUrls: ['liga.view.scss']
 })
 export class Ligaview {
-    public tourArray = [
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        },
-        {
-            time: '20:00',
-            duration: '84',
-            stake: null,
-            team1: 'Chelsea FC',
-            team2: 'Huddersfield Town'
-        }
-    ]
-    public calendares=[]
+    public tours:Tour[] = []
+    public calendares = []
     public selectedTour = 0;
     private _paramsSubscription: Subscription;
     public liga: Liga;
     public activeTabItem: string = 'table';
-    public tables = [];
+    public tables: Team[] = [];
     private _subscription: Subscription;
     constructor(private _activatedRoute: ActivatedRoute,
         private _ligaService: LigaService, private _loadinService: LoadingService,
@@ -136,22 +44,23 @@ export class Ligaview {
 
         })
     }
-    private _getTablesByLiga() {
-        return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<any>) => {
+    private _getTablesByLiga():Observable<ServerResponse<Team[]>> {
+        return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<Team[]>) => {
             this.tables = data.results;
             return data
         }))
     }
-    private _getCalendares() {
-        return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<any>) => {
-            this.calendares = data.results;
+    private _getTours():Observable<ServerResponse<Tour[]>> {
+        return this._ligaService.getTour(this.liga.id).pipe(map((data: ServerResponse<Tour[]>) => {
+            this.tours = data.results;
             return data
         }))
     }
     private _combineObservable() {
         this._loadinService.showLoading()
         const combine = forkJoin(
-            this._getTablesByLiga()
+            this._getTablesByLiga(),
+            this._getTours()
         )
         this._subscription = combine.subscribe(() => { this._loadinService.hideLoading() })
     }
