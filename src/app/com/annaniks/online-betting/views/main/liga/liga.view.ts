@@ -27,7 +27,7 @@ export class Ligaview {
     constructor(private _activatedRoute: ActivatedRoute,
         private _ligaService: LigaService, private _loadinService: LoadingService,
         private _mainService: MainService, private _appService: AppService,
-        private _title:Title) { }
+        private _title: Title) { }
     ngOnInit() {
         this._checkProductId()
     }

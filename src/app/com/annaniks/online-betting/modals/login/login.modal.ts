@@ -5,6 +5,7 @@ import { LoginService } from '../../services/login.service';
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
+import { SignInModel } from '../../models/auth';
 
 @Component({
     selector: 'login-modal',
@@ -13,7 +14,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginModal implements OnInit, OnDestroy {
     public loginForm: FormGroup;
-    unsubscribe$ = new Subject<void>()
+    private _unsubscribe$ = new Subject<void>()
+
     constructor(private _fb: FormBuilder,
         private _loginService: LoginService,
         private _cookieService: CookieService,
@@ -22,24 +24,34 @@ export class LoginModal implements OnInit, OnDestroy {
     ngOnInit() {
         this._validate()
     }
+
     private _validate(): void {
         this.loginForm = this._fb.group({
             email: [null, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
             password: [null, Validators.required]
         })
     }
+
     public close(): void {
         this._dialogRef.close(false)
     }
+
     public login(): void {
-        this._loginService.login(this.loginForm.get('email').value, this.loginForm.get('name').value, this.loginForm.get('password').value).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
+        const formValue = this.loginForm.value;
+        const sendingData: SignInModel = {
+            username: formValue.email,
+            password: formValue.password
+        }
+        this._loginService.login(sendingData).pipe(takeUntil(this._unsubscribe$)).subscribe((data: any) => {
             this._cookieService.set('accessToken', data.access);
+            this._cookieService.set('refreshToken', data.refresh);
             this._dialogRef.close(true)
         })
 
     }
+
     ngOnDestroy() {
-        this.unsubscribe$.next()
-        this.unsubscribe$.complete()
+        this._unsubscribe$.next()
+        this._unsubscribe$.complete()
     }
 }
