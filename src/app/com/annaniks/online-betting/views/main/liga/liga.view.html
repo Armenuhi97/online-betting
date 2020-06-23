@@ -1,0 +1,37 @@
+<div class="liga_content">
+    <div class="logo">
+        <img [src]="'https://www.flashscore.ru/'+liga?.logo" alt="">
+    </div>
+    <div class="text">
+        <div class="title">{{liga?.liga}}</div>
+        <div>{{liga?.date}}</div>
+    </div>
+</div>
+
+<div class="detail_container">
+    <div class="tab_bar">
+        <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem ==='table'}"
+            (click)="onClickTabItem('table')">
+            <span class="label">Таблица</span>
+        </div>
+        <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem==='calendar'}"
+            (click)="onClickTabItem('calendar')">
+            <span class="label">Календарь</span>
+        </div>
+
+    </div>
+    <div class="tabs_content" [ngSwitch]="activeTabItem">
+        <app-table [tables]="tables" *ngSwitchCase="'table'"></app-table>
+        <app-calendar [tours]="tours" *ngSwitchCase="'calendar'"></app-calendar>
+    </div>
+</div>
+<!-- <div>
+    <div>
+        <div style="overflow-x: auto;">
+            <app-betting-card *ngFor="let item of tourArray" [item]="item"></app-betting-card>
+        </div>
+        <div class="confirm">
+            <button>Потвердить</button>
+        </div>
+    </div>
+</div> -->

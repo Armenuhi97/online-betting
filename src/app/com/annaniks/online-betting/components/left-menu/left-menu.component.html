@@ -23,8 +23,17 @@
         <ng-content select="router-outlet"></ng-content>
     </div>
 </mat-drawer-container> -->
-
-<ul class="countries-contaier">
+<ul *ngIf="isSelectCountry" class="countries-contaier">
+    {{selectedCountry?.name}}
+    <ng-container>
+        <span class="country-ref">
+            <div [class.active]="selectedLiga == liga" *ngFor="let liga of selectedCountry?.country_liga" class="item">
+                <a class="ref" [routerLink]="'/liga'+liga?.link"> {{liga?.liga}}</a>
+            </div>
+        </span>
+    </ng-container>
+</ul>
+<ul class="countries-contaier" [class.margin-top-25]="selectedCountry">
     Страны
     <ng-container *ngFor="let country of countries">
         <span class="country-ref" href="">
@@ -32,14 +41,11 @@
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            {{country?.name}}
+                            <a class="ref" [routerLink]="'/country'+country?.link"> {{country?.name}}</a>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-
-                    <a class="country-ref" href="">{{'country?.name'}}</a>
-                    <a class="country-ref" href="">{{'country?.name'}}</a>
-                    <a class="country-ref" href="">{{'country?.name'}}</a>
-                    <a class="country-ref" href="">{{'country?.name'}}</a>
+                    <a *ngFor="let liga of country?.country_liga" class="country-ref ref"
+                        [routerLink]="'/liga'+liga?.link">{{liga?.liga}}</a>
 
                 </mat-expansion-panel>
             </mat-accordion>

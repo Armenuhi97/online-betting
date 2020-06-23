@@ -26,16 +26,16 @@
   <div *ngIf="!isNext">
     <div class="form_group">
       <label for="">Страна</label>
-      <p-dropdown [options]="countries" formControlName="country"></p-dropdown>
+      <p-dropdown [options]="countries" placeholder="Нажмите чтобы выбрать" optionLabel="name" formControlName="country"></p-dropdown>
     </div>
     <div class="form_group">
       <label for="">Вид спорта</label>
-      <p-dropdown [options]="sportTypes" optionLabel="name" formControlName="sportType"></p-dropdown>
+      <p-dropdown [options]="sportTypes" placeholder="Нажмите чтобы выбрать" optionLabel="name" formControlName="sportType"></p-dropdown>
     </div>
   </div>
   <div *ngIf="isNext" class="form_group">
     <label for="">Лига</label>
-    <p-dropdown [options]="ligas" optionLabel="name" formControlName="liga"></p-dropdown>
+    <p-dropdown [options]="ligas" placeholder="Нажмите чтобы выбрать" optionLabel="liga" formControlName="liga"></p-dropdown>
   </div>
   <div class="bottom_btns">
     <button class="find_btn" (click)="find()">Найти</button>

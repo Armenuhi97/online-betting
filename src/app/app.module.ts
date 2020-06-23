@@ -9,6 +9,7 @@ import { ApiInterceptor } from './com/annaniks/online-betting/interceptors/api.i
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service'
 import { LoginService } from './com/annaniks/online-betting/services/login.service';
+import { AppService } from './com/annaniks/online-betting/services/app.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,6 +27,7 @@ import { LoginService } from './com/annaniks/online-betting/services/login.servi
       useClass: ApiInterceptor,
       multi: true
     },
+    AppService,
     LoginService,
     CookieService,
     {

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'tournament-view',
@@ -100,10 +101,13 @@ export class TournamentView {
         }
     ]
     public selectedTour = 0;
-    constructor() { }
+    constructor(private _activatedRoute:ActivatedRoute) { }
+
     ngOnInit() { }
+
     public selectTour(tour, index: number) {
         this.selectedTour = index
     }
+  
     ngOnDestroy() { }
 }

@@ -1,0 +1,8 @@
+<div class="table_content">
+    <div class="table_item" *ngFor="let table of tables;let i=index">
+        <div class="display-flex">
+            <img [src]="'https://www.flashscore.ru/'+table?.logo" alt="">
+        </div>
+        <div>{{table?.name}}</div>
+    </div>
+</div>
