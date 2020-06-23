@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Country } from '../../../models/country';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'country-view',
@@ -14,7 +15,7 @@ export class CountryView {
     private _paramsSubscription: Subscription;
     public selectedCountry:Country
     constructor(private _activatedRoute: ActivatedRoute, private _mainService: MainService,
-        private _appService: AppService) { }
+        private _appService: AppService,private _title:Title) { }
 
     ngOnInit() {
         this._checkProductId()
@@ -25,6 +26,8 @@ export class CountryView {
             if (params && params.countryId) {
                 let countries = this._mainService.getCountry()
                 this.selectedCountry = this._appService.checkPropertyValue(this._appService.filterArray(countries, 'link', `/${params.sportTipe}/${params.countryId}/`),0);
+             if(this.selectedCountry)
+                this._title.setTitle(this.selectedCountry.name)
             }
 
         })

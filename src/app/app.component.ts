@@ -7,7 +7,7 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'online-betting';
+  title = 'СпортКлик';
   constructor(private router: Router) { }
 
   ngOnInit() {

@@ -8,6 +8,7 @@ import { LigaService } from './liga.service';
 import { takeUntil, map } from 'rxjs/operators';
 import { ServerResponse, Team, Tour } from '../../../models/model';
 import { LoadingService } from '../../../services';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'liga-view',
@@ -15,7 +16,7 @@ import { LoadingService } from '../../../services';
     styleUrls: ['liga.view.scss']
 })
 export class Ligaview {
-    public tours:Tour[] = []
+    public tours: Tour[] = []
     public calendares = []
     public selectedTour = 0;
     private _paramsSubscription: Subscription;
@@ -25,7 +26,8 @@ export class Ligaview {
     private _subscription: Subscription;
     constructor(private _activatedRoute: ActivatedRoute,
         private _ligaService: LigaService, private _loadinService: LoadingService,
-        private _mainService: MainService, private _appService: AppService) { }
+        private _mainService: MainService, private _appService: AppService,
+        private _title:Title) { }
     ngOnInit() {
         this._checkProductId()
     }
@@ -36,7 +38,9 @@ export class Ligaview {
                 let seletedCountry = this._appService.filterArray(countries, 'link', `/${params.sportTipe}/${params.countryId}/`);
                 if (params.ligaName)
                     if (seletedCountry && seletedCountry[0] && seletedCountry[0].country_liga) {
-                        this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportTipe}/${params.countryId}/${params.ligaName}/`), 0)
+                        this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportTipe}/${params.countryId}/${params.ligaName}/`), 0);
+                        if (this.liga)
+                            this._title.setTitle(this.liga.liga)
                         if (this.liga)
                             this._combineObservable()
                     }
@@ -44,13 +48,13 @@ export class Ligaview {
 
         })
     }
-    private _getTablesByLiga():Observable<ServerResponse<Team[]>> {
+    private _getTablesByLiga(): Observable<ServerResponse<Team[]>> {
         return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<Team[]>) => {
             this.tables = data.results;
             return data
         }))
     }
-    private _getTours():Observable<ServerResponse<Tour[]>> {
+    private _getTours(): Observable<ServerResponse<Tour[]>> {
         return this._ligaService.getTour(this.liga.id).pipe(map((data: ServerResponse<Tour[]>) => {
             this.tours = data.results;
             return data
