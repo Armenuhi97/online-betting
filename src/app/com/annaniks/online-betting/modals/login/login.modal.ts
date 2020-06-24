@@ -55,8 +55,9 @@ export class LoginModal implements OnInit, OnDestroy {
             .subscribe((data: any) => {
                 this._cookieService.set('accessToken', data.access);
                 this._cookieService.set('refreshToken', data.refresh);
-                this._loginService.authorizedEvent$.next(true);
-                this._dialogRef.close(true)
+                // this._loginService.authorizedEvent$.next(true);
+                // this._dialogRef.close(true);
+                window.location.reload();
             })
 
     }

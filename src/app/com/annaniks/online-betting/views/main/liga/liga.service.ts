@@ -18,7 +18,9 @@ export class LigaService {
     }
     public getMatch(tourId: number) {
         let reqUrl = `match/?tur=${tourId}`
-        if (this._loginService.getAuthState()) {
+        console.log(this._loginService.getAuthStateSync());
+
+        if (this._loginService.getAuthStateSync()) {
             reqUrl = `match-bet/?tur=${tourId}`
         }
         return this._httpClient.get(reqUrl)

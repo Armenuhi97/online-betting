@@ -47,7 +47,7 @@ export class CalendarComponent implements OnInit {
 
     private _setFormArrayControls(): void {
         const controls: AbstractControl[] = this.matches.map((element) => {
-            const isAlreadySelected = element.match_client_bet.length > 0
+            const isAlreadySelected = element.match_client_bet && element.match_client_bet.length > 0
             return new FormControl(Object.assign({}, element, {
                 matchStatus: isAlreadySelected ? element.match_client_bet[0]['game_output'] : null,
                 selectedId: isAlreadySelected ? element.match_client_bet[0]['id'] : null,

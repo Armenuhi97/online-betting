@@ -10,10 +10,10 @@
                 <button (click)="openLoginModal()" class="registration_btn">Войти</button>
                 <button (click)="registrationModal()" class="login_btn">Регистрация</button>
             </div>
+            <a class="item margin-left-10" routerLinkActive="active" routerLink="/user">Личный кабинет</a>
             <div class="buttons" *ngIf="isAuthorized">
                 <button (click)="logout()" class="logout-btn">Logout</button>
             </div>
-            <a class="item margin-left-10" routerLinkActive="active" routerLink="/user">Личный кабинет</a>
         </div>
     </div>
 </div>
