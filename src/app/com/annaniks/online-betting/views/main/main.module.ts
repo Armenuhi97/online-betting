@@ -21,6 +21,6 @@ import { LoadingComponent } from '../../loading/loading.component';
     ],
     entryComponents: [LoginModal, RegistrationModal],
     imports: [SharedModule, MainRoutingModule],
-    providers: [MainService, MenuService, LoadingService]
+    providers: [MenuService, LoadingService]
 })
 export class MainModule { }

@@ -1,38 +1,57 @@
-.tour-list{
-    color: white;
-    max-width:100%;
-    overflow-x: scroll;
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    margin-right: 20px;
-    .tour{
-      padding: 7px;
-      cursor: pointer;
-      white-space: nowrap;
-  
+.tour-list {
+  color: white;
+  max-width: 100%;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+  padding: 15px 15px 15px 0;
+  margin-right: 20px;
+  .tour {
+    cursor: pointer;
+    border: 1px solid;
+    white-space: nowrap;
+    padding: 10px 20px;
+    margin: 0 5px;
+    &:first-child {
+      margin-left: 0;
     }
-   
   }
-  .active{
-    text-decoration: underline;
+}
+.save-bets {
+  margin-top: 60px;
+  display: flex;
+  justify-content: flex-end;
+  .save {
+    border-radius: 6px;
+    background-color: rgb(51, 153, 204);
+    width: 427px;
+    height: 50px;
+    border: none;
+    font-family: "SF UI Display SemiBold";
+    font-size: 18px;
+    color: white;
   }
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+.active {
+  text-decoration: underline;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

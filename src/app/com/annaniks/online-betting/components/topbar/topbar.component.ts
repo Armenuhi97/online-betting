@@ -2,6 +2,10 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { LoginModal, RegistrationModal } from '../../modals';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../services/menu.service';
+import { LoginService } from '../../services';
+import { CookieService } from 'ngx-cookie-service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-topbar',
@@ -9,11 +13,25 @@ import { MenuService } from '../../services/menu.service';
     styleUrls: ['topbar.component.scss']
 })
 export class TopbarComponent implements OnInit, OnDestroy {
-    public isAuthorizated: boolean = false;
-    
-    constructor(private _matDialog: MatDialog, private _menuListService: MenuService) { }
+    private _unsubscribe$ = new Subject<void>();
+    public isAuthorized = false;
+    constructor(
+        private _matDialog: MatDialog,
+        private _menuListService: MenuService,
+        public loginService: LoginService,
+        private _cookieService: CookieService
+    ) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.checkIfAuthorized();
+    }
+
+    public checkIfAuthorized(): void {
+        this.loginService.getAuthState().pipe(takeUntil(this._unsubscribe$)).subscribe((state: boolean) => {
+            this.isAuthorized = state
+            // if (this.isAuthorized) window.location.reload()
+        })
+    }
 
     public openLoginModal() {
         let dialog = this._matDialog.open(LoginModal, {
@@ -23,6 +41,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
         })
         dialog.afterClosed().subscribe((data) => { })
     }
+
     public registrationModal() {
         let dialog = this._matDialog.open(RegistrationModal, {
             width: '371px',
@@ -35,8 +54,18 @@ export class TopbarComponent implements OnInit, OnDestroy {
             }
         })
     }
-    ngOnDestroy() { }
+
+    public logout(): void {
+        this._cookieService.deleteAll();
+        this.loginService.authorizedEvent$.next(false);
+    }
+
     get companyMenuList() {
         return this._menuListService.getMainMenuItems()
+    }
+
+    ngOnDestroy() {
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
     }
 }

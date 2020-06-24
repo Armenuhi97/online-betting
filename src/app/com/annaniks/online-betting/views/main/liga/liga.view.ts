@@ -21,7 +21,7 @@ export class Ligaview {
     public selectedTour = 0;
     private _paramsSubscription: Subscription;
     public liga: Liga;
-    public activeTabItem: string = 'table';
+    public activeTabItem: string = 'calendar';
     public tables: Team[] = [];
     private _subscription: Subscription;
     constructor(private _activatedRoute: ActivatedRoute,

@@ -3,9 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginService } from '../../services/login.service';
 import { Subscription, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { SignInModel } from '../../models/auth';
+import { LoadingService } from '../../services';
 
 @Component({
     selector: 'login-modal',
@@ -16,10 +17,13 @@ export class LoginModal implements OnInit, OnDestroy {
     public loginForm: FormGroup;
     private _unsubscribe$ = new Subject<void>()
 
-    constructor(private _fb: FormBuilder,
+    constructor(
+        private _fb: FormBuilder,
         private _loginService: LoginService,
         private _cookieService: CookieService,
-        private _dialogRef: MatDialogRef<LoginModal>,) { }
+        private _dialogRef: MatDialogRef<LoginModal>,
+        private _loadingService: LoadingService
+    ) { }
 
     ngOnInit() {
         this._validate()
@@ -37,16 +41,23 @@ export class LoginModal implements OnInit, OnDestroy {
     }
 
     public login(): void {
+        this._loadingService.showLoading();
         const formValue = this.loginForm.value;
         const sendingData: SignInModel = {
             username: formValue.email,
             password: formValue.password
         }
-        this._loginService.login(sendingData).pipe(takeUntil(this._unsubscribe$)).subscribe((data: any) => {
-            this._cookieService.set('accessToken', data.access);
-            this._cookieService.set('refreshToken', data.refresh);
-            this._dialogRef.close(true)
-        })
+        this._loginService.login(sendingData)
+            .pipe(
+                takeUntil(this._unsubscribe$),
+                finalize(() => this._loadingService.hideLoading())
+            )
+            .subscribe((data: any) => {
+                this._cookieService.set('accessToken', data.access);
+                this._cookieService.set('refreshToken', data.refresh);
+                this._loginService.authorizedEvent$.next(true);
+                this._dialogRef.close(true)
+            })
 
     }
 

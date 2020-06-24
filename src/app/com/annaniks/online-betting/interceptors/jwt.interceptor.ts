@@ -15,7 +15,6 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
-        private _router: Router
     ) {
         this._updateTokenState = this._updateTokenEvent$.asObservable();
     }
@@ -26,8 +25,9 @@ export class JwtInterceptor implements HttpInterceptor {
                 catchError((err) => {
                     const status: number = err.status;
                     const error = err.error;
-                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'refresh') {
-                        this._router.navigate(['/auth/login']);
+                    console.log(err);
+
+                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'token/refresh/') {
                         return throwError(err);
                     }
                     if (status === 401 || error.status === 401) {
@@ -43,7 +43,6 @@ export class JwtInterceptor implements HttpInterceptor {
                                         return next.handle(this._setNewHeaders(req));
                                     }
                                     else if (isUpdated === false) {
-                                        this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
                                 }),
@@ -56,23 +55,19 @@ export class JwtInterceptor implements HttpInterceptor {
 
     private _updateToken(): void {
         let params = new HttpParams();
-        let headers = new HttpHeaders();
         const refreshToken = this._cookieService.get('refreshToken');
         params = params.set('authorization', 'false');
         this._loading = true;
         if (refreshToken) {
-            headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('refreshToken'));
-            this._httpClient.post('refresh', {}, { params, headers })
+            this._httpClient.post('token/refresh/', { refresh: this._cookieService.get('refreshToken') }, { params })
                 .pipe(
                     finalize(() => this._loading = false),
                     map((data: any) => {
-                        const tokens = data.data;
+                        const tokens = data.access;
                         this._updateCookies(tokens);
                         this._updateTokenEvent$.next(true);
                     }),
                     catchError((err) => {
-                        console.log('errr');
-                        this._router.navigate(['/']);
                         this._updateTokenEvent$.next(false);
                         return throwError(false);
                     })
@@ -81,12 +76,11 @@ export class JwtInterceptor implements HttpInterceptor {
         }
         else {
             this._loading = false;
-            this._router.navigate(['/']);
         }
     }
 
     private _updateCookies(data): void {
-        this._cookieService.set('accessToken', data.accessToken);
+        this._cookieService.set('accessToken', data);
     }
 
     private _setNewHeaders(req: HttpRequest<any>): HttpRequest<any> {
