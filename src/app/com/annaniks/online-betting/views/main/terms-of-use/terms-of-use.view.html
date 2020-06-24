@@ -1,1 +1,18 @@
-<span>Пользовательские соглашение </span>
+<div class="terms-header">
+    <div class="title">Общие условия использования</div>
+</div>
+<div class="terms-content">
+    <div *ngFor="let item of terms" class="terms-wraper">
+        <div class="header">
+            <div class="number">
+                <span>
+                    {{item.id}}
+                </span>
+            </div>
+            <div class="header-text">{{item.header}}</div>
+        </div>
+        <div class="text">
+            {{item.text}}
+        </div>
+    </div>
+</div>

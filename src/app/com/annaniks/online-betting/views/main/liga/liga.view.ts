@@ -5,7 +5,7 @@ import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
 import { LigaService } from './liga.service';
-import { takeUntil, map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
 import { ServerResponse, Team, Tour } from '../../../models/model';
 import { LoadingService } from '../../../services';
 import { Title } from '@angular/platform-browser';
@@ -25,7 +25,7 @@ export class Ligaview {
     public tables: Team[] = [];
     private _subscription: Subscription;
     constructor(private _activatedRoute: ActivatedRoute,
-        private _ligaService: LigaService, private _loadinService: LoadingService,
+        private _ligaService: LigaService, private _loadingService: LoadingService,
         private _mainService: MainService, private _appService: AppService,
         private _title: Title) { }
     ngOnInit() {
@@ -35,10 +35,10 @@ export class Ligaview {
         this._paramsSubscription = this._activatedRoute.params.subscribe((params) => {
             if (params && params.countryId) {
                 let countries = this._mainService.getCountry()
-                let seletedCountry = this._appService.filterArray(countries, 'link', `/${params.sportTipe}/${params.countryId}/`);
+                let seletedCountry = this._appService.filterArray(countries, 'link', `/${params.sportType}/${params.countryId}/`);
                 if (params.ligaName)
                     if (seletedCountry && seletedCountry[0] && seletedCountry[0].country_liga) {
-                        this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportTipe}/${params.countryId}/${params.ligaName}/`), 0);
+                        this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportType}/${params.countryId}/${params.ligaName}/`), 0);
                         if (this.liga)
                             this._title.setTitle(this.liga.liga)
                         if (this.liga)
@@ -61,12 +61,12 @@ export class Ligaview {
         }))
     }
     private _combineObservable() {
-        this._loadinService.showLoading()
+        this._loadingService.showLoading()
         const combine = forkJoin(
             this._getTablesByLiga(),
             this._getTours()
         )
-        this._subscription = combine.subscribe(() => { this._loadinService.hideLoading() })
+        this._subscription = combine.pipe(finalize(() => this._loadingService.hideLoading())).subscribe()
     }
     public selectTour(tour, index: number) {
         this.selectedTour = index

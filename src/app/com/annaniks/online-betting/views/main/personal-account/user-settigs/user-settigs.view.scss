@@ -1,22 +1,109 @@
 
-    .form_group{
+    .settings-form{
         // width: 70%;
-        width: 100%;
-        margin: 10px auto 0 auto;    
-        label{color:white}  
+        width: 600px;
+        margin: 10px auto 0 auto;   
+        display: flex;
+        flex-direction: column; 
+        label{
+            color:#e6e6e6;
+            font-size: 16px;
+        } 
+        input{
+            margin-top: 10px;
+            width: 600px;
+            padding: 16px 8px;
+            font-size: 16px;
+            color: #e6e6e6;
+            background-color: #414141;
+            box-sizing: border-box;
+            border: solid 1px var(--color-border-3);
+        } 
     }
 
-.save_btn{
-    margin: 10px 0;
-    text-align: center;
+.save-btn{
+    width: 600px;
+    margin: 0 auto;
     button{
-        // width: 70%;
-        width: 100%;
-        background: #009900;
-        text-transform: uppercase;
-        padding: 15px;
+        
+        padding: 16px 120px;
+        margin: 16px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'PFDINDisplayPro', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background-color: #167E00;
+        cursor: pointer;
+        white-space: nowrap;
+        box-sizing: border-box;
         border: none;
-        color: white;
-        border-radius: 6px;
+        -webkit-appearance: none;
+    }
+    
+}
+img{
+    object-fit: contain;
+}
+.image{
+    height: 150px;
+    width: 150px;
+    margin: 10px auto;
+    border: 1px solid grey;
+    position: relative;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    label{
+        cursor:pointer;
+        margin:auto
+    }
+    .camera-container{
+        position: absolute;
+        width: 100%;
+        background: #9E9E9E;
+        height: 35px;
+        bottom: 0;
+        input[type="file"] {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            position:absolute;
+            top: 0;
+            right: 0;
+            z-index: 99;
+            /*This makes the button huge. If you want a bigger button, increase the font size*/
+            font-size:50px;
+            /*Opacity settings for all browsers*/
+            opacity: 0;
+            -moz-opacity: 0;
+            filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+        }
+        .custom-file-upload{
+            position: absolute;
+            bottom: 0;
+            left: 42%;   
+            i{
+                color: white
+            }     
+      
+        }
+     }
+}
+@media screen and(max-width:1000px){
+    .save-btn{
+        width: 100% !important;
+        button{
+            padding: 14px 70px !important;
+        }
+    }
+    .settings-form{
+        width: 100% !important;
+        input{
+            width: 100% !important;
+        }
     }
 }

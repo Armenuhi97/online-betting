@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { MainService } from './main.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { LoadingService } from '../../services';
 
 @Component({
@@ -16,10 +16,12 @@ export class MainView {
         private _loadingService: LoadingService) { }
     ngOnInit() {
         this._loadingService.showLoading()
-        this._mainService.getAllCountries().pipe(takeUntil(this._unsubscribe)).subscribe(() => {
-            this.isGet = true;
-            this._loadingService.hideLoading()
-        })
+        this._mainService.getAllCountries().pipe(
+            takeUntil(this._unsubscribe),
+            finalize(() => this._loadingService.hideLoading()))
+            .subscribe(() => {
+                this.isGet = true;
+            })
     }
     ngOnDestroy() {
         this._unsubscribe.next();
