@@ -1,5 +1,9 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserSettingsService } from './user-settings.service';
+import { takeUntil, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { LoadingService } from '../../../../services';
 
 @Component({
     selector: 'user-settigs-view',
@@ -7,16 +11,42 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['user-settigs.view.scss']
 })
 export class UserSettingsView {
+    private _unsubscribe$ = new Subject<void>()
+
     public settingsGroup: FormGroup;
     private _image;
     public userImage;
-    constructor(private _fb: FormBuilder) { }
+    public countries=[]
+    constructor(private _fb: FormBuilder, private _loadingService:LoadingService,
+        private _userSettingsService:UserSettingsService
+        ) { }
     ngOnInit() {
-        this._validate()
+        this._validate();
+        this._getCountries()
     }
+    public a(item){
+        console.log(item);
+        
+    }
+    private _getCountries(){
+        this._loadingService.showLoading()
+        this._userSettingsService.getContries().pipe(takeUntil(this._unsubscribe$),
+       ).subscribe((data:any) => {
+            console.log(data);
+            this.countries = data;
+            for (let codes of this.countries) {
+              codes["flag"] = 'assets/png100px/' + codes.code.toLocaleLowerCase() + '.png';
+            //   codes['isActive'] = false
+            }
+            this._loadingService.hideLoading()
+            // this.allCountryCodes=this.countryCodes
+          })
+    }
+   
     private _validate(): void {
         this.settingsGroup = this._fb.group({
-            name: [null]
+            name: [null],
+            country:[null]
           
             // email: [null, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
             // password:[null]
@@ -50,5 +80,8 @@ export class UserSettingsView {
     }
     public save(){}
     
-    ngOnDestroy(){}
+    ngOnDestroy() {
+        this._unsubscribe$.next()
+        this._unsubscribe$.complete()
+    }
 }
