@@ -1,5 +1,16 @@
 <form class="form" action="" [formGroup]="settingsGroup">
-    <div class="form_group">
+    <div [ngStyle]="{'background-image':userImage}" class="image">
+        <div class="camera-container">
+          <input id="file-upload" (change)="changeImage($event)" type="file" accept="image/*"/>
+          <label  for="file-upload" class="custom-file-upload">
+            <i class="material-icons">
+              camera_alt
+            </i>
+      
+          </label>
+        </div>
+      </div>
+    <div class="settings-form">
         <label for="">Имя</label>
         <input type="text" formControlName="name">
         <p class="required-field"
@@ -7,7 +18,7 @@
             обязательное поле *</p>
     </div>
 
-    <div class="form_group">
+    <!-- <div class="settings-form">
         <label for="">Email</label>
         <input type="email" formControlName="email">
         <p class="required-field"
@@ -17,14 +28,14 @@
             *ngIf="settingsGroup.get('email').hasError('pattern') && settingsGroup.get('email').touched">Введите
             правильный email *</p>
     </div>
-    <div class="form_group">
+    <div class="settings-form">
         <label for="">Пароль</label>
         <input type="text" formControlName="password">
         <p class="required-field"
             *ngIf="settingsGroup.get('password').hasError('required') && settingsGroup.get('password').touched">Это
             обязательное поле *</p>
-    </div>
-    <div class="save_btn">
+    </div> -->
+    <div class="save-btn">
         <button [disabled]="settingsGroup.invalid" (click)="save()">Сохранить</button>
     </div>
 </form>

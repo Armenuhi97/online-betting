@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { LoadingService } from '../../services';
 
 @Component({
@@ -31,9 +31,13 @@ export class CalendarComponent {
 
     private _getMatches(tourId: number):void {
         this._loadingService.showLoading()
-        this._ligaService.getMatch(tourId).pipe(takeUntil(this._unsubscribe$)).subscribe((data: ServerResponse<Match[]>) => {
-            this.matches = data.results;
-            this._loadingService.hideLoading()
+        this._ligaService.getMatch(tourId)
+        .pipe(
+            takeUntil(this._unsubscribe$),
+            finalize(()=>this._loadingService.hideLoading())
+            )
+        .subscribe((data: ServerResponse<Match[]>) => {
+            this.matches = data.results;            
         })
     }
     public selectTour(tour, index: number) {
