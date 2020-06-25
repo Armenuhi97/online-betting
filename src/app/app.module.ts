@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service'
 import { LoginService } from './com/annaniks/online-betting/services/login.service';
 import { AppService } from './com/annaniks/online-betting/services/app.service';
+import { JwtInterceptor } from './com/annaniks/online-betting/interceptors/jwt.interceptor';
+import { AuthGuard } from './com/annaniks/online-betting/guards/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -27,13 +30,21 @@ import { AppService } from './com/annaniks/online-betting/services/app.service';
       useClass: ApiInterceptor,
       multi: true
     },
-    AppService,
-    LoginService,
-    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
     {
       provide: 'BASE_URL',
       useValue: environment.API_URL
-    },],
+    },
+    AppService,
+    LoginService,
+    CookieService,
+    AuthGuard
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

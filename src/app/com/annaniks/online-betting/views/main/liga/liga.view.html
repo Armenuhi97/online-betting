@@ -10,14 +10,15 @@
 
 <div class="detail_container">
     <div class="tab_bar">
-        <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem ==='table'}"
-            (click)="onClickTabItem('table')">
-            <span class="label">Таблица</span>
-        </div>
         <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem==='calendar'}"
             (click)="onClickTabItem('calendar')">
             <span class="label">Календарь</span>
         </div>
+        <div class="tab_item" [ngClass]="{'activeTabItem' : activeTabItem ==='table'}"
+            (click)="onClickTabItem('table')">
+            <span class="label">Таблица</span>
+        </div>
+
 
     </div>
     <div class="tabs_content" [ngSwitch]="activeTabItem">

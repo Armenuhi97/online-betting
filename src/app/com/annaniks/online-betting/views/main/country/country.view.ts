@@ -25,7 +25,7 @@ export class CountryView {
         this._paramsSubscription = this._activatedRoute.params.subscribe((params) => {
             if (params && params.countryId) {
                 let countries = this._mainService.getCountry()
-                this.selectedCountry = this._appService.checkPropertyValue(this._appService.filterArray(countries, 'link', `/${params.sportTipe}/${params.countryId}/`),0);
+                this.selectedCountry = this._appService.checkPropertyValue(this._appService.filterArray(countries, 'link', `/${params.sportType}/${params.countryId}/`),0);
              if(this.selectedCountry)
                 this._title.setTitle(this.selectedCountry.name)
             }

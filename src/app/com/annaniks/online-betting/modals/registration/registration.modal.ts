@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { LoginService } from '../../services/login.service';
 import { CookieService } from 'ngx-cookie-service';
+import { SignUpModel } from '../../models/auth';
 
 @Component({
     selector: 'registration-modal',
@@ -14,7 +15,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class RegistrationModal implements OnInit, OnDestroy {
     public registrationForm: FormGroup;
-    unsubscribe$ = new Subject<void>()
+    private _unsubscribe$ = new Subject<void>()
+
     constructor(private _fb: FormBuilder,
         private _loginService: LoginService,
         private _cookieService: CookieService,
@@ -23,31 +25,44 @@ export class RegistrationModal implements OnInit, OnDestroy {
     ngOnInit() {
         this._validate()
     }
+
     private _validate(): void {
         this.registrationForm = this._fb.group({
-            name: [null, Validators.required],
-            email: [null, [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
+            firstName: [null, Validators.required],
+            lastName: [null, Validators.required],
+            email: [null, [Validators.required, Validators.email,
+            Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$/)]],
             password: [null, Validators.required],
             confirmPassword: [null, Validators.required],
-            isAgree: [false]
-        },
-            {
-                validator: PasswordValidation.MatchPassword
-            })
+            isAgree: [false, Validators.requiredTrue]
+        }, { validator: PasswordValidation.MatchPassword })
     }
+
     public close(): void {
         this._dialogRef.close(false)
     }
+
     public registration(): void {
-        this._loginService.registration(this.registrationForm.value).pipe(takeUntil(this.unsubscribe$)).subscribe((data: any) => {
-            this._cookieService.set('accessToken', data.access);
-            this._dialogRef.close(true)
-        })
+        const formValue = this.registrationForm.value;
+        const sendingData: SignUpModel = {
+            user: {
+                email: formValue.email,
+                first_name: formValue.firstName,
+                last_name: formValue.lastName,
+                password: formValue.password
+            }
+        };
+        this._loginService.registration(sendingData)
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe((data: any) => {
+                this._cookieService.set('accessToken', data.access);
+                this._dialogRef.close(true)
+            })
     }
 
     ngOnDestroy() {
-        this.unsubscribe$.next()
-        this.unsubscribe$.complete()
+        this._unsubscribe$.next()
+        this._unsubscribe$.complete()
     }
 
 }
