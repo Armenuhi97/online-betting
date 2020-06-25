@@ -47,7 +47,7 @@ export class UserSettingsView {
             this.settingsGroup.patchValue({
                 firstName: this._user.user.first_name,
                 lastName: this._user.user.last_name,
-                country: this._appService.checkPropertyValue(this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0),'name')
+                country: this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0)
             })            
             this.userImage = 'url(' + this._user.image + ')'
         }
