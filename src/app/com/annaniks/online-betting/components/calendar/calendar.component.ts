@@ -3,10 +3,12 @@ import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
-import { LoadingService } from '../../services';
+import { LoadingService, LoginService } from '../../services';
 import { AbstractControl, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { BetService } from '../../services/bet.service';
 import { SendBetsModel } from '../../models/bet';
+import { LoginModalComponent } from '../../modals';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-calendar',
@@ -34,7 +36,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
         private _ligaService: LigaService,
         private _loadingService: LoadingService,
         private _fb: FormBuilder,
-        private _betService: BetService
+        private _betService: BetService,
+        private _loginService: LoginService,
+        private _matDialog: MatDialog,
     ) { }
 
     ngOnInit() {
@@ -69,7 +73,27 @@ export class CalendarComponent implements OnInit, OnDestroy {
             });
     }
 
-    public sendBets(): void {
+    public openLoginModal() {
+        const dialog = this._matDialog.open(LoginModalComponent, {
+            width: '371px',
+            maxHeight: '80vh',
+        });
+        return dialog;
+    }
+
+
+    public onSendBets(): void {
+        if (!this._loginService.getAuthStateSync()) {
+            this.openLoginModal().afterClosed().subscribe((status) => {
+                if (status) {
+                    this._sendBets();
+                }
+            });
+            return;
+        }
+    }
+
+    private _sendBets(): void {
         this._loadingService.showLoading();
         this._betService.sendBets(this._formatBeforeRequest())
             .pipe(
