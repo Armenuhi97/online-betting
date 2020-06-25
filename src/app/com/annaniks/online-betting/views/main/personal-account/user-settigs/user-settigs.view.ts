@@ -34,7 +34,6 @@ export class UserSettingsView {
         this._userSettingsService.getContries().pipe(takeUntil(this._unsubscribe$),
             finalize(() => this._loadingService.hideLoading())
         ).subscribe((data: any) => {
-            console.log(data);
             this.countries = data;
             for (let codes of this.countries) {
                 codes["flag"] = 'assets/png100px/' + codes.code.toLocaleLowerCase() + '.png';
@@ -49,10 +48,7 @@ export class UserSettingsView {
                 firstName: this._user.user.first_name,
                 lastName: this._user.user.last_name,
                 country: this._appService.checkPropertyValue(this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0),'name')
-            })
-            console.log(this._user);
-            console.log(this.settingsGroup.value);
-            
+            })            
             this.userImage = 'url(' + this._user.image + ')'
         }
     }
@@ -82,9 +78,7 @@ export class UserSettingsView {
         if (this._image && this._image.target) {
             let fileList: FileList = this._image.target.files;            
             if (fileList.length > 0) {
-                let file: File = fileList[0];
-                console.log(file);
-                
+                let file: File = fileList[0];                
                 formData.append('image', file, file.name);
             }
         }
