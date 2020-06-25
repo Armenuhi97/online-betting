@@ -3,7 +3,8 @@ import { Match } from '../../models/model';
 import { NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
+import { AppService } from '../../services';
+import * as moment from 'moment';
 @Component({
     selector: 'app-betting-card',
     templateUrl: 'betting-card.component.html',
@@ -24,7 +25,7 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
     public matchControl = new FormControl(null);
     public matchData: Match = null;
 
-    constructor() { }
+    constructor(private _appService: AppService) { }
 
     ngOnInit() {
         this._handleNameControlChanges();
@@ -58,6 +59,10 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
 
     public onTouch = (value: Match) => { };
 
+    public convertDate(date:string) {
+        const timeZone = moment.tz.guess();
+        return this._appService.convertDate(timeZone, date)
+    }
     get statusCtrlValue(): string {
         return this.matchControl.value;
     }
