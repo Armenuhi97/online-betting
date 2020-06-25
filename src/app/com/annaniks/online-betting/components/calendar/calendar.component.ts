@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
 import { Subject } from 'rxjs';
@@ -13,7 +13,7 @@ import { SendBetsModel } from '../../models/bet';
     templateUrl: 'calendar.component.html',
     styleUrls: ['calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
     @Input('tours')
     set setTours($event: Tour[]) {
         this.tours = $event;
@@ -21,13 +21,13 @@ export class CalendarComponent implements OnInit {
             this._getMatches(this.tours[0].id);
             this.selectedTour = 0;
         } else {
-            this.matches = []
+            this.matches = [];
         }
     }
-    private _unsubscribe$ = new Subject<void>()
-    public tours: Tour[] = []
-    public selectedTour: number
-    public matches: Match[] = []
+    private _unsubscribe$ = new Subject<void>();
+    public tours: Tour[] = [];
+    public selectedTour: number;
+    public matches: Match[] = [];
     public matchesForm: FormArray;
 
     constructor(
@@ -47,26 +47,30 @@ export class CalendarComponent implements OnInit {
 
     private _setFormArrayControls(): void {
         const controls: AbstractControl[] = this.matches.map((element) => {
-            const isAlreadySelected = element.match_client_bet && element.match_client_bet.length > 0
+            const isAlreadySelected = element.match_client_bet && element.match_client_bet.length > 0;
             return new FormControl(Object.assign({}, element, {
-                matchStatus: isAlreadySelected ? element.match_client_bet[0]['game_output'] : null,
-                selectedId: isAlreadySelected ? element.match_client_bet[0]['id'] : null,
+                matchStatus: isAlreadySelected ? element.match_client_bet[0].game_output : null,
+                selectedId: isAlreadySelected ? element.match_client_bet[0].id : null,
             }));
         });
         this.matchesForm.controls = controls;
     }
 
     private _getMatches(tourId: number): void {
-        this._loadingService.showLoading()
-        this._ligaService.getMatch(tourId).pipe(takeUntil(this._unsubscribe$)).subscribe((data: ServerResponse<Match[]>) => {
-            this.matches = data.results;
-            this._setFormArrayControls();
-            this._loadingService.hideLoading()
-        })
+        this._loadingService.showLoading();
+        this._ligaService.getMatch(tourId)
+            .pipe(
+                finalize(() => this._loadingService.hideLoading()),
+                takeUntil(this._unsubscribe$),
+            )
+            .subscribe((data: ServerResponse<Match[]>) => {
+                this.matches = data.results;
+                this._setFormArrayControls();
+            });
     }
 
     public sendBets(): void {
-        this._loadingService.showLoading()
+        this._loadingService.showLoading();
         this._betService.sendBets(this._formatBeforeRequest())
             .pipe(
                 takeUntil(this._unsubscribe$),
@@ -74,15 +78,13 @@ export class CalendarComponent implements OnInit {
             )
             .subscribe(response => {
                 console.log(response);
-            })
+            });
     }
 
     private _formatBeforeRequest(): SendBetsModel[] {
-        let formattedData: SendBetsModel[] = [];
-        const me = JSON.parse(localStorage.getItem('bet-user'))
-        for (let index = 0; index < this.controls.length; index++) {
-
-            const element = this.controls[index];
+        const formattedData: SendBetsModel[] = [];
+        const me = JSON.parse(localStorage.getItem('bet-user'));
+        for (const element of this.controls) {
             console.log(element);
             if (element.value.matchStatus != null) {
                 formattedData.push({
@@ -90,15 +92,16 @@ export class CalendarComponent implements OnInit {
                     client: me.url,
                     match: element.value.url,
                     id: element.value.selectedId
-                })
+                });
             }
         }
-        return formattedData
+
+        return formattedData;
     }
 
     public selectTour(tour, index: number) {
         this.selectedTour = index;
-        this._getMatches(tour.id)
+        this._getMatches(tour.id);
     }
 
 
@@ -108,8 +111,8 @@ export class CalendarComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this._unsubscribe$.next()
-        this._unsubscribe$.complete()
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
     }
 
 

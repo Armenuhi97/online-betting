@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     });
   }
 
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this._unsubscribe$),
         switchMap(() => {
-          return this._mainService.getMe()
+          return this._mainService.getMe();
         })
       ).subscribe();
   }

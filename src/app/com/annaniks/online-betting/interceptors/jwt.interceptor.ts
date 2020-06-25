@@ -10,12 +10,12 @@ import { CookieService } from 'ngx-cookie-service';
 export class JwtInterceptor implements HttpInterceptor {
     private _updateTokenEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
     private _updateTokenState: Observable<boolean>;
-    private _loading: boolean = false;
+    private _loading = false;
 
     constructor(
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
-        private  _router:Router
+        private _router: Router
     ) {
         this._updateTokenState = this._updateTokenEvent$.asObservable();
     }
@@ -28,11 +28,11 @@ export class JwtInterceptor implements HttpInterceptor {
                     const error = err.error;
                     console.log(err);
 
-                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'token/refresh/') {                       
+                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'token/refresh/') {
                         return throwError(err);
                     }
-                    if (status === 401 || error.status === 401) {                        
-                        if (!this._loading) {                            
+                    if (status === 401 || error.status === 401) {
+                        if (!this._loading) {
                             this._updateToken();
                         }
                         return this._updateTokenState
@@ -47,7 +47,7 @@ export class JwtInterceptor implements HttpInterceptor {
                                         return throwError(false);
                                     }
                                 }),
-                            )
+                            );
                     }
                     return throwError(err);
                 })
@@ -76,22 +76,22 @@ export class JwtInterceptor implements HttpInterceptor {
                 .subscribe();
         }
         else {
-            this._router.navigate(['/'])
+            this._router.navigate(['/']);
             this._loading = false;
         }
     }
 
     private _updateCookies(data): void {
-        this._cookieService.set('accessToken', data,null,'/');
+        this._cookieService.set('accessToken', data, null, '/');
     }
 
     private _setNewHeaders(req: HttpRequest<any>): HttpRequest<any> {
         let httpHeaders: HttpHeaders = req.headers;
         httpHeaders = httpHeaders.delete('Authorization');
-        httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + this._cookieService.get('accessToken') || '')
+        httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + this._cookieService.get('accessToken') || '');
         const clonedReq = req.clone({
             headers: httpHeaders
-        })
+        });
         return clonedReq;
     }
 }

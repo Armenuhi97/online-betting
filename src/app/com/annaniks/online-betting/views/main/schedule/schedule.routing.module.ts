@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ScheduleView } from './schedule.view';
-let scheduleRoutes:Routes=[{path:'',component:ScheduleView}]
+import { ScheduleViewComponent } from './schedule.view';
+const scheduleRoutes: Routes = [{ path: '', component: ScheduleViewComponent }];
 @NgModule({
-    imports:[RouterModule.forRoot(scheduleRoutes)],
-    exports:[RouterModule]
+    imports: [RouterModule.forRoot(scheduleRoutes)],
+    exports: [RouterModule]
 })
-export class ScheduleRoutingModule{}
+export class ScheduleRoutingModule { }

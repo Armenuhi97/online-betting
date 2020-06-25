@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'sport-view',
+    selector: 'app-sport-view',
     templateUrl: 'sport.view.html',
     styleUrls: ['sport.view.scss']
 })
-export class SportView { }
+export class SportViewComponent { }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, OnDestroy } from "@angular/core";
+import { Component, Input, OnInit, forwardRef, OnDestroy } from '@angular/core';
 import { Match } from '../../models/model';
 import { NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -19,7 +19,7 @@ import * as moment from 'moment';
 })
 export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAccessor {
 
-    @Input() item
+    @Input() item;
 
     private unsubscribe$ = new Subject<void>();
     public matchControl = new FormControl(null);
@@ -59,17 +59,17 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
 
     public onTouch = (value: Match) => { };
 
-    public convertDate(date:string) {
+    public convertDate(date: string) {
         const timeZone = moment.tz.guess();
-        return this._appService.convertDate(timeZone, date)
+        return this._appService.convertDate(timeZone, date);
     }
     get statusCtrlValue(): string {
         return this.matchControl.value;
     }
 
     ngOnDestroy() {
-        this.unsubscribe$.next()
-        this.unsubscribe$.complete()
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
 
     }
 

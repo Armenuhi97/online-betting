@@ -82,7 +82,9 @@
     ],
     "semicolon": {
       "options": [
-        "always"
+        true,
+        "always",
+        "ignore-interfaces"
       ]
     },
     "space-before-function-paren": {
@@ -114,6 +116,7 @@
     },
     "variable-name": {
       "options": [
+        "allow-leading-underscore",
         "ban-keywords",
         "check-format",
         "allow-pascal-case"

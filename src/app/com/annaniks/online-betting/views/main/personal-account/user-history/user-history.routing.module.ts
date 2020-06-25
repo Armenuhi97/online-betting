@@ -1,7 +1,9 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserHistoryView } from './user-history.view';
-let userHistoryRoutes: Routes = [{ path: '', component: UserHistoryView }]
+import { UserHistoryViewComponent } from './user-history.view';
+
+const userHistoryRoutes: Routes = [{ path: '', component: UserHistoryViewComponent }];
+
 @NgModule({
     imports: [RouterModule.forChild(userHistoryRoutes)],
     exports: [RouterModule]

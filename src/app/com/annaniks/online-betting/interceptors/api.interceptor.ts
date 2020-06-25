@@ -2,7 +2,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subscriber } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 const API_URL = environment.API_URL;
 function checkIsRelativePath(path: string): boolean {
@@ -22,15 +22,15 @@ export class ApiInterceptor implements HttpInterceptor {
             params = req.params;
             if (req.params.get('isAuthorized') === 'true') {
                 params = req.params.delete('isAuthorized');
-                let token: string = this._cookieService.get('accessToken') || '';
-                httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token)
+                const token: string = this._cookieService.get('accessToken') || '';
+                httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
             }
             const clonedRequest = req.clone({
                 url: `${API_URL}${req.url}`,
                 headers: httpHeaders,
-                params: params
+                params
             });
-            return next.handle(clonedRequest)
+            return next.handle(clonedRequest);
         }
         else {
             return next.handle(req);

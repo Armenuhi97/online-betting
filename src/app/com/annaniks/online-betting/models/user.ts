@@ -9,5 +9,4 @@ export interface UserModel {
         last_name: string,
         password: string,
     }
-
 }

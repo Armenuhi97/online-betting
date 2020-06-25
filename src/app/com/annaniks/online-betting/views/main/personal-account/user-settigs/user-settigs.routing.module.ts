@@ -1,9 +1,12 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserSettingsView } from './user-settigs.view';
-let userSettingsRoutes: Routes = [{ path: '', component: UserSettingsView }]
+import { UserSettingsViewComponent } from './user-settigs.view';
+
+const userSettingsRoutes: Routes = [{ path: '', component: UserSettingsViewComponent }];
+
 @NgModule({
     imports: [RouterModule.forChild(userSettingsRoutes)],
     exports: [RouterModule]
 })
 export class UserSettingsRoutingModule { }
+
