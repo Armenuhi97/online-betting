@@ -48,7 +48,7 @@ export class UserSettingsView {
             this.settingsGroup.patchValue({
                 firstName: this._user.user.first_name,
                 lastName: this._user.user.last_name,
-                country: this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0)
+                country: this._appService.checkPropertyValue(this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0),'name')
             })
             this.userImage = 'url(' + this._user.image + ')'
         }
@@ -90,7 +90,7 @@ export class UserSettingsView {
             formData.append('user.first_name', this.settingsGroup.get('firstName').value);
         if (this.settingsGroup.get('lastName').value)
             formData.append('user.last_name', this.settingsGroup.get('lastName').value);
-        let country = this._appService.checkPropertyValue(this.settingsGroup.get('country').value, 'name');
+        let country = this.settingsGroup.get('country').value;
         if (country) {
             formData.append('country', country);
         }        
@@ -98,9 +98,8 @@ export class UserSettingsView {
         this._userSettingsService.updateClient(formData, this._user.id).pipe(takeUntil(this._unsubscribe$),
             finalize(() => this._loadingService.hideLoading()),
             switchMap(() => { return this._mainService.getMe() })).subscribe()
-
-
     }
+    
     public save() {
         this._setFormData()
     }

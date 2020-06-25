@@ -94,3 +94,14 @@ body {
 .mat-expansion-indicator::after{
   color: white;
 }
+mat-option{
+.mat-option-text{
+  .mat-option-text{
+    display: flex;
+    align-items: center;
+    span{
+        margin-left: 10px;
+    }
+}
+}
+}
