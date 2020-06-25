@@ -50,6 +50,9 @@ export class UserSettingsView {
                 lastName: this._user.user.last_name,
                 country: this._appService.checkPropertyValue(this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0),'name')
             })
+            console.log(this._user);
+            console.log(this.settingsGroup.value);
+            
             this.userImage = 'url(' + this._user.image + ')'
         }
     }

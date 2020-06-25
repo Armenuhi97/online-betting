@@ -13,29 +13,30 @@
   <div class="settings-form">
     <label for="">Имя</label>
     <input type="text" formControlName="firstName">
-   
+
   </div>
   <div class="settings-form">
     <label for="">Фамилия</label>
     <input type="text" formControlName="lastName">
-  
+
   </div>
   <div class="settings-form">
-    <label for="">Страна</label>   
-      <mat-form-field >
-        <input matInput
-               placeholder="Выберите страну"
-               aria-label="country"
-               [matAutocomplete]="auto"
-               formControlName="country">
+    <label for="">Страна</label>
+    <p-dropdown [options]="countries" optionLabel="name" formControlName="country" placeholder="Выберите страну"
+      filter="true"></p-dropdown>
+    <!-- <mat-form-field>
+      <mat-form-field-control>
+        <input matInput placeholder="Выберите страну" aria-label="country" [matAutocomplete]="auto"
+          formControlName="country">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let country of countries" [value]="country?.name">
             <img class="example-option-img" aria-hidden [src]="country?.flag" height="25">
-            <span>{{country?.name}}</span> 
+            <span>{{country?.name}}</span>
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
-    
+      </mat-form-field-control>
+    </mat-form-field> -->
+
   </div>
 
   <!-- <div class="settings-form">
@@ -56,6 +57,6 @@
             обязательное поле *</p>
     </div> -->
   <div class="save-btn">
-    <button  (click)="save()">Сохранить</button>
+    <button (click)="save()">Сохранить</button>
   </div>
 </form>
