@@ -38,7 +38,7 @@ export class MainService {
     public getMe(): Observable<any> {
         return this._httpClient.get('client-get/me/').pipe(
             map((response: any) => {
-                localStorage.setItem("bet-user", JSON.stringify(response.data[0]))
+                localStorage.setItem("bet-user", JSON.stringify(response.data))
                 return response
             })
         )

@@ -24,21 +24,21 @@
 </div> -->
 <form class="form" action="" [formGroup]="selectGroup">
   <div *ngIf="!isNext">
-    <div class="form_group">
+    <div class="form-group">
       <label for="">Страна</label>
       <p-dropdown [options]="countries" placeholder="Нажмите чтобы выбрать" optionLabel="name" formControlName="country"></p-dropdown>
     </div>
-    <div class="form_group">
+    <div class="form-group">
       <label for="">Вид спорта</label>
       <p-dropdown [options]="sportTypes" placeholder="Нажмите чтобы выбрать" optionLabel="name" formControlName="sportType"></p-dropdown>
     </div>
   </div>
-  <div *ngIf="isNext" class="form_group">
+  <div *ngIf="isNext" class="form-group">
     <label for="">Лига</label>
     <p-dropdown [options]="ligas" placeholder="Нажмите чтобы выбрать" optionLabel="liga" formControlName="liga"></p-dropdown>
   </div>
-  <div class="bottom_btns">
-    <button class="find_btn" (click)="find()">Найти</button>
-    <button class="back_btn" (click)="goBack()" *ngIf="isNext">Назад</button>
+  <div class="bottom-btns">
+    <button class="find-btn" (click)="find()">Найти</button>
+    <button class="back-btn" (click)="goBack()" *ngIf="isNext">Назад</button>
   </div>
 </form>
