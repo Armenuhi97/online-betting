@@ -29,7 +29,6 @@ export class TopbarComponent implements OnInit, OnDestroy {
     public checkIfAuthorized(): void {
         this.loginService.getAuthState().pipe(takeUntil(this._unsubscribe$)).subscribe((state: boolean) => {
             this.isAuthorized = state
-            // if (this.isAuthorized) window.location.reload()
         })
     }
 
@@ -57,7 +56,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
     public logout(): void {
         this._cookieService.deleteAll();
-        // this.loginService.authorizedEvent$.next(false);
+        console.log("DELETEd");
+
+        this.loginService.authorizedEvent$.next(false);
         window.location.reload();
     }
 
