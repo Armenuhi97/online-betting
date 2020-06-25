@@ -47,6 +47,38 @@
 img{
     object-fit: contain;
 }
+p-dropdown{
+    margin-top: 10px;
+    width: 100%;
+    
+}
+:host::ng-deep{
+    .ui-dropdown{
+      width: 100%;
+      border-color: #414141 !important  
+    }
+    .ui-dropdown-label-container{
+      width: 100%;
+    
+    .ui-inputtext{
+        color: #e6e6e6 !important;
+        background-color: #414141 !important;
+        display: flex;
+        align-items: center;
+        height: 40px;
+    }
+}
+    .ui-dropdown .ui-dropdown-trigger{
+        color: #e6e6e6 !important;
+        background-color: #414141 !important;
+    }
+
+    .ui-corner-all{
+        border-radius: 0 !important;
+    }
+  }
+  
+
 .image{
     height: 150px;
     width: 150px;

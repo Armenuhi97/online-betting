@@ -1,47 +1,45 @@
 <form class="form" action="" [formGroup]="settingsGroup">
-    <div [ngStyle]="{'background-image':userImage}" class="image">
-        <div class="camera-container">
-          <input id="file-upload" (change)="changeImage($event)" type="file" accept="image/*"/>
-          <label  for="file-upload" class="custom-file-upload">
-            <i class="material-icons">
-              camera_alt
-            </i>
-      
-          </label>
-        </div>
-      </div>
-    <div class="settings-form">
-        <label for="">Имя</label>
-        <input type="text" formControlName="name">
-        <p class="required-field"
-            *ngIf="settingsGroup.get('name').hasError('required') && settingsGroup.get('name').touched">Это
-            обязательное поле *</p>
-    </div>
+  <div [ngStyle]="{'background-image':userImage}" class="image">
+    <div class="camera-container">
+      <input id="file-upload" (change)="changeImage($event)" type="file" accept="image/*" />
+      <label for="file-upload" class="custom-file-upload">
+        <i class="material-icons">
+          camera_alt
+        </i>
 
-    <div class="settings-form">
-      <label for="">Страна</label>
-      <p-dropdown [options]="countries"  formControlName="country" filter="true" filterBy="name">
-        <!-- <ng-template let-item >
-            <img (click)="a(item)" [src]="item.flag" style="width:16px;vertical-align:middle" />
-            <span style="vertical-align:middle; margin-left: .5em">{{item.name}}</span>
-        </ng-template> -->
-        <ng-template let-item pTemplate="selectedItem">
-          <!-- <img [src]="item.flag" style="width:16px;vertical-align:middle" /> -->
-          <span style="vertical-align:middle; margin-left: .5em">{{item.name}}</span>
-      </ng-template>
-      <ng-template let-country pTemplate="item">
-          <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-              <img [src]="country.flag" style="width:24px;position:absolute;top:1px;left:5px"/>
-              <div style="font-size:14px;float:right;margin-top:4px">{{country.name}}</div>
-          </div>
-      </ng-template>
-    </p-dropdown>
-      <p class="required-field"
-          *ngIf="settingsGroup.get('name').hasError('required') && settingsGroup.get('name').touched">Это
-          обязательное поле *</p>
+      </label>
+    </div>
   </div>
-   
-    <!-- <div class="settings-form">
+  <div class="settings-form">
+    <label for="">Имя</label>
+    <input type="text" formControlName="name">
+    <p class="required-field"
+      *ngIf="settingsGroup.get('name').hasError('required') && settingsGroup.get('name').touched">Это
+      обязательное поле *</p>
+  </div>
+
+  <div class="settings-form">
+    <label for="">Страна</label>
+    <!-- <p-dropdown [options]="countries" formControlName="country">
+      <ng-template let-item pTemplate="selectedItem">
+        <img [src]="item?.flag" class="active_lng_image" />
+        <span style="vertical-align:middle; margin-left: .5em">{{item?.name}}</span>
+      </ng-template>
+      <ng-template let-val pTemplate="countries">       
+        <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+          <img [src]="val.flag" style="width:24px;position:absolute;top:1px;left:5px" />
+          <span style="font-size:14px;float:right;margin-top:4px">{{val?.name}}</span>
+        </div>
+      </ng-template>
+    </p-dropdown> -->
+    <p-dropdown [options]="countries" optionLabel="name" formControlName="country" placeholder="Выберите страну"
+      filter="true"></p-dropdown>
+    <p class="required-field"
+      *ngIf="settingsGroup.get('name').hasError('required') && settingsGroup.get('name').touched">Это
+      обязательное поле *</p>
+  </div>
+
+  <!-- <div class="settings-form">
         <label for="">Email</label>
         <input type="email" formControlName="email">
         <p class="required-field"
@@ -58,7 +56,7 @@
             *ngIf="settingsGroup.get('password').hasError('required') && settingsGroup.get('password').touched">Это
             обязательное поле *</p>
     </div> -->
-    <div class="save-btn">
-        <button [disabled]="settingsGroup.invalid" (click)="save()">Сохранить</button>
-    </div>
+  <div class="save-btn">
+    <button [disabled]="settingsGroup.invalid" (click)="save()">Сохранить</button>
+  </div>
 </form>
