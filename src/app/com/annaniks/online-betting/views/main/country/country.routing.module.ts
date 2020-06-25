@@ -1,7 +1,7 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CountryView } from './country.view';
-let countryRoutes: Routes = [{ path: '', component: CountryView }]
+import { CountryViewComponent } from './country.view';
+const countryRoutes: Routes = [{ path: '', component: CountryViewComponent }];
 @NgModule({
     imports: [RouterModule.forChild(countryRoutes)],
     exports: [RouterModule]

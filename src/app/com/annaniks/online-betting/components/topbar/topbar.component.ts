@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { LoginModal, RegistrationModal } from '../../modals';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { LoginModalComponent, RegistrationModalComponent } from '../../modals';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../services/menu.service';
 import { LoginService } from '../../services';
@@ -28,42 +28,39 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
     public checkIfAuthorized(): void {
         this.loginService.getAuthState().pipe(takeUntil(this._unsubscribe$)).subscribe((state: boolean) => {
-            this.isAuthorized = state
-        })
+            this.isAuthorized = state;
+        });
     }
 
     public openLoginModal() {
-        let dialog = this._matDialog.open(LoginModal, {
+        const dialog = this._matDialog.open(LoginModalComponent, {
             width: '371px',
-            // minHeight: '433px',
             maxHeight: '80vh',
-        })
-        dialog.afterClosed().subscribe((data) => { })
+        });
+        dialog.afterClosed().subscribe(() => { });
     }
 
     public registrationModal() {
-        let dialog = this._matDialog.open(RegistrationModal, {
+        const dialog = this._matDialog.open(RegistrationModalComponent, {
             width: '371px',
             minHeight: '433px',
             maxHeight: '85vh',
-        })
+        });
         dialog.afterClosed().subscribe((data) => {
             if (data) {
-                this.openLoginModal()
+                this.openLoginModal();
             }
-        })
+        });
     }
 
     public logout(): void {
         this._cookieService.deleteAll();
-        console.log("DELETEd");
-
         this.loginService.authorizedEvent$.next(false);
         window.location.reload();
     }
 
     get companyMenuList() {
-        return this._menuListService.getMainMenuItems()
+        return this._menuListService.getMainMenuItems();
     }
 
     ngOnDestroy() {

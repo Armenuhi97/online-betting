@@ -1,11 +1,11 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AboutUsView } from './about-us.view';
-let aboutUsRoutes: Routes = [{ path: '', component: AboutUsView }]
+import { AboutUsViewComponent } from './about-us.view';
+
+const aboutUsRoutes: Routes = [{ path: '', component: AboutUsViewComponent }];
+
 @NgModule({
     imports: [RouterModule.forChild(aboutUsRoutes)],
     exports: [RouterModule]
 })
-export class AboutUsRoutingModule {
-
-}
+export class AboutUsRoutingModule { }

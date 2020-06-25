@@ -1,11 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
-import { MainView } from './main.view';
+import { MainViewComponent } from './main.view';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../../guards/auth.guard';
 
 const mainRoutes: Routes = [
     {
-        path: '', component: MainView,
+        path: '', component: MainViewComponent,
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'tournament' },
             { path: 'about', loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule) },

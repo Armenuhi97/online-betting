@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './com/annaniks/online-betting/interceptors/api.interceptor';
 import { environment } from 'src/environments/environment';
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from './com/annaniks/online-betting/services/login.service';
 import { AppService } from './com/annaniks/online-betting/services/app.service';
 import { JwtInterceptor } from './com/annaniks/online-betting/interceptors/jwt.interceptor';

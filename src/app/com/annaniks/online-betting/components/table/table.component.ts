@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 import { Team } from '../../models/model';
 
 @Component({
@@ -7,7 +7,7 @@ import { Team } from '../../models/model';
     styleUrls: ['table.component.scss']
 })
 export class TableComponent {
-    public tables: Team[] = []
+    public tables: Team[] = [];
     @Input('tables')
     set setTable($event: Team[]) {
         if ($event) {

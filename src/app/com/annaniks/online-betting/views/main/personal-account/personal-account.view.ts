@@ -1,13 +1,13 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'personal-account-view',
+    selector: 'app-personal-account-view',
     templateUrl: 'personal-account.view.html',
     styleUrls: ['personal-account.view.scss']
 })
-export class PersonalAccountView {
+export class PersonalAccountViewComponent {
     public personalAreaMenu = [
         { label: 'Настройки пользователя', path: '/user/settings' },
         { label: 'История прогнозов', path: '/user/history' },
-    ]
+    ];
 }

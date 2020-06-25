@@ -8,7 +8,7 @@ import { LoadingService } from '../services';
   styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit, OnDestroy {
-  private _show: boolean = false;
+  private _show = false;
   private _subscription: Subscription;
 
   constructor(
@@ -22,7 +22,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
       });
   }
   public closeLoading() {
-    this._loadingService.hideLoading()
+    this._loadingService.hideLoading();
   }
   ngOnDestroy() {
     this._subscription.unsubscribe();

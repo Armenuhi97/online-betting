@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 
 @Component({
@@ -9,6 +9,6 @@ import { MenuService } from '../../services/menu.service';
 export class FooterComponent {
     constructor(private _menuListService: MenuService) { }
     get companyMenuList() {
-        return this._menuListService.getMainMenuItems()
+        return this._menuListService.getMainMenuItems();
     }
 }

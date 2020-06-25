@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { PasswordValidation } from '../../controls/control';
@@ -9,21 +9,23 @@ import { CookieService } from 'ngx-cookie-service';
 import { SignUpModel } from '../../models/auth';
 
 @Component({
-    selector: 'registration-modal',
+    selector: 'app-registration-modal',
     templateUrl: 'registration.modal.html',
     styleUrls: ['registration.modal.scss']
 })
-export class RegistrationModal implements OnInit, OnDestroy {
+export class RegistrationModalComponent implements OnInit, OnDestroy {
     public registrationForm: FormGroup;
-    private _unsubscribe$ = new Subject<void>()
+    private _unsubscribe$ = new Subject<void>();
 
-    constructor(private _fb: FormBuilder,
+    constructor(
+        private _fb: FormBuilder,
         private _loginService: LoginService,
         private _cookieService: CookieService,
-        private _dialogRef: MatDialogRef<RegistrationModal>,) { }
+        private _dialogRef: MatDialogRef<RegistrationModalComponent>
+    ) { }
 
     ngOnInit() {
-        this._validate()
+        this._validate();
     }
 
     private _validate(): void {
@@ -35,11 +37,11 @@ export class RegistrationModal implements OnInit, OnDestroy {
             password: [null, Validators.required],
             confirmPassword: [null, Validators.required],
             isAgree: [false, Validators.requiredTrue]
-        }, { validator: PasswordValidation.MatchPassword })
+        }, { validator: PasswordValidation.MatchPassword });
     }
 
     public close(): void {
-        this._dialogRef.close(false)
+        this._dialogRef.close(false);
     }
 
     public registration(): void {
@@ -56,13 +58,14 @@ export class RegistrationModal implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data: any) => {
                 this._cookieService.set('accessToken', data.access);
-                this._dialogRef.close(true)
-            })
+                this._dialogRef.close(true);
+            });
     }
 
     ngOnDestroy() {
-        this._unsubscribe$.next()
-        this._unsubscribe$.complete()
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
     }
 
 }
+

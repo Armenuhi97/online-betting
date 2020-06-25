@@ -1,17 +1,16 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Country } from '../../models/country';
 import { SportDetailService } from '../../services/sport-details.service';
-import { takeUntil, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ServerResponse } from '../../models/model';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { UserModel } from '../../models/user';
 
 @Injectable({
-    'providedIn': 'root'
+    providedIn: 'root'
 })
 export class MainService {
-    private _isAuthorizated: boolean = false;
+    private _isAuthorizated = false;
     private _countries: Country[] = [];
 
     constructor(private _sportDetailsService: SportDetailService, private _httpClient: HttpClient) { }
@@ -23,28 +22,28 @@ export class MainService {
                 map((response: ServerResponse<Country[]>) => {
                     this._countries = response.results;
                     console.log(response);
-                    return response
-                }))
+                    return response;
+                }));
     }
 
     public getCountry(): Country[] {
-        return this._countries
+        return this._countries;
     }
 
     public changeAuthorizated(value: boolean) {
-        this._isAuthorizated = value
+        this._isAuthorizated = value;
     }
 
     public getMe(): Observable<any> {
         return this._httpClient.get('client-get/me/').pipe(
             map((response: any) => {
-                localStorage.setItem("bet-user", JSON.stringify(response.data))
-                return response
+                localStorage.setItem('bet-user', JSON.stringify(response.data));
+                return response;
             })
-        )
+        );
     }
 
     get isAuthorizated() {
-        return this._isAuthorizated
+        return this._isAuthorizated;
     }
 }

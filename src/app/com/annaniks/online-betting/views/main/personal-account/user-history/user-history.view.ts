@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'user-history-view',
+    selector: 'app-user-history-view',
     templateUrl: 'user-history.view.html',
     styleUrls: ['user-history.view.scss']
 })
-export class UserHistoryView { }
+export class UserHistoryViewComponent { }
+

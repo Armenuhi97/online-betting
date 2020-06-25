@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,8 +18,8 @@ import { DropdownModule } from 'primeng/dropdown';
         MatSidenavModule,
         MatExpansionModule,
         DropdownModule,
-        
-        ],
+
+    ],
     entryComponents: [],
     exports: [
         CommonModule,

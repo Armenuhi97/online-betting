@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TournamentView } from './tournament.view';
-let tournamentRoutes:Routes=[{path:'',component:TournamentView}]
+import { TournamentViewComponent } from './tournament.view';
+const tournamentRoutes: Routes = [{ path: '', component: TournamentViewComponent }];
 @NgModule({
-    imports:[RouterModule.forChild(tournamentRoutes)],
-    exports:[RouterModule]
+    imports: [RouterModule.forChild(tournamentRoutes)],
+    exports: [RouterModule]
 })
-export class TournamentRoutingModule{}
+export class TournamentRoutingModule { }
