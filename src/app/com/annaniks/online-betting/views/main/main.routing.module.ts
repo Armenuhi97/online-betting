@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { MainView } from './main.view';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from '../../guards/auth.guard';
 
 const mainRoutes: Routes = [
     {
@@ -10,7 +11,11 @@ const mainRoutes: Routes = [
             { path: 'about', loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule) },
             { path: 'terms-of-use', loadChildren: () => import('./terms-of-use/terms-of-use.module').then(m => m.TermsOfUseModule) },
             { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
-            { path: 'user', loadChildren: () => import('./personal-account/personal-account.module').then(m => m.PersonalAccountModule) },
+            {
+                path: 'user',
+                canActivate: [AuthGuard],
+                loadChildren: () => import('./personal-account/personal-account.module').then(m => m.PersonalAccountModule)
+            },
             { path: 'schedule', loadChildren: () => import('./schedule/schedule.module').then(m => m.ScheduleModule) },
             { path: 'tournament', loadChildren: () => import('./betting/betting.module').then(m => m.BettingModule) },
             { path: 'sport', loadChildren: () => import('./sport/sport.module').then(m => m.SportModule) },

@@ -24,6 +24,9 @@ export interface Match {
     "id": number,
     "url": string
     "date": string
+    "matchStatus": number
+    "match_client_bet": any,
+    "selectedId": number,
     "inviter": {
         "url": string
         "name": string
@@ -43,5 +46,6 @@ export interface Match {
         "liga": string
     },
     "score": null,
-    "match_id": string
+    "match_id": string,
+    "duration"?: string
 }
