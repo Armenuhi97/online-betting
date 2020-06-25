@@ -38,12 +38,12 @@ export class LoginService {
         headers = headers.append('Authorization', `Bearer ${this._cookieService.get('accessToken')}`);
         return this._httpClient.get('check-token/', { headers })
             .pipe(
-                map((response) => {
+                map((response) => {                    
                     this.setAuthState(true);
                     this.authorizedEvent$.next(true)
                     return true;
                 }),
-                catchError((err) => {
+                catchError((err) => {                    
                     this.setAuthState(false);
                     this.authorizedEvent$.next(false)
                     return throwError(false);

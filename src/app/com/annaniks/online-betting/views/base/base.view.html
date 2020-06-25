@@ -10,15 +10,15 @@
 <div class="description">Описание</div>
 <div>
     <form action="" [formGroup]="loginForm">
-        <div class="form_group">
+        <div class="form-group">
             <label for="">Email</label>
             <input type="email" formControlName="email">
         </div>
-        <div class="form_group">
+        <div class="form-group">
             <label for="">Пароль</label>
             <input type="password" formControlName="password">
         </div>
-        <div class="save_btn">
+        <div class="save-btn">
             <button [disabled]="loginForm.invalid" (click)="login()">Войти</button>
         </div>
     </form>

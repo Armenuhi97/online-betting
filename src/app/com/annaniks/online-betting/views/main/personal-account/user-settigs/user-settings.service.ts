@@ -8,8 +8,8 @@ export class UserSettingsService{
     public getContries(){
         return this._httpClient.get('assets/files/country-codes.json')
     }
-    public updateClient(formData:FormData){
+    public updateClient(formData:FormData,id:number){
         let params = new HttpParams().set('isAuthorized', 'true');
-        return this._httpClient.post(`client/`, formData, { params: params })
+        return this._httpClient.put(`client/${id}/`, formData, { params: params })
     }
 }

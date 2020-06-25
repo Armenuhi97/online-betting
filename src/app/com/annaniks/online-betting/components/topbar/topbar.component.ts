@@ -56,8 +56,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this._cookieService.deleteAll();
+        this._cookieService.deleteAll('/');
         // this.loginService.authorizedEvent$.next(false);
+        localStorage.removeItem('bet-user')
         window.location.reload();
     }
 
