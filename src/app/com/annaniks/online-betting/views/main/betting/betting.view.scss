@@ -33,7 +33,7 @@
   width: 60%;
   // margin: 0 auto;
 }
-.form_group {
+.form-group {
   label {
     color: white;
   }
@@ -41,7 +41,7 @@
     margin-top: 10px;
   }
 }
-.bottom_btns {
+.bottom-btns {
   margin-top: 10px;
   display: flex;
   align-items: center;
@@ -51,12 +51,12 @@
     padding: 14px 38px;
     border: none;
   }
-  .find_btn {
+  .find-btn {
     background: #009900;
     color: white;
     font-size: 14px;
   }
-  .back_btn {
+  .back-btn {
     margin-left: 15px;
     background: #2b2b2b;
     color: #979797;

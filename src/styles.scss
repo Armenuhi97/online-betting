@@ -68,7 +68,7 @@ body {
 
 .form{
   padding: 10px;
-  .form_group{
+  .form-group{
       display: flex;
       flex-direction: column;
       margin-top: 10px;
@@ -93,4 +93,15 @@ body {
 }
 .mat-expansion-indicator::after{
   color: white;
+}
+mat-option{
+.mat-option-text{
+  .mat-option-text{
+    display: flex;
+    align-items: center;
+    span{
+        margin-left: 10px;
+    }
+}
+}
 }

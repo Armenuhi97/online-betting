@@ -47,6 +47,34 @@
 img{
     object-fit: contain;
 }
+p-dropdown{
+    margin-top: 10px;
+    width: 100%;
+    
+}
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .example-option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+    height: 40px;
+    width: 40px;
+  }
+  
+  [dir='rtl'] .example-option-img {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+  
+
 .image{
     height: 150px;
     width: 150px;

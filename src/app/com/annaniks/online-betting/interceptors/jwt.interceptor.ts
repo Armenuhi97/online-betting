@@ -15,6 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
+        private  _router:Router
     ) {
         this._updateTokenState = this._updateTokenEvent$.asObservable();
     }
@@ -27,11 +28,11 @@ export class JwtInterceptor implements HttpInterceptor {
                     const error = err.error;
                     console.log(err);
 
-                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'token/refresh/') {
+                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'token/refresh/') {                       
                         return throwError(err);
                     }
-                    if (status === 401 || error.status === 401) {
-                        if (!this._loading) {
+                    if (status === 401 || error.status === 401) {                        
+                        if (!this._loading) {                            
                             this._updateToken();
                         }
                         return this._updateTokenState
@@ -75,12 +76,13 @@ export class JwtInterceptor implements HttpInterceptor {
                 .subscribe();
         }
         else {
+            this._router.navigate(['/'])
             this._loading = false;
         }
     }
 
     private _updateCookies(data): void {
-        this._cookieService.set('accessToken', data);
+        this._cookieService.set('accessToken', data,null,'/');
     }
 
     private _setNewHeaders(req: HttpRequest<any>): HttpRequest<any> {

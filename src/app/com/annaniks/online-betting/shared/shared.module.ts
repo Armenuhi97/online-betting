@@ -19,7 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
         MatSidenavModule,
         MatExpansionModule,
         DropdownModule
-    ],
+        ],
     entryComponents: [],
     exports: [
         CommonModule,

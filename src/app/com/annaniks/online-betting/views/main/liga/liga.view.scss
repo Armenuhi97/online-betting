@@ -1,4 +1,4 @@
-.liga_content{
+.liga-content{
     display: flex;
     align-items: center;
     .text{
@@ -59,14 +59,14 @@
       font-size: 15px;
     }
   }
-  .detail_container{
+  .detail-container{
     margin-top: 23px;
-    .tab_bar{
+    .tab-bar{
         width: 100%;
         height: 50px;
         background-color: #414141;
         display: flex;
-        .tab_item{
+        .tab-item{
             display: flex;
             align-items: center;
             justify-content: center;
@@ -85,7 +85,7 @@
             border:1px solid black;
         }
     }
-    .tabs_content{
+    .tabs-content{
         margin-top: 35px;
         padding:0 23px;
     }

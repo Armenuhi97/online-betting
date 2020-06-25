@@ -18,7 +18,7 @@ form{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    .form_group{
+    .form-group{
         margin-top: 10px;
         display: flex;
         flex-direction: column;
@@ -33,7 +33,7 @@ form{
         }
     }
 }
-.save_btn{
+.save-btn{
     margin-top: 20px;
     button{
         width: 100%;
