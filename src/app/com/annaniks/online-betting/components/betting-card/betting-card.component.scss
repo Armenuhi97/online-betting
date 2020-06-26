@@ -194,8 +194,10 @@ $size: 12px;
 
         > span {
           @include ease;
+          margin: 0 5px;
+          font-size: 12px;
+          color: white;
           display: inline;
-          color: rgba($white, 0.5);
         }
       }
     }

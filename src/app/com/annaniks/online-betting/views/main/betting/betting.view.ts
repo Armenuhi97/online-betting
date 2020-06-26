@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SportDetailService } from '../../../services/sport-details.service';
-import { Country } from '../../../models/country';
+import { Country, Liga } from '../../../models/country';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -18,9 +18,8 @@ export class BettingViewComponent implements OnInit, OnDestroy {
     public isNext = false;
     public selectGroup: FormGroup;
     private _unsubscribe = new Subject<void>();
-    public sportTypes = [{ name: 'Футбол' }, { name: 'Хоккей' }];
-    public ligas1 = [{ name: 'Премьер лига' }];
-    public ligas = [];
+    public sportTypes = [{ name: 'Футбол' }];
+    public ligas: Liga[] = [];
 
     constructor(
         private _mainService: MainService,
