@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isShow">
     <div class="tour-list">
         <div (click)="selectTour(tour,i)" class="tour" [class.active]="selectedTour == i"
             *ngFor="let tour of tours;let i=index" [class.margin-left-7]="i !== 0">

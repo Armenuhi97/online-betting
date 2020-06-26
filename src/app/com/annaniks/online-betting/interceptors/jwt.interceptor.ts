@@ -76,7 +76,6 @@ export class JwtInterceptor implements HttpInterceptor {
                 .subscribe();
         }
         else {
-            this._router.navigate(['/']);
             this._loading = false;
         }
     }

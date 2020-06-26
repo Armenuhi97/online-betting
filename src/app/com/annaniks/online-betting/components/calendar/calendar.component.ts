@@ -20,12 +20,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
     set setTours($event: Tour[]) {
         this.tours = $event;
         if (this.tours && this.tours.length) {
+            this.isShow=true;
             this._getMatches(this.tours[0].id);
             this.selectedTour = 0;
         } else {
+            this.isShow=false;
             this.matches = [];
+            this._initForm();
         }
     }
+    public isShow:boolean=false;
     private _unsubscribe$ = new Subject<void>();
     public tours: Tour[] = [];
     public selectedTour: number;
@@ -50,14 +54,14 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
 
     private _setFormArrayControls(): void {
-        const controls: AbstractControl[] = this.matches.map((element) => {
+        const controls: AbstractControl[] = this.matches.map((element) => {           
             const isAlreadySelected = element.match_client_bet && element.match_client_bet.length > 0;
             return new FormControl(Object.assign({}, element, {
                 matchStatus: isAlreadySelected ? element.match_client_bet[0].game_output : null,
                 selectedId: isAlreadySelected ? element.match_client_bet[0].id : null,
             }));
-        });
-        this.matchesForm.controls = controls;
+        });        
+        this.matchesForm.controls = controls;        
     }
 
     private _getMatches(tourId: number): void {

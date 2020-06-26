@@ -6,6 +6,7 @@ import { LoginService } from '../../services';
 import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -19,7 +20,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
         private _matDialog: MatDialog,
         private _menuListService: MenuService,
         public loginService: LoginService,
-        private _cookieService: CookieService
+        private _cookieService: CookieService,
+        private _router: Router
     ) { }
 
     ngOnInit() {
@@ -54,9 +56,13 @@ export class TopbarComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this._cookieService.deleteAll();
+        this._cookieService.delete('accessToken');
+        this._cookieService.delete('refreshToken');
         this.loginService.authorizedEvent$.next(false);
-        window.location.reload();
+        if (this._router.url.startsWith('/user')) {
+            this._router.navigate(['/']);
+        }
+        // window.location.reload();
     }
 
     get companyMenuList() {
