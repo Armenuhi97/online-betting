@@ -45,6 +45,7 @@ export interface Match {
         'country': string,
         'liga': string,
     },
+    'status':string,
     'score': null,
     'match_id': string,
     'duration'?: string,
