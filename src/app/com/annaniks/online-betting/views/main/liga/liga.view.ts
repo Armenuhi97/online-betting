@@ -5,9 +5,9 @@ import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
 import { LigaService } from './liga.service';
-import { map, finalize } from 'rxjs/operators';
-import { ServerResponse, Team, Tour } from '../../../models/model';
-import { LoadingService } from '../../../services';
+import { map, finalize, switchMap, takeUntil } from 'rxjs/operators';
+import { ServerResponse, Team, Tour, Count } from '../../../models/model';
+import { LoadingService, LoginService } from '../../../services';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -16,27 +16,45 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['liga.view.scss']
 })
 export class LigaViewComponent implements OnInit, OnDestroy {
+    private _unsubscribe$ = new Subject<void>();
+    public ligaCount: number;
+    public tourCount: number;
+    public userPlace: number
+    public selectedTour: Tour;
     public tours: Tour[] = [];
-    public calendares = [];
-    public selectedTour = 0;
     private _paramsSubscription: Subscription;
     public liga: Liga;
-    public activeTabItem = 'calendar';
+    public activeTabItem: string = 'calendar';
     public tables: Team[] = [];
     private _subscription: Subscription;
+    public isAuthorized: boolean = false;
+    private _firstState: boolean = false;
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _ligaService: LigaService,
         private _loadingService: LoadingService,
         private _mainService: MainService,
         private _appService: AppService,
-        private _title: Title
+        private _title: Title,
+        private _loginService: LoginService
     ) { }
 
     ngOnInit() {
         this._checkProductId();
+        this.checkIfAuthorized()
     }
 
+    public checkIfAuthorized(): void {
+        this._loginService.getAuthState().pipe(takeUntil(this._unsubscribe$)).subscribe((state: boolean) => {
+            this.isAuthorized = state;
+            if (this.isAuthorized !== this._firstState) {
+                this._firstState = state;
+                if (state)
+                    this._combineObservable();
+            }
+
+        });
+    }
     private _checkProductId(): void {
         this._paramsSubscription = this._activatedRoute.params.subscribe((params) => {
             if (params && params.countryId) {
@@ -66,31 +84,66 @@ export class LigaViewComponent implements OnInit, OnDestroy {
         }));
     }
 
-    private _getTours(): Observable<ServerResponse<Tour[]>> {
-        return this._ligaService.getTour(this.liga.id).pipe(map((data: ServerResponse<Tour[]>) => {
-            this.tours = data.results;
-            return data;
-        }));
+    private _getTours(): Observable<void> {
+        return this._ligaService.getTour(this.liga.id).pipe(
+            switchMap((data: ServerResponse<Tour[]>) => {
+                this.tours = data.results;
+                if (this.tours && this.tours.length) {
+                    this.selectedTour = this.tours[0];
+                }
+                return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
+            }));
     }
 
+    private _getCountInTour(id: number): Observable<void> {
+        return this._ligaService.getTourCount(id).pipe(
+            map((data: Count) => {
+                this.tourCount = data.count;
+            })
+        )
+    }
     private _combineObservable() {
         this._loadingService.showLoading();
         const combine = forkJoin([
             this._getTablesByLiga(),
-            this._getTours()
+            this._getTours(),
+            this._getLigaCount(),
+            this._getUserPlace()
         ]);
         this._subscription = combine.pipe(finalize(() => this._loadingService.hideLoading())).subscribe();
     }
 
-    public selectTour(index: number) {
-        this.selectedTour = index;
+    private _getLigaCount() {
+        return this._ligaService.getLigaCount(this.liga.id).pipe(
+            map((data: Count) => {
+                this.ligaCount = data.count;
+                return data
+            })
+        )
     }
-
-    public onClickTabItem(itemName: string) {
+    private _getUserPlace() {
+        return this._ligaService.getUserPlace().pipe(
+            map((data: Count) => {
+                this.userPlace = data.count;
+                return data
+            })
+        )
+    }
+    public onClickTabItem(itemName: string): void {
         this.activeTabItem = itemName;
     }
-
+    public getSelectedTour($event) {
+        this.selectedTour = $event;
+        this._loadingService.showLoading();
+        this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
+            .pipe(
+                takeUntil(this._unsubscribe$),
+                finalize(() => this._loadingService.hideLoading())
+            ).subscribe()
+    }
     ngOnDestroy() {
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
         this._paramsSubscription.unsubscribe();
         if (this._subscription) {
             this._subscription.unsubscribe();

@@ -1,14 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BettingViewComponent } from './betting.view';
-const bettingRoutes: Routes = [
-    {
-        path: '', component: BettingViewComponent
-    },
-    {
-        path: 'tournament',
-        loadChildren: () => import('../tournament/tournament.module').then(m => m.TournamentModule)
-    }];
+const bettingRoutes: Routes = [{ path: '', component: BettingViewComponent }];
 @NgModule({
     imports: [RouterModule.forChild(bettingRoutes)],
     exports: [RouterModule]

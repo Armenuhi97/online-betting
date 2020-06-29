@@ -1,10 +1,28 @@
 <div class="liga-content">
-    <div class="logo">
-        <img [src]="'https://www.flashscore.ru/'+liga?.logo" alt="">
+    <div class="liga-header">
+        <div class="logo">
+            <img [src]="'https://www.flashscore.ru/'+liga?.logo" alt="">
+        </div>
+        <div class="text">
+            <div class="title">{{liga?.liga}}</div>
+            <div>{{liga?.date}}</div>
+        </div>
     </div>
-    <div class="text">
-        <div class="title">{{liga?.liga}}</div>
-        <div>{{liga?.date}}</div>
+    <div *ngIf="isAuthorized" class="betting">
+        <div class="result-content">
+            <div *ngIf="selectedTour" class="result">
+                <p>Сумма очков за {{selectedTour.name}}</p>
+                <h1 class="place">{{tourCount}}</h1>
+            </div>
+            <div class="result">
+                <p>Сумма очков за чемпионат</p>
+                <h1 class="place">{{ligaCount}}</h1>
+            </div>
+            <div class="result">
+                <p>Место в турнире</p>
+                <h1 class="place">{{userPlace}}</h1>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -18,11 +36,10 @@
             (click)="onClickTabItem('table')">
             <span class="label">Таблица</span>
         </div>
-
-
     </div>
     <div class="tabs-content" [ngSwitch]="activeTabItem">
         <app-table [tables]="tables" *ngSwitchCase="'table'"></app-table>
-        <app-calendar [tours]="tours" *ngSwitchCase="'calendar'"></app-calendar>
+        <app-calendar [selectedTour]="selectedTour" (getSelectedTour)="getSelectedTour($event)" [tours]="tours"
+            *ngSwitchCase="'calendar'"></app-calendar>
     </div>
 </div>

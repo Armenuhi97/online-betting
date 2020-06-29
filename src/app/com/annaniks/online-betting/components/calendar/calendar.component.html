@@ -1,11 +1,11 @@
 <div *ngIf="isShow">
     <div class="tour-list">
-        <div (click)="selectTour(tour,i)" class="tour" [class.active]="selectedTour == i"
+        <div (click)="selectTour(tour)" class="tour" [class.active]="selectedTour?.id == tour?.id"
             *ngFor="let tour of tours;let i=index" [class.margin-left-7]="i !== 0">
             {{tour?.name}}
         </div>
     </div>
-    <div style="overflow-x: auto;">
+    <div class="overflow-x-auto">
         <app-betting-card *ngFor="let control of controls" [formControl]="control"></app-betting-card>
     </div>
     <div class="save-bets">

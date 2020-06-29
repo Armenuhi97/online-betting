@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginService } from '../../../services';
 
@@ -25,4 +25,17 @@ export class LigaService {
         }
         return this._httpClient.get(reqUrl);
     }
+    public getTourCount(tourId: number) {
+        let params = new HttpParams().set('isAuthorized', 'true');
+        return this._httpClient.get(`bet/tur-count/${tourId}`, { params })
+    }
+    public getLigaCount(ligaId: number) {
+        let params = new HttpParams().set('isAuthorized', 'true');
+        return this._httpClient.get(`bet/liga-count/${ligaId}`, { params })
+    }
+    public getUserPlace() {
+        let params = new HttpParams().set('isAuthorized', 'true');
+        return this._httpClient.get(`bet/custom/user/place/`, { params })
+    }
+
 }

@@ -39,6 +39,10 @@ import { AuthGuard } from './com/annaniks/online-betting/guards/auth.guard';
       provide: 'BASE_URL',
       useValue: environment.API_URL
     },
+    {
+      provide: 'MEDIA_URL',
+      useValue: environment.MEDIA_URL
+    },
     AppService,
     LoginService,
     CookieService,

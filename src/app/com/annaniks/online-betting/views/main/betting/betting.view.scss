@@ -1,44 +1,12 @@
-.betting {
-  padding: 10px;
-  margin-right: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .result-content {
-    color: white;
-    margin-left: 20px;
-    .result {
-      display: flex;
-      align-items: center;
-      p {
-        width: 263px;
-      }
-      h1 {
-        margin-left: 10px;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1342px) {
-  .betting {
-    flex-direction: column;
-    .result-content {
-      margin-left: 0 !important;
-    }
-  }
-}
-
 .form {
   width: 60%;
-  // margin: 0 auto;
-}
-.form-group {
-  label {
-    color: white;
-  }
-  p-dropdown {
-    margin-top: 10px;
+  .form-group {
+    label {
+      color: white;
+    }
+    .dropdown-content {
+      margin-top: 10px; 
+    }
   }
 }
 .bottom-btns {
@@ -69,8 +37,19 @@
   .ui-dropdown-label-container {
     width: 100%;
   }
+  .ui-inputtext{
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+  }
 }
-
+@media screen and (max-width: 1342px) {
+  .betting {
+    flex-direction: column;
+    .result-content {
+      margin-left: 0 !important;
+    }
+  }
+}
 @media screen and(max-width:920px) {
   .form {
     width: 95% !important;

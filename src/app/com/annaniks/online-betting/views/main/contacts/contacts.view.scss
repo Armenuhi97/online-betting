@@ -1,3 +1,52 @@
-span{
-    color: white;
+.settings-content{
+    padding: 10px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    label{
+        font-size: 17px;
+        color: #e6e6e6;
+    }
+    input,textarea{
+        margin-top: 10px;
+        min-height: 30px;   
+        padding: 5px;
+        color: #e6e6e6;
+        background-color: #414141;
+        border: 1px solid #414141;
+    }
+    textarea{
+        resize: vertical;
+    }
+
+}
+.send{
+    margin: 16px auto 0;
+    button{
+        max-width: 400px;
+        padding: 16px 120px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'PFDINDisplayPro', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background-color: #167E00;
+        cursor: pointer;
+        white-space: nowrap;
+        box-sizing: border-box;
+        border: none;
+        -webkit-appearance: none;
+    }
+}
+@media only screen and (max-width: 999px){
+    .send {
+        button{
+            padding: 14px 70px !important;
+        }
+    }
 }

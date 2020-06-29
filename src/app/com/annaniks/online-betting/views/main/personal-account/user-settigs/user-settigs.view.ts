@@ -29,7 +29,7 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._validate();
+        this._initForm();
     }
 
     private _getCountries() {
@@ -47,7 +47,7 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
                 this._getUserInfo();
             });
     }
-    private _getUserInfo() {
+    private _getUserInfo(): void {
         this._user = JSON.parse(localStorage.getItem('bet-user'));
         if (this._user) {
             this.settingsGroup.patchValue({
@@ -58,7 +58,7 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
             this.userImage = 'url(' + this._user.image + ')';
         }
     }
-    private _validate(): void {
+    private _initForm(): void {
         this.settingsGroup = this._fb.group({
             firstName: [null],
             lastName: [null],

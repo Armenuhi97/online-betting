@@ -22,21 +22,8 @@
   </div>
   <div class="settings-form">
     <label for="">Страна</label>
-    <p-dropdown [options]="countries" optionLabel="name" formControlName="country" placeholder="Выберите страну"
-      filter="true"></p-dropdown>
-    <!-- <mat-form-field>
-      <mat-form-field-control>
-        <input matInput placeholder="Выберите страну" aria-label="country" [matAutocomplete]="auto"
-          formControlName="country">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let country of countries" [value]="country?.name">
-            <img class="example-option-img" aria-hidden [src]="country?.flag" height="25">
-            <span>{{country?.name}}</span>
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field-control>
-    </mat-form-field> -->
-
+    <p-dropdown [options]="countries" emptyFilterMessage="Результаты не найдены" optionLabel="name"
+      formControlName="country" placeholder="Выберите страну" filter="true"></p-dropdown>
   </div>
 
   <!-- <div class="settings-form">

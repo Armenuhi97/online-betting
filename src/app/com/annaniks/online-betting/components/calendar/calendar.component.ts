@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
 import { Subject } from 'rxjs';
@@ -21,18 +21,28 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.tours = $event;
         if (this.tours && this.tours.length) {
             this.isShow = true;
-            this._getMatches(this.tours[0].id);
-            this.selectedTour = 0;
+            if (!this.selectedTour) {
+                this._getMatchesBySelectedTour(this.tours[0])
+            }
         } else {
             this.isShow = false;
             this.matches = [];
             this._initForm();
         }
     }
+    @Input('selectedTour')
+    set setSelectedTour($event: Tour) {
+        if ($event) {
+            this.selectedTour = $event;
+            this._getMatchesBySelectedTour(this.selectedTour)
+        }
+    }
+    @Output('getSelectedTour') private _onSelectTour: EventEmitter<Tour> = new EventEmitter<Tour>();
+
     public isShow: boolean = false;
     private _unsubscribe$ = new Subject<void>();
     public tours: Tour[] = [];
-    public selectedTour: number;
+    public selectedTour: Tour;
     public matches: Match[] = [];
     public matchesForm: FormArray;
 
@@ -52,7 +62,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
     private _initForm(): void {
         this.matchesForm = this._fb.array([]);
     }
-
+    private _getMatchesBySelectedTour(tour: Tour) {
+        this._getMatches(tour.id);
+        this.selectedTour = tour;
+    }
     private _setFormArrayControls(): void {
         const controls: AbstractControl[] = this.matches.map((element) => {
             const isAlreadySelected = element.match_client_bet && element.match_client_bet.length > 0;
@@ -94,6 +107,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 }
             });
             return;
+        } else {
+            this._sendBets()
         }
     }
 
@@ -127,12 +142,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
         return formattedData;
     }
 
-    public selectTour(tour, index: number) {
-        this.selectedTour = index;
+    public selectTour(tour: Tour) {
+        this.selectedTour = tour;
+        this._onSelectTour.emit(tour)
         this._getMatches(tour.id);
     }
-
-
 
     get controls(): AbstractControl[] {
         return this.matchesForm.controls;

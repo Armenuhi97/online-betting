@@ -1,6 +1,32 @@
 .liga-content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  .liga-header{
+    display: flex;
+    align-items: center;
+  }
+  .betting {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .result-content {
+      color: white;
+      margin-left: 20px;
+      .result {
+        display: flex;
+        align-items: center;
+        p {
+          width: 263px;
+          margin: 3px;
+        }
+        h1 {
+          margin: 0 0 0 10px;
+        }
+      }
+    }
+  }
   .text {
     margin-left: 12px;
     color: white;
@@ -89,4 +115,19 @@
 }
 .activeTabItem {
   background-color: #117815;
+}
+@media screen and(max-width:800px){
+  .liga-content{
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  .result-content{
+    margin-left: 0 !important;
+  }
+  .betting{
+    padding-left: 0 !important;
+  }
+  .place{
+    font-size: 15px !important;
+  }
 }
