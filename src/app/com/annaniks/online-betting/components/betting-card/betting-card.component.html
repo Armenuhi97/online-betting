@@ -1,4 +1,4 @@
-<section class="wrap">
+<section [class.disabled]="matchData?.status == 'end'" class="wrap">
     <div class="card">
         <div class="card-left">
             <div class="card-left__score">
@@ -11,7 +11,7 @@
         </div>
         <div class="card-right">
             <div class="card-right__live">
-                <em>{{matchData?.duration}}’</em>
+                <em *ngIf="matchData?.duration">{{matchData?.duration}}’</em>
             </div>
             <div class="card-right__odds">
                 <button [class.active-stake]="statusCtrlValue == '0'" (click)="matchControl.setValue(0)" class="odds-1">

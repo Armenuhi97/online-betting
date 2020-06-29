@@ -5,11 +5,11 @@
 }
 .middle-content{
     margin-top: 15px;
+    min-height: calc(100vh - 367px);
 }
 @media screen and (max-width:920px){
     .content{
-        width: 100% !important; 
-     
+        width: 100% !important;      
     }
     .menu{
         display: none;

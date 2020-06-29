@@ -1,0 +1,49 @@
+.rating-content{
+    padding:10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    // justify-content: center;
+    .participant{
+        margin-right: 20px;
+        margin-top: 20px;
+        .image-content{
+            width: 100px;
+            position: relative;
+            margin: 0 auto;
+            .rating-status{
+                position: absolute;
+                top: -12px;
+                left: calc(50% - 30px/2);
+                border-radius: 50%;
+                background-color: white;
+                color: black;
+                height: 30px;
+                width: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        img{
+            margin-top: 25px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: contain;
+            border: 1px solid white;
+        }
+        .info{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            .result{
+                color: #96dcff;
+            }
+            span{
+                margin-top: 7px;
+            }
+        }
+    }
+}

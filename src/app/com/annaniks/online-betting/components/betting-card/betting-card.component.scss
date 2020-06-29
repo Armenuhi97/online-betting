@@ -132,7 +132,7 @@ $size: 12px;
   margin: 2px 0 !important;
 
   width: 100%;
-  height: 55px;
+  // height: 55px;
   background-color: rgba($white, 0.03);
 
   &:hover {
@@ -143,7 +143,7 @@ $size: 12px;
   &-right {
     position: relative;
     display: inline-block;
-    height: 100%;
+    // height: 100%;
   }
 
   &-left {
@@ -658,4 +658,19 @@ section {
     font: inherit;
     vertical-align: baseline;
   }
+}
+.disabled{
+  opacity: 0.5;
+  pointer-events: none;
+}
+@media screen and(max-width:750px){
+      .wrap{
+          min-height: 115px;
+          section{
+            height: 100%;
+          }
+      }
+      .card-left__competitors{
+        padding-right: 0 !important;
+      }
 }

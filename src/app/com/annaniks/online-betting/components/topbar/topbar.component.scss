@@ -64,3 +64,8 @@
 .active {
     text-decoration: underline !important;
 }
+@media screen and (max-width:920px){
+    .menu-items{
+       display: none !important;     
+    }
+}

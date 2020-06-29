@@ -49,9 +49,7 @@ export class BettingViewComponent implements OnInit, OnDestroy {
             if (this.selectGroup.get('liga').value) {
                 this._router.navigate([`/liga/${this.selectGroup.get('liga').value.link}`]);
             }
-
         }
-
     }
     public goBack(): void {
         this.isNext = false;

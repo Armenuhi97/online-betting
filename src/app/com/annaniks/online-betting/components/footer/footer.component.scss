@@ -1,5 +1,5 @@
 .footer-content{
-    margin: 15px auto 0 auto;    
+    margin: 0 auto;    
     padding: 20px 15px;
     width: 100%;
     background: #1A1A1A;
@@ -7,9 +7,14 @@
     .categories-list{
         display: flex;
         flex-direction: column;
+        max-width: 280px;
         a{
             color: white;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            padding: 7px;
         }
     }
+}
+a:hover{
+    background-color: #222222;
 }

@@ -49,3 +49,16 @@ export interface Match {
     'match_id': string,
     'duration'?: string,
 }
+export interface Count {
+    count: number
+}
+export interface Rating {
+    client: number
+    client__image: null
+    client__user__first_name: string
+    client__user__last_name: string
+    total_win: number
+}
+export interface RatingResponse<T> {
+    count: T
+}
