@@ -14,8 +14,7 @@ import { AppService } from '../../../services/app.service';
     styleUrls: ['betting.view.scss']
 })
 export class BettingViewComponent implements OnInit, OnDestroy {
-    public tours = [];
-    public isNext = false;
+    public isNext: boolean = false;
     public selectGroup: FormGroup;
     private _unsubscribe = new Subject<void>();
     public sportTypes = [{ name: 'Футбол' }];
@@ -29,10 +28,10 @@ export class BettingViewComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._validate();
+        this._initForm();
     }
 
-    private _validate() {
+    private _initForm(): void {
         this.selectGroup = this._fb.group({
             country: [null],
             sportType: [null],
@@ -40,7 +39,7 @@ export class BettingViewComponent implements OnInit, OnDestroy {
         });
     }
 
-    public find() {
+    public find(): void {
         if (!this.isNext) {
             this.isNext = !this.isNext;
             if (this.selectGroup.get('country').value) {
@@ -54,7 +53,7 @@ export class BettingViewComponent implements OnInit, OnDestroy {
         }
 
     }
-    public goBack() {
+    public goBack(): void {
         this.isNext = false;
         this.ligas = [];
     }

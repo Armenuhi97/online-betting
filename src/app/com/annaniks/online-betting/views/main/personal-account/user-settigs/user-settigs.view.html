@@ -22,8 +22,8 @@
   </div>
   <div class="settings-form">
     <label for="">Страна</label>
-    <p-dropdown [options]="countries" optionLabel="name" formControlName="country" placeholder="Выберите страну"
-      filter="true"></p-dropdown>
+    <p-dropdown [options]="countries" emptyFilterMessage="Результаты не найдены" optionLabel="name"
+      formControlName="country" placeholder="Выберите страну" filter="true"></p-dropdown>
     <!-- <mat-form-field>
       <mat-form-field-control>
         <input matInput placeholder="Выберите страну" aria-label="country" [matAutocomplete]="auto"

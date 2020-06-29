@@ -26,16 +26,25 @@
   <div *ngIf="!isNext">
     <div class="form-group">
       <label for="">Страна</label>
-      <p-dropdown [options]="countries" placeholder="Нажмите чтобы выбрать" optionLabel="name" formControlName="country"></p-dropdown>
+      <div class="dropdown-content">
+        <p-dropdown [options]="countries" emptyFilterMessage="Результаты не найдены" placeholder="Нажмите чтобы выбрать"
+          filter="true" optionLabel="name" formControlName="country"></p-dropdown>
+      </div>
     </div>
     <div class="form-group">
       <label for="">Вид спорта</label>
-      <p-dropdown [options]="sportTypes" placeholder="Нажмите чтобы выбрать" optionLabel="name" formControlName="sportType"></p-dropdown>
+      <div class="dropdown-content">
+        <p-dropdown [options]="sportTypes" emptyFilterMessage="Результаты не найдены"
+          placeholder="Нажмите чтобы выбрать" filter="true" optionLabel="name" formControlName="sportType"></p-dropdown>
+      </div>
     </div>
   </div>
   <div *ngIf="isNext" class="form-group">
     <label for="">Лига</label>
-    <p-dropdown [options]="ligas" placeholder="Нажмите чтобы выбрать" optionLabel="liga" formControlName="liga"></p-dropdown>
+    <div class="dropdown-content">
+      <p-dropdown [options]="ligas" emptyFilterMessage="Результаты не найдены" placeholder="Нажмите чтобы выбрать"
+        filter="true" optionLabel="liga" formControlName="liga"></p-dropdown>
+    </div>
   </div>
   <div class="bottom-btns">
     <button class="find-btn" (click)="find()">Найти</button>

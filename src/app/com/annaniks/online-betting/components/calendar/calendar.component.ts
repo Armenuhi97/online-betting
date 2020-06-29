@@ -94,6 +94,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 }
             });
             return;
+        } else {
+            this._sendBets()
         }
     }
 
