@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, Subject, forkJoin, Observable } from 'rxjs';
+import { Subscription, Subject, forkJoin, Observable, of } from 'rxjs';
 import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
@@ -28,7 +28,6 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     public tables: Team[] = [];
     private _subscription: Subscription;
     public isAuthorized: boolean = false;
-    private _firstState: boolean = false;
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _ligaService: LigaService,
@@ -40,21 +39,10 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
+        this.isAuthorized = this._loginService.getAuthStateSync();
         this._checkProductId();
-        this.checkIfAuthorized()
     }
 
-    public checkIfAuthorized(): void {
-        this._loginService.getAuthState().pipe(takeUntil(this._unsubscribe$)).subscribe((state: boolean) => {
-            this.isAuthorized = state;
-            if (this.isAuthorized !== this._firstState) {
-                this._firstState = state;
-                if (state)
-                    this._combineObservable();
-            }
-
-        });
-    }
     private _checkProductId(): void {
         this._paramsSubscription = this._activatedRoute.params.subscribe((params) => {
             if (params && params.countryId) {
@@ -65,8 +53,6 @@ export class LigaViewComponent implements OnInit, OnDestroy {
                         this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportType}/${params.countryId}/${params.ligaName}/`), 0);
                         if (this.liga) {
                             this._title.setTitle(this.liga.liga);
-                        }
-                        if (this.liga) {
                             this._combineObservable();
                         }
                     }
@@ -80,7 +66,7 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     private _getTablesByLiga(): Observable<ServerResponse<Team[]>> {
         return this._ligaService.getTables(this.liga.id).pipe(map((data: ServerResponse<Team[]>) => {
             this.tables = data.results;
-            return data;
+            return data
         }));
     }
 
@@ -96,11 +82,15 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     }
 
     private _getCountInTour(id: number): Observable<void> {
-        return this._ligaService.getTourCount(id).pipe(
-            map((data: Count) => {
-                this.tourCount = data.count;
-            })
-        )
+        if (this.isAuthorized && id) {
+            return this._ligaService.getTourCount(id).pipe(
+                map((data: Count) => {
+                    this.tourCount = data.count;
+                })
+            )
+        } else {
+            return of()
+        }
     }
     private _combineObservable() {
         this._loadingService.showLoading();
@@ -114,20 +104,28 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     }
 
     private _getLigaCount() {
-        return this._ligaService.getLigaCount(this.liga.id).pipe(
-            map((data: Count) => {
-                this.ligaCount = data.count;
-                return data
-            })
-        )
+        if (this.isAuthorized) {
+            return this._ligaService.getLigaCount(this.liga.id).pipe(
+                map((data: Count) => {
+                    this.ligaCount = data.count;
+                    return data
+                })
+            )
+        } else {
+            return of(false)
+        }
     }
     private _getUserPlace() {
-        return this._ligaService.getUserPlace().pipe(
-            map((data: Count) => {
-                this.userPlace = data.count;
-                return data
-            })
-        )
+        if (this.isAuthorized) {
+            return this._ligaService.getUserPlace().pipe(
+                map((data: Count) => {
+                    this.userPlace = data.count;
+                    return data
+                })
+            )
+        } else {
+            return of(false);
+        }
     }
     public onClickTabItem(itemName: string): void {
         this.activeTabItem = itemName;
