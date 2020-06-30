@@ -10,7 +10,6 @@ import { HttpClient } from '@angular/common/http';
     providedIn: 'root'
 })
 export class MainService {
-    private _isAuthorizated = false;
     private _countries: Country[] = [];
 
     constructor(private _sportDetailsService: SportDetailService, private _httpClient: HttpClient) { }
@@ -30,10 +29,6 @@ export class MainService {
         return this._countries;
     }
 
-    public changeAuthorizated(value: boolean) {
-        this._isAuthorizated = value;
-    }
-
     public getMe(): Observable<any> {
         return this._httpClient.get('client-get/me/').pipe(
             map((response: any) => {
@@ -41,9 +36,5 @@ export class MainService {
                 return response;
             })
         );
-    }
-
-    get isAuthorizated() {
-        return this._isAuthorizated;
     }
 }
