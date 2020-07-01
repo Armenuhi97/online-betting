@@ -64,8 +64,20 @@
 .active {
     text-decoration: underline !important;
 }
+.close-button{
+    display: none;
+    align-items: center;
+    img{
+        height: 45px;
+        width: 53px;
+        cursor: pointer;
+    }
+}
 @media screen and (max-width:920px){
     .menu-items{
        display: none !important;     
+    }
+    .close-button{
+        display: flex !important;
     }
 }

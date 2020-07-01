@@ -660,8 +660,40 @@ section {
   }
 }
 .disabled{
-  opacity: 0.5;
   pointer-events: none;
+}
+
+.started-status{
+  height: 4px;
+  width: 4px;
+  float: left;
+  border-style: solid !important;
+  border-width: 4px 4px 5px 4px !important;
+  border-color: transparent transparent #33E642 transparent !important;
+  /* width: -webkit-fit-content; */
+  width: -moz-fit-content;
+  /* width: fit-content; */
+  border-radius: 2px;
+  z-index: 3;
+  /* transform: rotate(0deg) scale(1) translateX(-50%); */
+  -webkit-animation: up 0.75s ease-in-out;
+  animation: up 0.75s ease-in-out;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+
+}
+.win-stake{
+  background-color: #167E00 !important;
+}
+.winner{
+  background-color: #3399cc !important 
+}
+.defeat-stake{
+  background-color: red !important;
 }
 @media screen and(max-width:750px){
       .wrap{

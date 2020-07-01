@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AppService } from '../../services';
 import * as moment from 'moment';
+
 @Component({
     selector: 'app-betting-card',
     templateUrl: 'betting-card.component.html',
@@ -58,10 +59,31 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
     public onChange = (value: Match) => { };
 
     public onTouch = (value: Match) => { };
-
-    public convertDate(date: string) {
+    public checkIsWin(status: string): boolean {
+        return (this.matchData.match_client_bet &&
+            this.matchData.match_client_bet.length &&
+            this.matchData.game_output === status &&
+            this.matchData.match_client_bet[0].game_output == status)
+    }
+    public showWinner(status: string) {
+        return ((this.matchData.game_output === status && ((!this.matchData.match_client_bet || (this.matchData.match_client_bet && !this.matchData.match_client_bet.length))
+            || (this.matchData.match_client_bet && this.matchData.match_client_bet.length
+                && this.matchData.match_client_bet[0].game_output !== status)))
+        )
+    }
+    public checkIsDefeat(status: string): boolean {
+        return (this.matchData.game_output !== status &&
+            this.matchData.match_client_bet && this.matchData.match_client_bet.length && this.matchData.game_output &&
+            this.matchData.match_client_bet[0].game_output == status)
+    }
+    public convertDate(date: string): string {
         const timeZone = moment.tz.guess();
         return this._appService.convertDate(timeZone, date);
+    }
+    public checkIsStartMatch(): boolean {
+        const matchDateByUtc = new Date(this.matchData.date + ' UTC');
+        const currentDate = new Date();
+        return (matchDateByUtc < currentDate)
     }
     get statusCtrlValue(): string {
         return this.matchControl.value;
@@ -70,8 +92,5 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
-
     }
-
-
 }

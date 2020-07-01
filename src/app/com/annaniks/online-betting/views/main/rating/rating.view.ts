@@ -34,6 +34,17 @@ export class RatingViewComponent implements OnInit, OnDestroy {
         }
         return image
     }
+    public formatTotalWin(totalWin: boolean | number): number {
+        if (totalWin == false) {
+            return 0
+        } else {
+            if (totalWin == true) {
+                return 1
+            } else {
+                return totalWin
+            }
+        }
+    }
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();

@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoginModalComponent, RegistrationModalComponent } from '../../modals';
 import { MatDialog } from '@angular/material/dialog';
 import { MenuService } from '../../services/menu.service';
-import { LoginService } from '../../services';
+import { LoginService, AppService } from '../../services';
 import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -20,9 +19,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
         private _matDialog: MatDialog,
         private _menuListService: MenuService,
         public loginService: LoginService,
-        private _cookieService: CookieService,
-        private _router: Router
-    ) { }
+        private _appService: AppService,
+        private _cookieService: CookieService) { }
 
     ngOnInit() {
         this.checkIfAuthorized();
@@ -41,7 +39,10 @@ export class TopbarComponent implements OnInit, OnDestroy {
         });
         dialog.afterClosed().subscribe(() => { });
     }
-
+    public openOrCloseMenu() {
+        let isOpen = this._appService.getIsOpenMenu();
+        this._appService.openOrCloseMenu(!isOpen)
+    }
     public registrationModal() {
         const dialog = this._matDialog.open(RegistrationModalComponent, {
             width: '371px',

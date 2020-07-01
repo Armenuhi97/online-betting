@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { SportDetailService } from '../../services/sport-details.service';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -18,6 +18,16 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     public selectedLiga: Liga;
     public selectedCountry: Country;
     private _unsubscribe$ = new Subject<void>();
+    @HostListener('window:resize', ['$event'])
+    private _checkWindowSize(): void {
+        if (window.innerWidth > 920) {
+            if (this._appService.getIsOpenMenu()) {
+                this._appService.closeMenu();
+            }
+        } else {
+            this._appService.closeMenu();
+        }
+    }
     constructor(
         private _mainService: MainService,
         private _activatedRoute: ActivatedRoute,
@@ -26,6 +36,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
+        this._checkWindowSize();
         this._checkQueryParams();
     }
 
@@ -56,6 +67,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
         }
 
     }
+
     private _getUrl(deletedUrl: string, event) {
         const url = event.slice(5);
         url.replace(deletedUrl, '');
@@ -77,5 +89,8 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
 
     get countries(): Country[] {
         return this._mainService.getCountry();
+    }
+    get isOpenMenu(): boolean {
+        return this._appService.getIsOpenMenu();
     }
 }

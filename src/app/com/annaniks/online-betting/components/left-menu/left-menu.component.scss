@@ -13,6 +13,9 @@
         padding-left: 10px;
         color: white;
     }
+    .mat-expansion-panel-header:hover{
+        background: #2D2D2D !important;
+    }
 }
 .item{
     padding: 4px 24px;
@@ -52,4 +55,26 @@ a {
 }
 a:hover{
     color: white;
+}
+@media screen and (max-width:920px){
+    .menu {
+        width: 100%;
+        overflow: auto;
+        position: fixed;
+        bottom: 0;
+        top: 56px;
+        background-color: #2D2D2D;
+        z-index: 99999;
+        -webkit-transition: left .5s;
+        transition: left .5s;
+    }
+    .countries-contaier {
+        width: 100%;
+    }
+    .open{
+        left: 0 !important;
+    }
+    .close{
+        left: -100%;
+    }
 }

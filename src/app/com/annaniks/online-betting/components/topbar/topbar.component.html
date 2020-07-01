@@ -5,7 +5,11 @@
                 [routerLink]="item.path">{{item.label}}</a>
 
         </div>
+        <div class="close-button">
+            <img (click)="openOrCloseMenu()" src="assets/icons/hamburger.png" alt="">
+        </div>
         <div class="auth-buttons">
+            
             <div class="buttons" *ngIf="!isAuthorized">
                 <button (click)="openLoginModal()" class="registration-btn">Войти</button>
                 <button (click)="registrationModal()" class="login-btn">Регистрация</button>

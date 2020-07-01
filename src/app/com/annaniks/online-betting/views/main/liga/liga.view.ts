@@ -76,6 +76,8 @@ export class LigaViewComponent implements OnInit, OnDestroy {
                 this.tours = data.results;
                 if (this.tours && this.tours.length) {
                     this.selectedTour = this.tours[0];
+                } else {
+                    this.selectedTour = null;
                 }
                 return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
             }));
@@ -89,6 +91,8 @@ export class LigaViewComponent implements OnInit, OnDestroy {
                 })
             )
         } else {
+            this.selectedTour = null;
+            this.tourCount = 0;
             return of()
         }
     }
@@ -104,6 +108,7 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     }
 
     private _getLigaCount() {
+        this.ligaCount = 0;
         if (this.isAuthorized) {
             return this._ligaService.getLigaCount(this.liga.id).pipe(
                 map((data: Count) => {
