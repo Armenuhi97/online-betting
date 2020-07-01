@@ -25,8 +25,9 @@ export interface Match {
     'url': string,
     'date': string,
     'matchStatus': number,
-    'match_client_bet': any,
+    'match_client_bet': MatchClientBet[],
     'selectedId': number,
+    'game_output': string,
     'inviter': {
         'url': string,
         'name': string,
@@ -45,13 +46,20 @@ export interface Match {
         'country': string,
         'liga': string,
     },
-    'status':string,
+    'status': string,
     'score': null,
     'match_id': string,
     'duration'?: string,
 }
 export interface Count {
     count: number
+}
+export interface MatchClientBet {
+    client: string,
+    game_output: string,
+    id: number,
+    match: string,
+    url: string,
 }
 export interface Rating {
     client: number

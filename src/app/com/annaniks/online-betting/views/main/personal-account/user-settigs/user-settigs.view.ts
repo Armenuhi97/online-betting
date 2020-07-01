@@ -55,7 +55,8 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
                 lastName: this._user.user.last_name,
                 country: this._appService.checkPropertyValue(this._appService.filterArray(this.countries, 'name', this._user.country), 0)
             });
-            this.userImage = 'url(' + this._user.image + ')';
+            if (this._user.image)
+                this.userImage = 'url(' + this._user.image + ')';
         }
     }
     private _initForm(): void {
@@ -65,8 +66,8 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
             country: [null]
         });
         this._getCountries();
-
     }
+
     public changeImage(event): void {
         if (event) {
             const reader = new FileReader();
@@ -96,11 +97,13 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
             formData.append('user.last_name', this.settingsGroup.get('lastName').value);
         }
         const country = this.settingsGroup.get('country').value;
+
         if (country) {
-            formData.append('country', country);
+            formData.append('country', this._appService.checkPropertyValue(country, 'name'));
         }
         this._loadingService.showLoading();
-        this._userSettingsService.updateClient(formData, this._user.id).pipe(takeUntil(this._unsubscribe$),
+        this._userSettingsService.updateClient(formData, this._user.id).pipe(
+            takeUntil(this._unsubscribe$),
             finalize(() => this._loadingService.hideLoading()),
             switchMap(() => this._mainService.getMe())).subscribe();
     }

@@ -20,7 +20,7 @@ export class MainService {
             .pipe(
                 map((response: ServerResponse<Country[]>) => {
                     this._countries = response.results;
-                    console.log(response);
+                    // console.log(response);
                     return response;
                 }));
     }

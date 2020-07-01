@@ -120,7 +120,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 finalize(() => this._loadingService.hideLoading())
             )
             .subscribe(response => {
-                console.log(response);
+                // console.log(response);
             });
     }
 
@@ -128,7 +128,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         const formattedData: SendBetsModel[] = [];
         const me = JSON.parse(localStorage.getItem('bet-user'));
         for (const element of this.controls) {
-            console.log(element);
+            // console.log(element);
             if (element.value.matchStatus != null) {
                 formattedData.push({
                     game_output: element.value.matchStatus,

@@ -39,7 +39,7 @@ export class LoginService {
         return this._httpClient.get('check-token/', { headers })
             .pipe(
                 map((response) => {
-                    console.log(response);
+                    // console.log(response);
 
                     this.setAuthState(true);
                     this.authorizedEvent$.next(true);

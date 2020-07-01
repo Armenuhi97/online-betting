@@ -18,8 +18,6 @@ export class LigaService {
     }
     public getMatch(tourId: number) {
         let reqUrl = `match/?tur=${tourId}`;
-        console.log(this._loginService.getAuthStateSync());
-
         if (this._loginService.getAuthStateSync()) {
             reqUrl = `match-bet/?tur=${tourId}`;
         }

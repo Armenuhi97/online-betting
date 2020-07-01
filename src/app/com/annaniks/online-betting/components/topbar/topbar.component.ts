@@ -6,7 +6,6 @@ import { LoginService } from '../../services';
 import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-topbar',
@@ -20,9 +19,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
         private _matDialog: MatDialog,
         private _menuListService: MenuService,
         public loginService: LoginService,
-        private _cookieService: CookieService,
-        private _router: Router
-    ) { }
+        private _cookieService: CookieService) { }
 
     ngOnInit() {
         this.checkIfAuthorized();

@@ -1,26 +1,34 @@
-<section [class.disabled]="matchData?.status == 'end'" class="wrap">
+<section [class.disabled]="matchData?.status == 'end' || checkIsStartMatch()" class="wrap">
     <div class="card">
         <div class="card-left">
             <div class="card-left__score">
                 <h5>{{convertDate(matchData?.date)}}</h5>
             </div>
             <div class="card-left__competitors">
-                <a>{{matchData?.hosted?.name}} <span>{{matchData?.score && matchData?.score !== 'null'? matchData?.score : '-'}}</span>
+                <a>{{matchData?.hosted?.name}}
+                    <span>{{matchData?.score && matchData?.score !== 'null'? matchData?.score : '-'}}</span>
                     {{matchData?.inviter?.name}}</a>
             </div>
         </div>
-        <div class="card-right">
+        <div class="card-right display-flex align-items-center">
+            <div *ngIf="checkIsStartMatch() && matchData.status !== 'end'" class="started-status"></div>
             <div class="card-right__live">
                 <em *ngIf="matchData?.duration">{{matchData?.duration}}’</em>
             </div>
             <div class="card-right__odds">
-                <button [class.active-stake]="statusCtrlValue == '0'" (click)="matchControl.setValue(0)" class="odds-1">
+                <button
+                    [ngClass]="{'active-stake':statusCtrlValue == '0','win-stake':checkIsWin('0'),'defeat-stake':checkIsDefeat('0')}"
+                    (click)="matchControl.setValue(0)" class="odds-1">
                     <strong>1</strong>
                 </button>
-                <button [class.active-stake]="statusCtrlValue == '2'" (click)="matchControl.setValue(2)" class="odds-x">
+                <button
+                    [ngClass]="{'active-stake':statusCtrlValue == '2','win-stake':checkIsWin('2'),'defeat-stake':checkIsDefeat('2')}"
+                    (click)="matchControl.setValue(2)" class="odds-x">
                     <strong>X</strong>
                 </button>
-                <button [class.active-stake]="statusCtrlValue == '1'" (click)="matchControl.setValue(1)" class="odds-2">
+                <button
+                    [ngClass]="{'active-stake':statusCtrlValue == '1','win-stake':checkIsWin('1'),'defeat-stake':checkIsDefeat('1')}"
+                    (click)="matchControl.setValue(1)" class="odds-2">
                     <strong>2</strong>
                 </button>
             </div>
