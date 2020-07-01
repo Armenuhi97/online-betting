@@ -3,6 +3,7 @@ import 'moment-timezone';
 import * as moment from 'moment';
 @Injectable()
 export class AppService {
+    private _isOpenMenu: boolean = false
     public checkPropertyValue(object: object | Array<any>, element: string | number, returnValue = null) {
         return (object != null && object[element]) ? object[element] : returnValue;
     }
@@ -11,5 +12,16 @@ export class AppService {
     }
     public convertDate(selectedTimezone: string, date: string): string {
         return moment.utc(date).tz(selectedTimezone).format('DD.MM. HH:mm');
+    }
+    public openOrCloseMenu(isOpen: boolean): void {
+        this._isOpenMenu = isOpen;
+        document.body.style.overflow = (this._isOpenMenu) ? 'hidden' : 'auto';
+    }
+    public closeMenu() {
+        this._isOpenMenu = false;
+        document.body.style.overflow = 'auto';
+    }
+    public getIsOpenMenu(): boolean {
+        return this._isOpenMenu
     }
 }

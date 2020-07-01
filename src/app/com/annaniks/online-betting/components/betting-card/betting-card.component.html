@@ -11,23 +11,23 @@
             </div>
         </div>
         <div class="card-right display-flex align-items-center">
-            <div *ngIf="checkIsStartMatch() && matchData.status !== 'end'" class="started-status"></div>
+            <div *ngIf="checkIsStartMatch() && matchData?.status !== 'end'" class="started-status"></div>
             <div class="card-right__live">
                 <em *ngIf="matchData?.duration">{{matchData?.duration}}’</em>
             </div>
             <div class="card-right__odds">
                 <button
-                    [ngClass]="{'active-stake':statusCtrlValue == '0','win-stake':checkIsWin('0'),'defeat-stake':checkIsDefeat('0')}"
+                    [ngClass]="{'active-stake':statusCtrlValue == '0','win-stake':checkIsWin('0'),'defeat-stake':checkIsDefeat('0'),'winner':showWinner('0')}"
                     (click)="matchControl.setValue(0)" class="odds-1">
                     <strong>1</strong>
                 </button>
                 <button
-                    [ngClass]="{'active-stake':statusCtrlValue == '2','win-stake':checkIsWin('2'),'defeat-stake':checkIsDefeat('2')}"
+                    [ngClass]="{'active-stake':statusCtrlValue == '2','win-stake':checkIsWin('2'),'defeat-stake':checkIsDefeat('2'),'winner':showWinner('2')}"
                     (click)="matchControl.setValue(2)" class="odds-x">
                     <strong>X</strong>
                 </button>
                 <button
-                    [ngClass]="{'active-stake':statusCtrlValue == '1','win-stake':checkIsWin('1'),'defeat-stake':checkIsDefeat('1')}"
+                    [ngClass]="{'active-stake':statusCtrlValue == '1','win-stake':checkIsWin('1'),'defeat-stake':checkIsDefeat('1'),'winner':showWinner('1')}"
                     (click)="matchControl.setValue(1)" class="odds-2">
                     <strong>2</strong>
                 </button>

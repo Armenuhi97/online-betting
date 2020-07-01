@@ -23,32 +23,35 @@
         <ng-content select="router-outlet"></ng-content>
     </div>
 </mat-drawer-container> -->
-<ul *ngIf="isSelectCountry" class="countries-contaier">
-    {{selectedCountry?.name}}
-    <ng-container>
-        <span class="country-ref">
-            <div [class.active]="selectedLiga == liga" *ngFor="let liga of selectedCountry?.country_liga" class="item">
-                <a class="ref" [routerLink]="'/liga'+liga?.link"> {{liga?.liga}}</a>
-            </div>
-        </span>
-    </ng-container>
-</ul>
-<ul class="countries-contaier" [class.margin-top-25]="selectedCountry">
-    Страны
-    <ng-container *ngFor="let country of countries">
-        <span class="country-ref" href="">
-            <mat-accordion class="example-headers-align" multi>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <a class="ref" [routerLink]="'/country'+country?.link"> {{country?.name}}</a>
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <a *ngFor="let liga of country?.country_liga" class="country-ref ref"
-                        [routerLink]="'/liga'+liga?.link">{{liga?.liga}}</a>
+<div [ngClass]="{'open':isOpenMenu,'close':!isOpenMenu}" class="menu">
+    <ul *ngIf="isSelectCountry" class="countries-contaier">
+        {{selectedCountry?.name}}
+        <ng-container>
+            <span class="country-ref">
+                <div [class.active]="selectedLiga == liga" *ngFor="let liga of selectedCountry?.country_liga"
+                    class="item">
+                    <a class="ref" [routerLink]="'/liga'+liga?.link"> {{liga?.liga}}</a>
+                </div>
+            </span>
+        </ng-container>
+    </ul>
+    <ul class="countries-contaier" [class.margin-top-25]="selectedCountry">
+        Страны
+        <ng-container *ngFor="let country of countries">
+            <span class="country-ref" href="">
+                <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <a class="ref" [routerLink]="'/country'+country?.link"> {{country?.name}}</a>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <a *ngFor="let liga of country?.country_liga" class="country-ref ref"
+                            [routerLink]="'/liga'+liga?.link">{{liga?.liga}}</a>
 
-                </mat-expansion-panel>
-            </mat-accordion>
-        </span>
-    </ng-container>
-</ul>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </span>
+        </ng-container>
+    </ul>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { LoginService } from './com/annaniks/online-betting/services';
+import { LoginService, AppService } from './com/annaniks/online-betting/services';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MainService } from './com/annaniks/online-betting/views/main/main.service';
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private _unsubscribe$ = new Subject<void>();
   public title = 'СпортКлик';
 
-  constructor(private router: Router, private _loginService: LoginService, private _mainService: MainService) { }
+  constructor(private router: Router, private _loginService: LoginService, private _mainService: MainService, private _appService: AppService) { }
 
   ngOnInit() {
     this._invokeAuthStateAndFetchMe();
@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
         return;
       }
       window.scrollTo(0, 0);
+      this._appService.openOrCloseMenu(false);
     });
   }
 
