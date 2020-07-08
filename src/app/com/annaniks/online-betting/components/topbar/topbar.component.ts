@@ -60,13 +60,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
     }
 
     public logout(): void {
-        this._cookieService.deleteAll('/'); if (this._router.url.startsWith('/user') || this._router.url == '/rating') {
-            this._router.navigate(['/'])
-        }
-        setTimeout(() => {
-            window.location.reload();
-        }, 200);
-
+        this._cookieService.deleteAll('/')
+        window.location.reload();
     }
 
     get companyMenuList() {

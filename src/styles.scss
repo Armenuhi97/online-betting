@@ -113,39 +113,5 @@ body {
   background: #232323;
 }
 html.cdk-global-scrollblock {
-  width: initial;
-  position: initial;
-  overflow-y: hidden;
-}
-
-body.modal-open {
-  overflow: hidden;
-}
-
-body.modal-open .cdk-global-overlay-wrapper {
-  pointer-events: all;
-  display: block !important;
-  overflow: auto;
-  padding: 30px 0;
-  position: fixed;
-}
-
-body.modal-open .cdk-overlay-pane {
-  position: relative !important;
-  margin: auto !important;
-}
-
-.cdk-overlay-backdrop {
-  position: fixed !important;
-}
-
-.mat-dialog-container {
-  margin: 0 auto 30px !important;
-  height: auto !important;
-  overflow: initial !important;
-}
-
-.mat-dialog-content {
-  max-width: none !important;
-  max-height: none !important;
+  background: #000e1a;
 }
