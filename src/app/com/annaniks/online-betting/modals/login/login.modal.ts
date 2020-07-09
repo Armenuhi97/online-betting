@@ -16,7 +16,7 @@ import { LoadingService } from '../../services';
 export class LoginModalComponent implements OnInit, OnDestroy {
     public loginForm: FormGroup;
     private _unsubscribe$ = new Subject<void>();
-
+    public errorMessage: string;
     constructor(
         private _fb: FormBuilder,
         private _loginService: LoginService,
@@ -41,6 +41,7 @@ export class LoginModalComponent implements OnInit, OnDestroy {
     }
 
     public login(): void {
+        this.errorMessage = ''
         this._loadingService.showLoading();
         const formValue = this.loginForm.value;
         const sendingData: SignInModel = {
@@ -54,9 +55,14 @@ export class LoginModalComponent implements OnInit, OnDestroy {
             )
             .subscribe((data: any) => {
                 this._cookieService.set('accessToken', data.access, null, '/');
-                this._cookieService.set('refreshToken', data.refresh, null, '/');               
+                this._cookieService.set('refreshToken', data.refresh, null, '/');
                 window.location.reload();
-            });
+            },
+                (error) => {
+                    if (error.status === 401 || error.status === 404) {
+                        this.errorMessage = 'Неправильный email или пароль';
+                    }
+                });
 
     }
 

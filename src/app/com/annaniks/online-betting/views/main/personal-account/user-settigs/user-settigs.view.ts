@@ -41,9 +41,9 @@ export class UserSettingsViewComponent implements OnInit, OnDestroy {
                 )
             ).subscribe((data: any) => {
                 this.countries = data;
-                for (const codes of this.countries) {
-                    codes.flag = 'assets/png100px/' + codes.code.toLocaleLowerCase() + '.png';
-                }
+                // for (const codes of this.countries) {
+                //     codes.flag = 'assets/png100px/' + codes.code.toLocaleLowerCase() + '.png';
+                // }
                 this._getUserInfo();
             });
     }

@@ -14,9 +14,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     constructor(
         private _httpClient: HttpClient,
-        private _cookieService: CookieService,
-        private _router: Router
-    ) {
+        private _cookieService: CookieService) {
         this._updateTokenState = this._updateTokenEvent$.asObservable();
     }
 
@@ -28,7 +26,7 @@ export class JwtInterceptor implements HttpInterceptor {
                     const error = err.error;
                     // console.log(err, req.url);
 
-                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.API_URL + 'token/refresh/') {
+                    if ((status === 401 || error.status === 401 || status === 0) && (req.url === environment.API_URL + 'token/refresh/' || req.url === environment.API_URL + 'client-login/')) {
                         return throwError(err);
                     }
                     if (status === 401 || error.status === 401) {

@@ -5,6 +5,7 @@ import { takeUntil, finalize } from 'rxjs/operators';
 import { Rating, RatingResponse } from '../../../models/model';
 import { environment } from 'src/environments/environment';
 import { LoadingService } from '../../../services';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-rating',
@@ -15,8 +16,10 @@ export class RatingViewComponent implements OnInit, OnDestroy {
     private _unsubscribe$ = new Subject<void>();
     public ratingList: Rating[] = [];
     public fileUrl = environment.MEDIA_URL;
-    constructor(private _ratingService: RatingService, private _loadingService: LoadingService) { }
+
+    constructor(private _ratingService: RatingService, private _loadingService: LoadingService, private _title: Title) { }
     ngOnInit() {
+        this._title.setTitle('Рейтинг');
         this._getOrdering();
     }
     private _getOrdering() {
