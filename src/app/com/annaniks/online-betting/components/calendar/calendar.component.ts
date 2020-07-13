@@ -105,7 +105,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribe$),
             )
             .subscribe((data: ServerResponse<Match[]>) => {
-                this.checkIsTourFinished(tour, data.results)
+                this.checkIsTourFinished(tour, data.results);
             });
     }
 
@@ -169,7 +169,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     get controls(): AbstractControl[] {
         return this.matchesForm.controls;
     }
-    public checkIsTourFinished(tour, matches) {
+    public checkIsTourFinished(tour:Tour, matches:Match[]) {
         if (matches && matches.length) {
             const lastMatchDateByUtc = new Date(matches[matches.length - 1].date + ' UTC');
             const currentDate = new Date();

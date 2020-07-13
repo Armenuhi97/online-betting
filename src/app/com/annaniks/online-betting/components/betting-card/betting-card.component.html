@@ -4,6 +4,13 @@
             <div class="card-left__score">
                 <h5>{{convertDate(matchData?.date)}}</h5>
             </div>
+            <div class="mb card-left__competitors">
+                <a>{{matchData?.hosted?.name}}
+                    <span>-</span>
+                    {{matchData?.inviter?.name}}</a>
+            </div>
+        </div>
+        <div class="card-center">
             <div class="card-left__competitors">
                 <a>{{matchData?.hosted?.name}}
                     <span>-</span>

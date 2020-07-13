@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, OnDestroy } from '@angular/core';
 import { Match } from '../../models/model';
 import { NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';

@@ -126,9 +126,12 @@ $size: 12px;
 
 // Card
 .card {
+
   @include ease;
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin: 2px 0 !important;
 
   width: 100%;
@@ -726,14 +729,20 @@ img{
     font-size: 22px !important;
   }
 }
+.mb{
+  display: none
+}
 @media screen and(max-width:750px){
-      .wrap{
-          min-height: 115px;
-          section{
-            height: 100%;
-          }
+      .card-right{
+        float: none !important;
       }
-      .card-left__competitors{
-        padding-right: 0 !important;
+      .card{
+        display: block !important;
+      }
+      .card-center{
+        display: none !important;
+      }
+      .mb{
+        display: block !important;
       }
 }
