@@ -20,6 +20,8 @@ const mainRoutes: Routes = [
             { path: 'tournament', loadChildren: () => import('./betting/betting.module').then(m => m.BettingModule) },
             { path: 'sport', loadChildren: () => import('./sport/sport.module').then(m => m.SportModule) },
             { path: 'rating',canActivate: [AuthGuard], loadChildren: () => import('./rating/rating.module').then(m => m.RatingModule) },
+            { path: 'how-top-play', loadChildren: () => import('./how-to-play/how-to-play.module').then(m => m.HowToPlayModule) },
+
             { path: 'country/:sportType/:countryId', loadChildren: () => import('./country/country.module').then(m => m.CountryModule) },
             { path: 'liga/:sportType/:countryId/:ligaName', loadChildren: () => import('./liga/liga.module').then(m => m.LigaModule) },
         ]

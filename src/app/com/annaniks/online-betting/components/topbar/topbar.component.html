@@ -1,15 +1,18 @@
 <div class="overflow-scroll">
     <div class="header">
-        <div class="menu-items">
-            <a *ngFor="let item of companyMenuList" class="item" routerLinkActive="active"
-                [routerLink]="item.path">{{item.label}}</a>
-
+     
+        <div class="header-text">
+            <h1 class="title">СпортКлик</h1>
+            <div class="subtitle">интерактивная игра</div>
         </div>
         <div class="close-button">
             <img (click)="openOrCloseMenu()" src="assets/icons/hamburger.png" alt="">
         </div>
-        <div class="auth-buttons">
-            
+           <div class="menu-items">
+            <a *ngFor="let item of topbarMenuList" class="item" routerLinkActive="active"
+                [routerLink]="item.path">{{item.label}}</a>  
+        </div>        
+        <div class="auth-buttons">            
             <div class="buttons" *ngIf="!isAuthorized">
                 <button (click)="openLoginModal()" class="registration-btn">Войти</button>
                 <button (click)="registrationModal()" class="login-btn">Регистрация</button>

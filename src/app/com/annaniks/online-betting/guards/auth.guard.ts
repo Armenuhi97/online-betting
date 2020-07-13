@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, CanActivate, Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services';
 import { CookieService } from 'ngx-cookie-service';

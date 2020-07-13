@@ -19,6 +19,7 @@ export interface Tour {
     'liga': string,
     'name': string,
     'url': string,
+    'status':string
 }
 export interface Match {
     'id': number,

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoginModalComponent, RegistrationModalComponent } from '../../modals';
 import { MatDialog } from '@angular/material/dialog';
-import { MenuService } from '../../services/menu.service';
 import { LoginService, AppService } from '../../services';
 import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { TopBarMenuService } from '../../services/topbar-menu.service';
 
 @Component({
     selector: 'app-topbar',
@@ -18,7 +18,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     public isAuthorized = false;
     constructor(
         private _matDialog: MatDialog,
-        private _menuListService: MenuService,
+        private _topbarMenuListService: TopBarMenuService,
         public loginService: LoginService,
         private _appService: AppService,
         private _cookieService: CookieService,
@@ -64,8 +64,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
         window.location.reload();
     }
 
-    get companyMenuList() {
-        return this._menuListService.getMainMenuItems();
+    get topbarMenuList() {
+        return this._topbarMenuListService.getMenuItems();
     }
 
     ngOnDestroy() {

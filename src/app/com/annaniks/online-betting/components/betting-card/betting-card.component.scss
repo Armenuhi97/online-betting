@@ -695,6 +695,37 @@ section {
 .defeat-stake{
   background-color: red !important;
 }
+.card-left__competitors{
+  height: auto !important;
+  a{
+    font-size: 14px;
+    // margin-left: 220px;
+  }
+}
+img{
+  height: 20px;
+  width: 20px;
+}
+.material-icons{
+    font-family: 'Material Icons' !important;
+}
+.done{
+  color: green;
+}
+.close{
+  color: red;
+}
+
+.result-card{
+  color: white;
+  position: relative;
+  .icon{
+    position: absolute;
+    top: -20px;
+    right: -24px;
+    font-size: 22px !important;
+  }
+}
 @media screen and(max-width:750px){
       .wrap{
           min-height: 115px;

@@ -1,17 +1,12 @@
-<!-- <div>
-    <p-dropdown [options]="countries" emptyFilterMessage="Результаты не найдены" placeholder="Нажмите чтобы выбрать"
-    filter="true" optionLabel="name" formControlName="country"></p-dropdown>
-</div> -->
 <div class="rating-content">
-    <div *ngFor="let participant of ratingList;let i=index" class="participant">
-        <div class="image-content">
-            <div class="rating-status">{{i+1}}</div>
-            <img [src]="getImage(participant)" alt="">
-        </div>
-        <div class="info">
-            <span>{{participant?.client__user__first_name}}</span>
-            <span>{{participant?.client__user__last_name}}</span>
-            <span class="result">{{formatTotalWin(participant?.total_win)}}</span>
-        </div>
-    </div>
+    <table>      
+        <tr *ngFor="let participant of ratingList;let i=index">
+            <td>{{i+1}}.</td>
+            <td>
+                <img [src]="getImage(participant)" alt="">
+            </td>
+            <td>{{participant?.client__user__first_name}} {{participant?.client__user__last_name}}</td>
+            <td class="result">{{formatTotalWin(participant?.total_win)}}</td>
+        </tr>
+    </table>
 </div>

@@ -8,6 +8,15 @@
     .participant{
         margin-right: 20px;
         margin-top: 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background: #2D2D2D;
+    }
+    table{
+        width: 100%;
+     
+    }
         .image-content{
             width: 100px;
             position: relative;
@@ -27,17 +36,15 @@
             }
         }
         img{
-            margin-top: 25px;
-            width: 100px;
-            height: 100px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: contain;
             border: 1px solid white;
         }
         .info{
             text-align: center;
-            display: flex;
-            flex-direction: column;
+            display: flex;           
             .result{
                 color: #96dcff;
             }
@@ -45,5 +52,5 @@
                 margin-top: 7px;
             }
         }
-    }
+    
 }

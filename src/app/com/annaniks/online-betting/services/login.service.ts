@@ -4,7 +4,6 @@ import { SignUpModel, SignInModel } from '../models/auth';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
-import { MainService } from '../views/main/main.service';
 
 @Injectable()
 export class LoginService {

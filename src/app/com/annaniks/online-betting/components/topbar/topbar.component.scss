@@ -3,11 +3,21 @@
     background: black;
     position: sticky;
     z-index: 10;
-    height: 56px;
+    // height: 56px;
     display: flex;
     align-items: center;
     color: white;
-
+    .header-text{
+        margin-right: 5px;
+        .title{
+            margin: 0;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .subtitle{
+            font-size: 12px;
+        }
+    }
     .auth-buttons {
         margin-left: auto;
         margin-right: 10px;
@@ -54,6 +64,7 @@
         text-decoration: underline !important;
     }
 }
+
 .overflow-scroll {
     overflow-x: auto;
     overflow-y: hidden;
@@ -74,9 +85,9 @@
     }
 }
 @media screen and (max-width:920px){
-    .menu-items{
-       display: none !important;     
-    }
+    // .menu-items{
+    //    display: none !important;     
+    // }
     .close-button{
         display: flex !important;
     }

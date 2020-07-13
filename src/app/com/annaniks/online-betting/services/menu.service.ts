@@ -7,8 +7,6 @@ export class MenuService {
         { label: 'О нас', path: '/about' },
         { label: 'Пользовательские соглашение', path: '/terms-of-use' },
         { label: 'Контакты', path: '/contacts' },
-        { label: 'Турниры', path: '/tournament' },
-        { label: 'Рейтинг', path: '/rating' },
     ];
 
     public getMainMenuItems() {

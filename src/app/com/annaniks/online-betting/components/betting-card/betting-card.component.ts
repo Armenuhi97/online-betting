@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, forwardRef, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, OnDestroy, Output } from '@angular/core';
 import { Match } from '../../models/model';
 import { NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -19,9 +19,7 @@ import * as moment from 'moment';
     ]
 })
 export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAccessor {
-
     @Input() item;
-
     private unsubscribe$ = new Subject<void>();
     public matchControl = new FormControl(null);
     public matchData: Match = null;
@@ -66,10 +64,10 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
             this.matchData.match_client_bet[0].game_output == status)
     }
     public showWinner(status: string) {
-        return ((this.matchData.game_output === status && ((!this.matchData.match_client_bet || (this.matchData.match_client_bet && !this.matchData.match_client_bet.length))
+        return (this.matchData.game_output === status && ((!this.matchData.match_client_bet || (this.matchData.match_client_bet && !this.matchData.match_client_bet.length))
             || (this.matchData.match_client_bet && this.matchData.match_client_bet.length
                 && this.matchData.match_client_bet[0].game_output !== status)))
-        )
+
     }
     public checkIsDefeat(status: string): boolean {
         return (this.matchData.game_output !== status &&
@@ -88,7 +86,9 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
     get statusCtrlValue(): string {
         return this.matchControl.value;
     }
-
+    get getIcon() {
+        return (this.matchData.match_client_bet[0].game_output == this.matchData.game_output) ? 'done' : 'close'
+    }
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

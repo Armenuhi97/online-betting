@@ -39,7 +39,7 @@
     </div>
     <div class="tabs-content" [ngSwitch]="activeTabItem">
         <app-table [tables]="tables" *ngSwitchCase="'table'"></app-table>
-        <app-calendar [tours]="tours" [selectedTour]="selectedTour" (getSelectedTour)="getSelectedTour($event)"
+        <app-calendar  [selectedTour]="selectedTour" [tours]="tours" (getSelectedTour)="getSelectedTour($event)"
             *ngSwitchCase="'calendar'"></app-calendar>
     </div>
 </div>

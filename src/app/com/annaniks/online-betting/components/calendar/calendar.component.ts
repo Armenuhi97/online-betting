@@ -16,9 +16,19 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, OnDestroy {
+    public isSaved: boolean = false;
+    @Input('selectedTour')
+    set setSelectedTour($event: Tour) {
+        if ($event) {
+            this.selectedTour = $event;
+            this._getMatchesBySelectedTour(this.selectedTour)
+        }
+    }
     @Input('tours')
     set setTours($event: Tour[]) {
         this.tours = $event;
+        for (const tour of this.tours)
+            this._getMatchesByTour(tour)
         if (this.tours && this.tours.length) {
             this.isShow = true;
             if (!this.selectedTour) {
@@ -30,13 +40,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
             this._initForm();
         }
     }
-    @Input('selectedTour')
-    set setSelectedTour($event: Tour) {
-        if ($event) {
-            this.selectedTour = $event;
-            this._getMatchesBySelectedTour(this.selectedTour)
-        }
-    }
+
     @Output('getSelectedTour') private _onSelectTour: EventEmitter<Tour> = new EventEmitter<Tour>();
 
     public isShow: boolean = false;
@@ -75,6 +79,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
             }));
         });
         this.matchesForm.controls = controls;
+        for (let match of this.matchesForm.controls) {
+            match.valueChanges.pipe(takeUntil(this._unsubscribe$)).subscribe(() => {
+                this.isSaved = false;
+            })
+        }
     }
 
     private _getMatches(tourId: number): void {
@@ -87,6 +96,16 @@ export class CalendarComponent implements OnInit, OnDestroy {
             .subscribe((data: ServerResponse<Match[]>) => {
                 this.matches = data.results;
                 this._setFormArrayControls();
+            });
+    }
+    private _getMatchesByTour(tour) {
+        this._ligaService.getMatch(tour.id)
+            .pipe(
+                finalize(() => this._loadingService.hideLoading()),
+                takeUntil(this._unsubscribe$),
+            )
+            .subscribe((data: ServerResponse<Match[]>) => {
+                this.checkIsTourFinished(tour, data.results)
             });
     }
 
@@ -120,7 +139,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 finalize(() => this._loadingService.hideLoading())
             )
             .subscribe(response => {
-                // console.log(response);
+                this.isSaved = true;
             });
     }
 
@@ -128,7 +147,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
         const formattedData: SendBetsModel[] = [];
         const me = JSON.parse(localStorage.getItem('bet-user'));
         for (const element of this.controls) {
-            // console.log(element);
             if (element.value.matchStatus != null) {
                 formattedData.push({
                     game_output: element.value.matchStatus,
@@ -151,11 +169,27 @@ export class CalendarComponent implements OnInit, OnDestroy {
     get controls(): AbstractControl[] {
         return this.matchesForm.controls;
     }
-
+    public checkIsTourFinished(tour, matches) {
+        if (matches && matches.length) {
+            const lastMatchDateByUtc = new Date(matches[matches.length - 1].date + ' UTC');
+            const currentDate = new Date();
+            if (lastMatchDateByUtc < currentDate) {
+                tour.status = "finished";
+            } else {
+                const nextThirdDay = new Date();
+                nextThirdDay.setDate(nextThirdDay.getDate() + 3);
+                for (const match of matches) {
+                    const matchDateByUtc = new Date(match.date + ' UTC');
+                    if (matchDateByUtc <= nextThirdDay) {
+                        tour.status = 'nearest';
+                        return;
+                    }
+                }
+            }
+        }
+    }
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();
     }
-
-
 }

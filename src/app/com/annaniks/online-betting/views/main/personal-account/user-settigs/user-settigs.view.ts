@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserSettingsService } from './user-settings.service';
 import { takeUntil, finalize, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';

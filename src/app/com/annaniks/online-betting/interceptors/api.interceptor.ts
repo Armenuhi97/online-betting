@@ -1,7 +1,7 @@
 
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, Subscriber } from 'rxjs';
-import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import {  Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
 const API_URL = environment.API_URL;
@@ -18,8 +18,7 @@ export class ApiInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (!checkIsRelativePath(req.url)) {
             let httpHeaders: HttpHeaders = req.headers;
-            let params: HttpParams = new HttpParams();
-            params = req.params;
+            let params: HttpParams = (req.params) ? req.params : new HttpParams();
             if (req.params.get('isAuthorized') === 'true') {
                 params = req.params.delete('isAuthorized');
                 const token: string = this._cookieService.get('accessToken') || '';

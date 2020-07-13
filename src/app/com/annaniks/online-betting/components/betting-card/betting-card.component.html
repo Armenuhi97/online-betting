@@ -6,7 +6,7 @@
             </div>
             <div class="card-left__competitors">
                 <a>{{matchData?.hosted?.name}}
-                    <span>{{matchData?.score && matchData?.score !== 'null'? matchData?.score : '-'}}</span>
+                    <span>-</span>
                     {{matchData?.inviter?.name}}</a>
             </div>
         </div>
@@ -30,6 +30,15 @@
                     [ngClass]="{'active-stake':statusCtrlValue == '1','win-stake':checkIsWin('1'),'defeat-stake':checkIsDefeat('1'),'winner':showWinner('1')}"
                     (click)="matchControl.setValue(1)" class="odds-2">
                     <strong>2</strong>
+                </button>
+                <button class="odds-2">
+                    <div class="result-card">{{matchData?.score && matchData?.score !== 'null'? matchData?.score : '-'}}
+                        <span [ngClass]="{'done':getIcon=='done','close':getIcon == 'close'}"
+                            *ngIf="matchData?.status == 'end' && matchData.match_client_bet && matchData.match_client_bet.length"
+                            class="material-icons icon">
+                            {{getIcon}}
+                        </span>
+                    </div>
                 </button>
             </div>
         </div>

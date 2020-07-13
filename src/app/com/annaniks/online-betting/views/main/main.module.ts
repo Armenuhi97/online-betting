@@ -4,9 +4,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { MainRoutingModule } from './main.routing.module';
 import { TopbarComponent, LeftMenuComponent, FooterComponent } from '../../components';
 import { LoginModalComponent, RegistrationModalComponent } from '../../modals';
-import { MainService } from './main.service';
 import { MenuService } from '../../services/menu.service';
-import { LoadingService } from '../../services';
+import { LoadingService, TopBarMenuService } from '../../services';
 import { LoadingComponent } from '../../loading/loading.component';
 
 @NgModule({
@@ -21,6 +20,6 @@ import { LoadingComponent } from '../../loading/loading.component';
     ],
     entryComponents: [LoginModalComponent, RegistrationModalComponent],
     imports: [SharedModule, MainRoutingModule],
-    providers: [MenuService, LoadingService]
+    providers: [MenuService, LoadingService,TopBarMenuService]
 })
 export class MainModule { }
