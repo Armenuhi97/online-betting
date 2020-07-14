@@ -6,7 +6,7 @@ export class TopBarMenuService {
     private mainMenuItems = [
         { label: 'Главная', path: '/tournament' },
         { label: 'Как играть?', path: '/how-top-play' },
-        { label: 'Мои турниры', path: '#' },
+        { label: 'Мои турниры', path: '/my-tournament' },
         { label: 'Рейтинг', path: '/rating' },
         { label: 'Страны', path: '/tournament' },
 

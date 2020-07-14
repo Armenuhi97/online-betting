@@ -1,0 +1,9 @@
+<div [routerLink]="'/liga'+liga?.link" *ngFor="let liga of ligas" class="liga-header">
+    <div class="logo">
+        <img [src]="'https://www.flashscore.ru/'+liga?.logo" alt="">
+    </div>
+    <div class="text">
+        <div class="title">{{liga?.liga}}</div>
+        <div>{{liga?.date}}</div>
+    </div>
+</div>

@@ -24,6 +24,7 @@
     "material-design-icons": "^3.0.1",
     "moment-timezone": "^0.5.31",
     "ngx-cookie-service": "^3.0.4",
+    "primeflex": "^2.0.0-rc.1",
     "primeicons": "^4.0.0",
     "primeng": "^9.1.0",
     "rxjs": "~6.5.4",

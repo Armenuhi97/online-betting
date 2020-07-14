@@ -1,12 +1,8 @@
 <div class="rating-content">
-    <table>      
-        <tr *ngFor="let participant of ratingList;let i=index">
-            <td>{{i+1}}.</td>
-            <td>
-                <img [src]="getImage(participant)" alt="">
-            </td>
-            <td>{{participant?.client__user__first_name}} {{participant?.client__user__last_name}}</td>
-            <td class="result">{{formatTotalWin(participant?.total_win)}}</td>
-        </tr>
-    </table>
+    <div *ngFor="let participant of ratingList;let i=index" class="p-grid">
+        <div class="p-col-1">{{i+1}}.</div>
+        <div class="p-col-3"> <img [src]="getImage(participant)" alt=""></div>
+        <div class="p-col-5">{{participant?.client__user__first_name}} {{participant?.client__user__last_name}}</div>
+        <div class="p-col-1">{{formatTotalWin(participant?.total_win)}}</div>
+    </div>
 </div>

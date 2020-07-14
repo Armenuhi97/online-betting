@@ -5,7 +5,7 @@ import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
 import { LigaService } from './liga.service';
-import { map, finalize, switchMap, takeUntil } from 'rxjs/operators';
+import { map, finalize, switchMap } from 'rxjs/operators';
 import { ServerResponse, Team, Tour, Count } from '../../../models/model';
 import { LoadingService, LoginService } from '../../../services';
 import { Title } from '@angular/platform-browser';
@@ -70,20 +70,32 @@ export class LigaViewComponent implements OnInit, OnDestroy {
         }));
     }
 
-    private _getTours(): Observable<void> {
+    private _getTours() {
         return this._ligaService.getTour(this.liga.id).pipe(
             switchMap((data: ServerResponse<Tour[]>) => {
                 this.tours = data.results;
-                if (this.tours && this.tours.length) {
-                    this.selectedTour = this.tours[0];
-                } else {
-                    this.selectedTour = null;
-                }
-                return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
-            }));
+                return this._activatedRoute.queryParams.pipe(
+                    finalize(() => { this._loadingService.hideLoading() }),
+                    switchMap((params) => {
+                        if (this.tours && this.tours.length) {
+                            if (params && params.tour) {
+                                this.selectedTour = this._appService.checkPropertyValue(this._appService.filterArray(this.tours, 'id', +params.tour), 0);
+                                return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
+                            } else {
+                                this.selectedTour = this.tours[0];
+                                return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
+                            }
+                        } else {
+                            this._loadingService.hideLoading()
+                            return of()
+                        }
+                    })
+                )
+            },
+            ));
     }
 
-    private _getCountInTour(id: number): Observable<void> {
+    private _getCountInTour(id: number) {
         if (this.isAuthorized && id) {
             return this._ligaService.getTourCount(id).pipe(
                 map((data: Count) => {
@@ -135,15 +147,7 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     public onClickTabItem(itemName: string): void {
         this.activeTabItem = itemName;
     }
-    public getSelectedTour($event) {
-        this.selectedTour = $event;
-        this._loadingService.showLoading();
-        this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
-            .pipe(
-                takeUntil(this._unsubscribe$),
-                finalize(() => this._loadingService.hideLoading())
-            ).subscribe()
-    }
+
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();

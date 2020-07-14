@@ -2,10 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .liga-header{
-    display: flex;
-    align-items: center;
-  }
+ 
   .betting {
     padding: 10px;
     display: flex;
@@ -27,24 +24,7 @@
       }
     }
   }
-  .text {
-    margin-left: 12px;
-    color: white;
-  }
-  .logo {
-    background: white;
-    border-radius: 6px;
-    padding: 5px;
-    img {
-      width: 82px;
-      height: 82px;
-    }
-  }
-
-  .title {
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
+ 
 }
 .tour-list {
   color: white;

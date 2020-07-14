@@ -75,13 +75,18 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
             this.matchData.match_client_bet[0].game_output == status)
     }
     public convertDate(date: string): string {
-        const timeZone = moment.tz.guess();
-        return this._appService.convertDate(timeZone, date);
+        if (date) {
+            const timeZone = moment.tz.guess();
+            return this._appService.convertDate(timeZone, date);
+        }
     }
     public checkIsStartMatch(): boolean {
-        const matchDateByUtc = new Date(this.matchData.date + ' UTC');
-        const currentDate = new Date();
-        return (matchDateByUtc < currentDate)
+        if (this.matchData && this.matchData.date) {
+            const matchDateByUtc = new Date(this.matchData.date + ' UTC');
+            const currentDate = new Date();
+
+            return (matchDateByUtc < currentDate)
+        }
     }
     get statusCtrlValue(): string {
         return this.matchControl.value;
