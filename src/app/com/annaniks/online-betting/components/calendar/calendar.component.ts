@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
-import { Subject, of, Observable } from 'rxjs';
+import { Subject, of, Observable, concat } from 'rxjs';
 import { takeUntil, finalize, switchMap, map } from 'rxjs/operators';
 import { LoadingService, LoginService, AppService } from '../../services';
 import { AbstractControl, FormControl, FormArray, FormBuilder } from '@angular/forms';
@@ -21,11 +21,28 @@ export class CalendarComponent implements OnInit, OnDestroy {
     @Input('tours')
     set setTours($event: Tour[]) {
         this.tours = $event;
-        for (const tour of this.tours)
-            this._getMatchesByTour(tour).subscribe()
+        const observables: Observable<any>[] = [];
+        for (const tour of this.tours) {
+            observables.push(this._getMatchesByTour(tour));
+        }
+        let j = 0;
+        this._loadingService.showLoading();
+        concat(...observables).pipe(
+            takeUntil(this._unsubscribe$),
+            finalize(() => this._loadingService.hideLoading()),
+            switchMap(() => {
+                if (j == observables.length - 1) {
+                    return this._checkQueryParams()
+                } else {
+                    j++;
+                    return of()
+                }
+
+            })
+        ).subscribe()
+
         if (this.tours && this.tours.length) {
             this.isShow = true;
-            this._checkQueryParams();
         } else {
             this.isShow = false;
             this.matches = [];
@@ -55,26 +72,24 @@ export class CalendarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._initForm();
     }
-   
-    private _checkQueryParams(): void {
-        this._activatedRoute.queryParams.pipe(takeUntil(this._unsubscribe$),
+
+    private _checkQueryParams() {
+        return this._activatedRoute.queryParams.pipe(
             finalize(() => this._loadingService.hideLoading()),
             switchMap((params) => {
                 if (this.tours && this.tours.length) {
                     if (params && params.tour) {
                         this.selectedTour = +params.tour;
-                        this._loadingService.showLoading();
                         return this._getMatches(this.selectedTour);
                     } else {
                         this.selectedTour = this.tours[0].id;
-                        this._loadingService.showLoading();
                         return this._getMatches(this.selectedTour);
                     }
                 } else {
                     this._loadingService.hideLoading()
                     return of()
                 }
-            })).subscribe()
+            }))
     }
 
     private _initForm(): void {
@@ -100,7 +115,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
     private _getMatches(tourId: number) {
         return this._ligaService.getMatch(tourId)
             .pipe(
-                finalize(() => (this._loadingService.hideLoading())),
                 takeUntil(this._unsubscribe$),
                 map((data: ServerResponse<Match[]>) => {
                     this.matches = data.results;
@@ -203,3 +217,4 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this._unsubscribe$.complete();
     }
 }
+

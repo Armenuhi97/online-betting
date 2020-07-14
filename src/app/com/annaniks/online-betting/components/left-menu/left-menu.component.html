@@ -23,6 +23,7 @@
         <ng-content select="router-outlet"></ng-content>
     </div>
 </mat-drawer-container> -->
+
 <div [ngClass]="{'open':isOpenMenu,'close':!isOpenMenu}" class="menu">
     <ul *ngIf="isSelectCountry" class="countries-contaier">
         {{selectedCountry?.name}}

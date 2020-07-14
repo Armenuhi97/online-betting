@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { SportDetailService } from '../../services/sport-details.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Country, Liga } from '../../models/country';
 import { MainService } from '../../views/main/main.service';
-import { ServerResponse } from '../../models/model';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AppService } from '../../services/app.service';
 
@@ -41,12 +39,12 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     }
 
     private _checkQueryParams() {
-        this._checkUrl(this._router.url);
+        this._checkUrl(this._router.url.split('?')[0]);
         this._router.events
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((event) => {
                 if (event instanceof NavigationEnd) {
-                    this._checkUrl(event.url);
+                    this._checkUrl(event.url.split('?')[0]);
                 }
             });
     }
@@ -78,7 +76,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
         if (this.selectedCountry) {
             this.isSelectCountry = true;
             if (deletedUrl === '/liga') {
-                this.selectedLiga = this._appService.checkPropertyValue(this._appService.filterArray(this.selectedCountry.country_liga, 'link', `${url}/`), 0);
+                this.selectedLiga = this._appService.checkPropertyValue(this._appService.filterArray(this.selectedCountry.country_liga, 'link', `${url}/`), 0);                
             }
         }
     }

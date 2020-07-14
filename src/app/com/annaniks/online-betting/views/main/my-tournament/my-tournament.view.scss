@@ -10,4 +10,7 @@
     .title{
         margin-bottom: 7px;
     }
+    &:first-child {
+        margin-top: 0;
+      }
 }
