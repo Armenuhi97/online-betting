@@ -42,7 +42,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
         this._checkUrl(this._router.url.split('?')[0]);
         this._router.events
             .pipe(takeUntil(this._unsubscribe$))
-            .subscribe((event) => {
+            .subscribe((event) => {               
                 if (event instanceof NavigationEnd) {
                     this._checkUrl(event.url.split('?')[0]);
                 }

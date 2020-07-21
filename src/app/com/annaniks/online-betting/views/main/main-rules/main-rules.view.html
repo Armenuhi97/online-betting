@@ -1,0 +1,13 @@
+<div class="settings-content">
+    <div class="settings-wraper">
+        <div *ngFor="let rule of rules;let i=index" class="header">
+            <div class="number">
+                <span>
+                    {{i+1}}.
+                </span>
+            </div>
+            <div class="header-text">{{rule}}</div>
+        </div>
+
+    </div>
+</div>

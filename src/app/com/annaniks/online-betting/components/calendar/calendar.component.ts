@@ -82,7 +82,15 @@ export class CalendarComponent implements OnInit, OnDestroy {
                         this.selectedTour = +params.tour;
                         return this._getMatches(this.selectedTour);
                     } else {
-                        this.selectedTour = this.tours[0].id;
+                        let nearestTour = this._appService.checkPropertyValue(this._appService.filterArray(this.tours, 'status', 'nearest'), 0)
+                        if (nearestTour) {
+                            this.selectedTour = nearestTour.id;
+                        } else {
+                            let finishedTours: any = this._appService.filterArray(this.tours, 'status', 'finished');
+                            if (finishedTours && finishedTours.length) {
+                                this.selectedTour = this._appService.checkPropertyValue(finishedTours[finishedTours.length - 1], 'id');
+                            }
+                        }
                         return this._getMatches(this.selectedTour);
                     }
                 } else {
@@ -116,6 +124,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         return this._ligaService.getMatch(tourId)
             .pipe(
                 takeUntil(this._unsubscribe$),
+                // finalize(()=>{this._loadingService.hideLoading()}),
                 map((data: ServerResponse<Match[]>) => {
                     this.matches = data.results;
                     this._setFormArrayControls();

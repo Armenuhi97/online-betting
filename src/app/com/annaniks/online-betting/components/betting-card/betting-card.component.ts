@@ -83,8 +83,7 @@ export class BettingCardComponent implements OnInit, OnDestroy, ControlValueAcce
     public checkIsStartMatch(): boolean {
         if (this.matchData && this.matchData.date) {
             const matchDateByUtc = new Date(this.matchData.date + ' UTC');
-            const currentDate = new Date();
-
+            const currentDate = new Date();            
             return (matchDateByUtc < currentDate)
         }
     }
