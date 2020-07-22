@@ -30,9 +30,9 @@ export class LigaService {
         let params = new HttpParams().set('isAuthorized', 'true');
         return this._httpClient.get(`bet/liga-count/${ligaId}`, { params })
     }
-    public getUserPlace() {
+    public getUserPlace(ligaId:number) {
         let params = new HttpParams().set('isAuthorized', 'true');
-        return this._httpClient.get(`bet/custom/user/place/`, { params })
+        return this._httpClient.get(`bet/custom/user/place/${ligaId}`, { params })
     }
 
 }

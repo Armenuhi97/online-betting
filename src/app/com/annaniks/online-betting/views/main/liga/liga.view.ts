@@ -134,7 +134,8 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     }
     private _getUserPlace() {
         if (this.isAuthorized) {
-            return this._ligaService.getUserPlace().pipe(
+            
+            return this._ligaService.getUserPlace(this.liga.id).pipe(
                 map((data: Count) => {
                     this.userPlace = data.count;
                     return data

@@ -87,8 +87,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
                             this.selectedTour = nearestTour.id;
                         } else {
                             let finishedTours: any = this._appService.filterArray(this.tours, 'status', 'finished');
-                            if (finishedTours && finishedTours.length) {
-                                this.selectedTour = this._appService.checkPropertyValue(finishedTours[finishedTours.length - 1], 'id');
+                            if (finishedTours && finishedTours.length) {                               
+                                let index = this.tours[finishedTours.length] ? finishedTours.length : finishedTours.length - 1;                                                               
+                                this.selectedTour = this._appService.checkPropertyValue(this.tours[index], 'id');
+                            }else{
+                                this.selectedTour=this._appService.checkPropertyValue(this.tours[0], 'id');
                             }
                         }
                         return this._getMatches(this.selectedTour);
