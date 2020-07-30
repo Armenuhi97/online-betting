@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
 import { Subject, of, Observable, concat } from 'rxjs';
@@ -17,6 +17,9 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, OnDestroy {
+    @ViewChild('toursContent', { read: ElementRef }) private _toursContent: ElementRef<any>;
+    @ViewChildren("elReference") elReference: QueryList<ElementRef>;
+
     public isSaved: boolean = false;
     @Input('tours')
     set setTours($event: Tour[]) {
@@ -72,6 +75,18 @@ export class CalendarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this._initForm();
     }
+    private _scrollToSelectedTour(different: number): void {
+        let widthArr = this.elReference.toArray().map((data) => {
+            return data.nativeElement.offsetWidth
+        })
+        let sum = 0;
+        widthArr = widthArr.slice(0, +different)
+        for (let width of widthArr) {
+            sum += width
+        }
+        let marginWidth = (different - 1) * 10;
+        this._toursContent.nativeElement.scrollTo({ left: sum + marginWidth, behavior: 'smooth' });
+    }
 
     private _checkQueryParams() {
         return this._activatedRoute.queryParams.pipe(
@@ -80,6 +95,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 if (this.tours && this.tours.length) {
                     if (params && params.tour) {
                         this.selectedTour = +params.tour;
+                        this._setScrollParams();
                         return this._getMatches(this.selectedTour);
                     } else {
                         let nearestTour = this._appService.checkPropertyValue(this._appService.filterArray(this.tours, 'status', 'nearest'), 0)
@@ -87,22 +103,33 @@ export class CalendarComponent implements OnInit, OnDestroy {
                             this.selectedTour = nearestTour.id;
                         } else {
                             let finishedTours: any = this._appService.filterArray(this.tours, 'status', 'finished');
-                            if (finishedTours && finishedTours.length) {                               
-                                let index = this.tours[finishedTours.length] ? finishedTours.length : finishedTours.length - 1;                                                               
+                            if (finishedTours && finishedTours.length) {
+                                let index = this.tours[finishedTours.length] ? finishedTours.length : finishedTours.length - 1;
                                 this.selectedTour = this._appService.checkPropertyValue(this.tours[index], 'id');
-                            }else{
-                                this.selectedTour=this._appService.checkPropertyValue(this.tours[0], 'id');
+                            } else {
+                                this.selectedTour = this._appService.checkPropertyValue(this.tours[0], 'id');
                             }
                         }
+                        this._setScrollParams();
                         return this._getMatches(this.selectedTour);
                     }
+
                 } else {
                     this._loadingService.hideLoading()
                     return of()
                 }
             }))
     }
+    private _setScrollParams() {
+        if (this.selectedTour) {
+            const selectedTourIndex = this.tours.indexOf(this._appService.checkPropertyValue(this._appService.filterArray(this.tours, 'id', this.selectedTour), 0))
+            if (selectedTourIndex > 0) {
+                let differentOfIndex = selectedTourIndex - 1;
+                this._scrollToSelectedTour(differentOfIndex)
+            }
 
+        }
+    }
     private _initForm(): void {
         this.matchesForm = this._fb.array([]);
     }

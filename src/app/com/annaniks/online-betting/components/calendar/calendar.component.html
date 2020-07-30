@@ -1,6 +1,6 @@
 <div *ngIf="isShow">
-    <div class="tour-list">
-        <div (click)="selectTour(tour)" class="tour"
+    <div #toursContent class="tour-list">
+        <div #elReference [id]="tour?.id" (click)="selectTour(tour)" class="tour"
             [ngClass]="{'active':selectedTour == tour?.id,'finished':tour?.status == 'finished','nearest':tour?.status == 'nearest'}"
             *ngFor="let tour of tours;let i=index">
             {{tour?.name}}
