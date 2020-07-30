@@ -67,3 +67,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+@media screen and(max-width:920px){
+  .save-bets{
+    width: 90% !important;
+    flex-direction: column;
+    // justify-content: center !important;
+    button{
+      width: 100% !important;
+    }
+  }
+}

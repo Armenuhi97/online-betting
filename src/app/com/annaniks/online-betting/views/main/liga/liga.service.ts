@@ -18,7 +18,9 @@ export class LigaService {
     public getMatch(tourId: number) {
         let reqUrl = `match/?tur=${tourId}`;
         if (this._loginService.getAuthStateSync()) {
+            let params = new HttpParams().set('isAuthorized', 'true');
             reqUrl = `match-bet/?tur=${tourId}`;
+            return this._httpClient.get(reqUrl, { params });
         }
         return this._httpClient.get(reqUrl);
     }
@@ -30,7 +32,7 @@ export class LigaService {
         let params = new HttpParams().set('isAuthorized', 'true');
         return this._httpClient.get(`bet/liga-count/${ligaId}`, { params })
     }
-    public getUserPlace(ligaId:number) {
+    public getUserPlace(ligaId: number) {
         let params = new HttpParams().set('isAuthorized', 'true');
         return this._httpClient.get(`bet/custom/user/place/${ligaId}`, { params })
     }

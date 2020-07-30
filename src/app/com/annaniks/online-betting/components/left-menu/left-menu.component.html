@@ -1,4 +1,4 @@
-<div [ngClass]="{'open':isOpenMenu,'close':!isOpenMenu}" class="menu">
+<div class="menu">
     <ul *ngIf="isSelectCountry" class="countries-contaier">
         {{selectedCountry?.name}}
         <ng-container>
@@ -11,7 +11,7 @@
         </ng-container>
     </ul>
     <ul class="countries-contaier" [class.margin-top-25]="selectedCountry">
-        Турниры
+        <span class="tournament-title">Турниры</span>
         <ng-container *ngFor="let country of countries">
             <span class="country-ref" href="">
                 <mat-accordion class="example-headers-align" multi>

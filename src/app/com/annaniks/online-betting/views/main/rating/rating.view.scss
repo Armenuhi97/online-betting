@@ -58,3 +58,13 @@
     width: 100%;
     align-items: center;
 }
+:host::ng-deep{
+    .mat-form-field{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .mat-form-field-flex{
+        background: white !important;
+        border-radius: 4px !important;
+    }
+}

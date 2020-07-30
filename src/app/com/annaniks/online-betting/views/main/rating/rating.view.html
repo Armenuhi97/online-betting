@@ -1,3 +1,15 @@
+<mat-form-field appearance="fill">
+    <mat-label>Турниры</mat-label>
+    <mat-select (ngModelChange)="change()" [formControl]="optionControl">
+        <mat-option>Все</mat-option>
+        <mat-optgroup *ngFor="let country of countries" [label]="country.name">
+            <mat-option *ngFor="let liga of country.country_liga" [value]="liga.id">
+                {{liga.liga}}
+            </mat-option>
+        </mat-optgroup>
+    </mat-select>
+</mat-form-field>
+
 <div class="rating-content">
     <div *ngFor="let participant of ratingList;let i=index" class="p-grid">
         <div class="p-col-1">{{i+1}}.</div>

@@ -1,0 +1,10 @@
+<div class="slide-menu" [ngClass]="{'open':isOpenMenu,'close':!isOpenMenu}">
+    <div class="slide-tabs">
+        <div [class.active]="activeTab == 'tournament'" (click)="setActiveTab('tournament')" class="tab">Турниры</div>
+        <div [class.active]="activeTab == 'info'" (click)="setActiveTab('info')" class="tab">Информация</div>
+    </div>
+    <div [ngSwitch]="activeTab">
+        <app-left-menu *ngSwitchCase="'tournament'"></app-left-menu>
+        <app-information *ngSwitchCase="'info'"></app-information>
+    </div>
+</div>

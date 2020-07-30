@@ -1,0 +1,4 @@
+<div class="menu-items">
+    <a *ngFor="let item of topbarMenuList" class="item" routerLinkActive="active"
+        [routerLink]="item.path">{{item.label}}</a>  
+</div>  

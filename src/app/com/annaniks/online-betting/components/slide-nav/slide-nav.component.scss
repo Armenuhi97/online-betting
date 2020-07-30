@@ -1,0 +1,38 @@
+.slide-tabs{
+    display: flex;
+    background: #000;
+    height: 40px;
+    color: #fff;
+    .tab:first-child{
+        margin-left: 0 !important;
+    }
+    .tab{
+        margin-left: .5em;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+.active{
+    background: #e6e6e6 !important;
+    color: black;
+}
+.open{
+    left: 0 !important;
+}
+.close{
+    left: -100%;
+}
+.slide-menu{            
+    width: 100%;
+    overflow: auto;
+    position: fixed;
+    bottom: 0;
+    top: 76px;
+    background-color: #2D2D2D;
+    z-index: 99999;
+    -webkit-transition: left .5s;
+    transition: left .5s;
+}

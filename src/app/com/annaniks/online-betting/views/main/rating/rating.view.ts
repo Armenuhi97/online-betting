@@ -6,6 +6,9 @@ import { Rating, RatingResponse } from '../../../models/model';
 import { environment } from 'src/environments/environment';
 import { LoadingService } from '../../../services';
 import { Title } from '@angular/platform-browser';
+import { FormControl } from '@angular/forms';
+import { MainService } from '../main.service';
+import { Country } from '../../../models/country';
 
 @Component({
     selector: 'app-rating',
@@ -16,15 +19,24 @@ export class RatingViewComponent implements OnInit, OnDestroy {
     private _unsubscribe$ = new Subject<void>();
     public ratingList: Rating[] = [];
     public fileUrl = environment.MEDIA_URL;
+    public optionControl = new FormControl(null);
+    public countries: Country[] = [];
+    constructor(private _ratingService: RatingService,
+        private _mainService: MainService,
+        private _loadingService: LoadingService, private _title: Title) { }
 
-    constructor(private _ratingService: RatingService, private _loadingService: LoadingService, private _title: Title) { }
     ngOnInit() {
         this._title.setTitle('Рейтинг');
         this._getOrdering();
+        this._getAllTournament();
     }
-    private _getOrdering() {
+    private _getAllTournament() {
+        this.countries = this._mainService.getCountry();        
+    }
+    
+    private _getOrdering(id?:number) {
         this._loadingService.showLoading();
-        this._ratingService.getOrdering().pipe(takeUntil(this._unsubscribe$), finalize(() => { this._loadingService.hideLoading(); })).subscribe((data: RatingResponse<Rating[]>) => {
+        this._ratingService.getOrdering(id).pipe(takeUntil(this._unsubscribe$), finalize(() => { this._loadingService.hideLoading(); })).subscribe((data: RatingResponse<Rating[]>) => {
             this.ratingList = data.count;
         })
     }
@@ -48,6 +60,11 @@ export class RatingViewComponent implements OnInit, OnDestroy {
             }
         }
     }
+    
+    public change():void{
+        this._getOrdering(this.optionControl.value)        
+    }
+
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();

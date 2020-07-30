@@ -5,7 +5,7 @@ import { MainService } from '../main.service';
 import { AppService } from '../../../services/app.service';
 import { Liga } from '../../../models/country';
 import { LigaService } from './liga.service';
-import { map, finalize, switchMap } from 'rxjs/operators';
+import { map, finalize, switchMap, takeUntil } from 'rxjs/operators';
 import { ServerResponse, Team, Tour, Count } from '../../../models/model';
 import { LoadingService, LoginService } from '../../../services';
 import { Title } from '@angular/platform-browser';
@@ -82,11 +82,13 @@ export class LigaViewComponent implements OnInit, OnDestroy {
                                 this.selectedTour = this._appService.checkPropertyValue(this._appService.filterArray(this.tours, 'id', +params.tour), 0);
                                 return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
                             } else {
-                                this.selectedTour = this.tours[0];
-                                return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
+                                return of()
+                                // this.selectedTour = this.tours[0];
+                                // return this._getCountInTour(this._appService.checkPropertyValue(this.selectedTour, 'id'))
                             }
                         } else {
-                            this._loadingService.hideLoading()
+                            this.selectedTour = null;
+                            this._loadingService.hideLoading();
                             return of()
                         }
                     })
@@ -100,8 +102,7 @@ export class LigaViewComponent implements OnInit, OnDestroy {
             return this._ligaService.getTourCount(id).pipe(
                 map((data: Count) => {
                     this.tourCount = data.count;
-                })
-            )
+                }))
         } else {
             this.selectedTour = null;
             this.tourCount = 0;
@@ -134,7 +135,7 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     }
     private _getUserPlace() {
         if (this.isAuthorized) {
-            
+
             return this._ligaService.getUserPlace(this.liga.id).pipe(
                 map((data: Count) => {
                     this.userPlace = data.count;
@@ -148,7 +149,14 @@ export class LigaViewComponent implements OnInit, OnDestroy {
     public onClickTabItem(itemName: string): void {
         this.activeTabItem = itemName;
     }
-
+    public lastFinishTour($event) {
+        if ($event) {
+            this.selectedTour = $event;
+            this._getCountInTour(this._appService.checkPropertyValue($event, 'id')).pipe(takeUntil(this._unsubscribe$)).subscribe()
+        } else {
+            this.selectedTour = null
+        }
+    }
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();

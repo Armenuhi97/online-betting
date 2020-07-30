@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ElementRef, ViewChild, ViewChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import { Tour, ServerResponse, Match } from '../../models/model';
 import { LigaService } from '../../views/main/liga/liga.service';
 import { Subject, of, Observable, concat } from 'rxjs';
@@ -19,7 +19,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class CalendarComponent implements OnInit, OnDestroy {
     @ViewChild('toursContent', { read: ElementRef }) private _toursContent: ElementRef<any>;
     @ViewChildren("elReference") elReference: QueryList<ElementRef>;
-
+    @Output('lastFinishTour') private _lastFinishedTour = new EventEmitter()
     public isSaved: boolean = false;
     @Input('tours')
     set setTours($event: Tour[]) {
@@ -104,17 +104,23 @@ export class CalendarComponent implements OnInit, OnDestroy {
                         } else {
                             let finishedTours: any = this._appService.filterArray(this.tours, 'status', 'finished');
                             if (finishedTours && finishedTours.length) {
+                                if (finishedTours[finishedTours.length - 1]) {
+                                    this._lastFinishedTour.emit(finishedTours[finishedTours.length - 1])
+                                }
                                 let index = this.tours[finishedTours.length] ? finishedTours.length : finishedTours.length - 1;
                                 this.selectedTour = this._appService.checkPropertyValue(this.tours[index], 'id');
                             } else {
+                               
                                 this.selectedTour = this._appService.checkPropertyValue(this.tours[0], 'id');
+                                this._lastFinishedTour.emit(this.tours[0])
                             }
                         }
                         this._setScrollParams();
                         return this._getMatches(this.selectedTour);
                     }
 
-                } else {
+                } else {                    
+                    this._lastFinishedTour.emit(null)
                     this._loadingService.hideLoading()
                     return of()
                 }

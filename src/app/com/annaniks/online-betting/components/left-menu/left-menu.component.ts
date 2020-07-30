@@ -16,16 +16,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     public selectedLiga: Liga;
     public selectedCountry: Country;
     private _unsubscribe$ = new Subject<void>();
-    @HostListener('window:resize', ['$event'])
-    private _checkWindowSize(): void {
-        if (window.innerWidth > 920) {
-            if (this._appService.getIsOpenMenu()) {
-                this._appService.closeMenu();
-            }
-        } else {
-            this._appService.closeMenu();
-        }
-    }
+    
     constructor(
         private _mainService: MainService,
         private _activatedRoute: ActivatedRoute,
@@ -34,7 +25,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._checkWindowSize();
+    
         this._checkQueryParams();
     }
 
@@ -88,7 +79,5 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     get countries(): Country[] {
         return this._mainService.getCountry();
     }
-    get isOpenMenu(): boolean {
-        return this._appService.getIsOpenMenu();
-    }
+   
 }

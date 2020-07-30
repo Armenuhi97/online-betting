@@ -1,23 +1,26 @@
 <div class="overflow-scroll">
     <div class="header">
-     
-        <div class="header-text">
-            <h1 class="title">СпортКлик</h1>
-            <div class="subtitle">интерактивная игра</div>
+        <div class="header-text">  
+            <div>
+                <h1 routerLink="" class="title">СпортКлик</h1>
+                <div class="subtitle">интерактивная игра</div>
+            </div>
+            <div class="close-button">
+                <img (click)="openOrCloseMenu()" src="assets/icons/hamburger.png" alt="">
+            </div>
         </div>
-        <div class="close-button">
-            <img (click)="openOrCloseMenu()" src="assets/icons/hamburger.png" alt="">
-        </div>
-           <div class="menu-items">
+
+        <div class="menu-items">
             <a *ngFor="let item of topbarMenuList" class="item" routerLinkActive="active"
-                [routerLink]="item.path">{{item.label}}</a>  
-        </div>        
-        <div class="auth-buttons">            
-            <div class="buttons" *ngIf="!isAuthorized">
+                [routerLink]="item.path">{{item.label}}</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="buttons auth-btn" *ngIf="!isAuthorized">
                 <button (click)="openLoginModal()" class="registration-btn">Войти</button>
                 <button (click)="registrationModal()" class="login-btn">Регистрация</button>
             </div>
-            <a *ngIf="isAuthorized" class="item margin-left-10" routerLinkActive="active" routerLink="/user">Личный кабинет</a>
+            <a *ngIf="isAuthorized" class="item margin-left-10" routerLinkActive="active" routerLink="/user">Личный
+                кабинет</a>
             <div class="buttons" *ngIf="isAuthorized">
                 <button (click)="logout()" class="logout-btn">Logout</button>
             </div>

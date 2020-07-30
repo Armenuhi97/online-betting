@@ -1,5 +1,6 @@
 .content{
-    width: calc(100% - 250px);
+    // width: calc(100% - 250px);
+    width: calc(100% - 271px);
     margin-left: 10px; 
     margin-right: 10px;
 }
@@ -12,4 +13,8 @@
         width: 100% !important;      
         // margin: 0 !important;
     }
+    .menu{
+        display: none;
+    }
+   
 }

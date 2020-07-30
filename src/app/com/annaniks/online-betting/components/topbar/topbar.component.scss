@@ -79,16 +79,46 @@
     display: none;
     align-items: center;
     img{
-        height: 45px;
-        width: 53px;
+        height: 60px;
+        width: 70px;
         cursor: pointer;
     }
 }
+.header-text{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 @media screen and (max-width:920px){
-    // .menu-items{
-    //    display: none !important;     
-    // }
+    .menu-items{
+       display: none !important;     
+    }
+    .bg-auth-btn{
+        display: none !important;
+    }
     .close-button{
         display: flex !important;
+    }
+    .margin-left-10{
+        margin-left: 0 !important;
+    }
+    .header{
+        flex-direction: column;
+        align-items: flex-start;
+        .header-text{
+            width: 100%;
+        }
+        .auth-buttons{
+            margin-left: 0;
+            margin-top: 11px;
+            width: 100%;
+            justify-content: center;
+            .auth-btn{
+                width: 100%;
+                button{
+                    width: 50% !important;
+                }
+            }
+        }
     }
 }
