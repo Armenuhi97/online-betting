@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { TopBarMenuService } from '../../services';
+import { TopBarMenuService, LoginService } from '../../services';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-information',
@@ -7,11 +9,26 @@ import { TopBarMenuService } from '../../services';
     styleUrls: ['information.component.scss']
 })
 export class InformationComponent implements OnInit, OnDestroy {
-    constructor(private _topbarMenuListService: TopBarMenuService) { }
+    public isAuthorized: boolean = false;
+    private _unsubscribe$ = new Subject<void>();
 
-    ngOnInit() { }
+    constructor(private _topbarMenuListService: TopBarMenuService,
+        private loginService: LoginService) { }
 
-    ngOnDestroy() { }
+    ngOnInit() {
+        this.checkIfAuthorized();
+    }
+
+    public checkIfAuthorized(): void {
+        this.loginService.getAuthState().pipe(takeUntil(this._unsubscribe$)).subscribe((state: boolean) => {
+            this.isAuthorized = state;
+        });
+    }
+
+    ngOnDestroy() {
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
+    }
 
     get topbarMenuList() {
         return this._topbarMenuListService.getMenuItems();

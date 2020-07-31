@@ -5,7 +5,6 @@ import { LoginService, AppService } from '../../services';
 import { CookieService } from 'ngx-cookie-service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
 import { TopBarMenuService } from '../../services/topbar-menu.service';
 
 @Component({
@@ -15,14 +14,13 @@ import { TopBarMenuService } from '../../services/topbar-menu.service';
 })
 export class TopbarComponent implements OnInit, OnDestroy {
     private _unsubscribe$ = new Subject<void>();
-    public isAuthorized = false;
+    public isAuthorized: boolean = false;
     constructor(
         private _matDialog: MatDialog,
         private _topbarMenuListService: TopBarMenuService,
         public loginService: LoginService,
         private _appService: AppService,
         private _cookieService: CookieService,
-        private _router: Router
     ) { }
 
     ngOnInit() {

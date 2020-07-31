@@ -99,27 +99,32 @@ export class CalendarComponent implements OnInit, OnDestroy {
                         return this._getMatches(this.selectedTour);
                     } else {
                         let nearestTour = this._appService.checkPropertyValue(this._appService.filterArray(this.tours, 'status', 'nearest'), 0)
+
+                        let finishedTours: any = this._appService.filterArray(this.tours, 'status', 'finished');
                         if (nearestTour) {
                             this.selectedTour = nearestTour.id;
                         } else {
-                            let finishedTours: any = this._appService.filterArray(this.tours, 'status', 'finished');
+
                             if (finishedTours && finishedTours.length) {
-                                if (finishedTours[finishedTours.length - 1]) {
-                                    this._lastFinishedTour.emit(finishedTours[finishedTours.length - 1])
-                                }
                                 let index = this.tours[finishedTours.length] ? finishedTours.length : finishedTours.length - 1;
                                 this.selectedTour = this._appService.checkPropertyValue(this.tours[index], 'id');
                             } else {
-                               
                                 this.selectedTour = this._appService.checkPropertyValue(this.tours[0], 'id');
-                                this._lastFinishedTour.emit(this.tours[0])
+
                             }
+                        }
+                        if (finishedTours && finishedTours.length && finishedTours.length > 1) {
+                            if (finishedTours[finishedTours.length - 1]) {
+                                this._lastFinishedTour.emit(finishedTours[finishedTours.length - 1])
+                            }
+                        } else {
+                            this._lastFinishedTour.emit(this.tours[0])
                         }
                         this._setScrollParams();
                         return this._getMatches(this.selectedTour);
                     }
 
-                } else {                    
+                } else {
                     this._lastFinishedTour.emit(null)
                     this._loadingService.hideLoading()
                     return of()

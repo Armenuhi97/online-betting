@@ -11,7 +11,7 @@
         </div>
 
         <div class="menu-items">
-            <a *ngFor="let item of topbarMenuList" class="item" routerLinkActive="active"
+            <a *ngFor="let item of topbarMenuList" [class.is-hide]="item.isAuth && !isAuthorized" class="item" routerLinkActive="active"
                 [routerLink]="item.path">{{item.label}}</a>
         </div>
         <div class="auth-buttons">
