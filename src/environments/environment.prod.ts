@@ -1,5 +1,5 @@
 export const environment = {
-  API_URL: 'http://annaniks.com:1818/api/',
-  MEDIA_URL:'http://annaniks.com:1818/media/',
+  API_URL: 'http://a0462230.xsph.ru/api/',
+  MEDIA_URL:'http://a0462230.xsph.ru/media/',
   production: true
 };

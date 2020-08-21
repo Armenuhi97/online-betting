@@ -49,6 +49,7 @@ export class LigaViewComponent implements OnInit, OnDestroy {
                 const countries = this._mainService.getCountry();
                 const seletedCountry = this._appService.filterArray(countries, 'link', `/${params.sportType}/${params.countryId}/`);
                 if (params.ligaName) {
+                    this.activeTabItem='calendar';
                     if (seletedCountry && seletedCountry[0] && seletedCountry[0].country_liga) {
                         this.liga = this._appService.checkPropertyValue(this._appService.filterArray(seletedCountry[0].country_liga, 'link', `/${params.sportType}/${params.countryId}/${params.ligaName}/`), 0);
                         if (this.liga) {

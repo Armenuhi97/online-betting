@@ -4,8 +4,8 @@
 
 export const environment = {
   // API_URL: 'http://192.168.1.115:8000/api/',
-  API_URL: 'http://annaniks.com:1818/api/',
-  MEDIA_URL:'http://annaniks.com:1818/media/',
+  API_URL: 'http://a0462230.xsph.ru/api/',
+  MEDIA_URL:'http://a0462230.xsph.ru/media/',
   production: false
 };
 
