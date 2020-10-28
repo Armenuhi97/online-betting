@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "online-betting"
+    }
+  },
+  "defaultProject": "online-betting",
+  "cli": {
+    "analytics": "8bd52fde-67e5-476f-9172-e1fbd4912fc3"
+  }
 }
